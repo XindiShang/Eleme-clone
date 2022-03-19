@@ -1,5 +1,7 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import IndexView from '../views/IndexView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+
+const IndexView = () => import('../views/IndexView.vue');
+const LoginView = () => import('../views/LoginView.vue');
 
 const routes = [
   {
@@ -7,19 +9,30 @@ const routes = [
     name: 'index',
     component: IndexView
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
+  },
+ 
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   const isLoggedIn = localStorage.eleme_login ? true : false;
+//   if (to.path === '/login') {
+//     next();
+//   } else {
+//     if (isLoggedIn) {
+//       next();
+//     } else {
+//       next('/login');
+//     }
+//   }
+// })
 
 export default router
