@@ -22,17 +22,17 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const isLoggedIn = localStorage.eleme_login ? true : false;
-//   if (to.path === '/login') {
-//     next();
-//   } else {
-//     if (isLoggedIn) {
-//       next();
-//     } else {
-//       next('/login');
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = localStorage.eleme_login ? true : false;
+  if (to.path === '/login') {
+    next();
+  } else {
+    if (isLoggedIn) {
+      next();
+    } else {
+      next('/login');
+    }
+  }
+})
 
 export default router

@@ -3,7 +3,8 @@
 
         <div class="input_group" :class="{'is-invalid':errorMsg}">
             <input :type="inputType" :value="modelValue" :placeholder="inputPlaceholder" @input="emitInputValue" :name="inputName">
-            <button v-if="inputBtnText" :disable="isDisabled" @click="setBtnEvent">{{inputBtnText}}</button>
+            <div id="clearBtn" v-if="hasClearBtn" @click="emitclearBtn"><p>x</p></div>
+            <button v-if="inputBtnText" class="inputBtn" :class="{'available': isAvailable}" :disabled="isDisabled" @click="setBtnEvent">{{inputBtnText}}</button>
         </div>
 
         <div v-if="errorMsg" class="invalid-feedback">
@@ -16,7 +17,7 @@
 
 <script>
 export default {
-    emits: ['update:modelValue', 'inputBtnClick'],
+    emits: ['update:modelValue', 'inputBtnClick', 'clearBtnClick'],
     props: {
         inputType: {
             type: String,
@@ -27,7 +28,9 @@ export default {
         inputName: String,
         inputBtnText: String,
         isDisabled: Boolean,
-        errorMsg: String
+        errorMsg: String,
+        hasClearBtn: Boolean,
+        isAvailable: Boolean,
     },
     data() {
         return {
@@ -36,10 +39,14 @@ export default {
     },
     methods: {
         emitInputValue(event){
-            this.$emit('update:modelValue', event.target.value)
+            this.$emit('update:modelValue', event.target.value);
         },
         setBtnEvent(){
-            this.$emit('inputBtnClick')
+            this.$emit('inputBtnClick');
+        },
+        emitclearBtn(){
+            this.$emit('clearBtnClick');
+          
         }
 
     },
@@ -54,8 +61,10 @@ export default {
 .input_group {
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 10px;
+  /* padding: 6px; */
+  padding: 6px 10px;
   display: flex;
+  height: 30px;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -68,11 +77,17 @@ export default {
   border: none;
   outline: none
 }
-.input_group button {
-  border: none;
-  background: #fff;
+.inputBtn {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: none;
+  color: #aaa;
+  font-size: 12px; 
+  height: 100%;
+  padding: 0 8px;
 }
-.input_group button[disabled] {
+.inputBtn[disabled] {
+  border: 1px solid #ccc;
   color: #aaa;
 }
 .is-invalid {
@@ -81,5 +96,41 @@ export default {
 .invalid-feedback {
   color: red;
   padding-top: 5px;
+}
+
+#clearBtn {
+  border-radius: 100%;
+  width: 16px;
+  height: 16px;
+  color: #fff;
+  background-color: #ccc;
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#clearBtn p {
+  font-size: 1px;
+  padding-bottom: 3px;
+}
+
+.available {
+  border: 1px solid rgb(14, 179, 255);
+  color: rgb(14, 179, 255);
+}
+
+/* hide arrow of number input field  */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>
