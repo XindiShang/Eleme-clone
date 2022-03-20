@@ -79,6 +79,7 @@ export default {
     methods: {
         login() {
             // todo: verify code 
+            // todo: clear localStorage after 7 days
             // this.$axios
             //     .post("/api/posts/sms_back", {
             //         phone: this.tel,

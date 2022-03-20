@@ -2,19 +2,55 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const IndexView = () => import('../views/IndexView.vue');
 const LoginView = () => import('../views/LoginView.vue');
+const HomeView = () => import('../views/HomeView.vue');
+const SocialView = () => import('../views/SocialView.vue');
+const OrderView = () => import('../views/OrderView.vue');
+const ProfileView = () => import('../views/ProfileView.vue');
 
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: IndexView
+    component: IndexView,
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: HomeView
+      },
+      {
+        path: '/social',
+        name: 'social',
+        component: SocialView
+      },
+      {
+        path: '/order',
+        name: 'order',
+        // login required
+        component: OrderView
+      },
+      {
+        path: '/profile',
+        name: 'profile',
+        component: ProfileView,
+        children: [
+          {
+            path: '/:userId',
+            // login required
+          }
+        ]
+      },
+
+    ]
   },
+
   {
     path: '/login',
     name: 'login',
     component: LoginView
   },
- 
+
 ]
 
 const router = createRouter({
