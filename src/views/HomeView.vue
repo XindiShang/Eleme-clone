@@ -34,6 +34,9 @@ export default {
   },
   computed: {
     address() {
+      if (!this.$store.getters.doneAddress){
+        return '定位中...';
+      }
       return this.$store.getters.doneAddress;
     },
     place() {
@@ -76,6 +79,10 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
   width: calc(80%);
+}
+
+.address-bar-left span {
+  font-size: 20px;
 }
 
 .address-bar-right {

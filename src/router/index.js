@@ -8,6 +8,7 @@ const OrderView = () => import('../views/OrderView.vue');
 const ProfileView = () => import('../views/ProfileView.vue');
 const AddressView = () => import('../views/AddressView.vue');
 const LocateView = () => import('../views/LocateView.vue');
+const CityView = () => import('../views/CityView.vue');
 
 const routes = [
   {
@@ -43,20 +44,24 @@ const routes = [
           }
         ]
       },
-      {
-        path: '/address',
-        name: 'address',
-        component: AddressView,
-
-      },
-      {
-        path: '/locate',
-        name: 'locate',
-        component: LocateView,
-
-      },
 
     ]
+  },
+  {
+    path: '/address',
+    name: 'address',
+    component: AddressView,
+
+  },
+  {
+    path: '/locate',
+    name: 'locate',
+    component: LocateView,
+  },
+  {
+    path: '/city',
+    name: 'city',
+    component: CityView,
   },
 
   {

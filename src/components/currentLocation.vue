@@ -3,8 +3,8 @@
         <p class="title">当前定位</p>
         <div class="location-bar">
             <div class="location">
-                <span class="material-icons-outlined">place</span>
-                <span class="location-text">{{ place }}</span>
+                <span :class="logoClass">{{logo}}</span>
+                <span @click="switchPage" class="location-text">{{ result }}</span>
             </div>
             <a href class="relocate" @click="relocate">重新定位</a>
         </div>
@@ -12,7 +12,14 @@
 </template>
 
 <script>
+
 export default {
+    props: {
+        isCity: {
+            type: Boolean,
+            default: false,
+        }
+    },
     data() {
         return {
             latResult: null,
@@ -20,14 +27,41 @@ export default {
         }
     },
     computed: {
-        place() {
-            if (!this.$store.getters.doneAddress) {
-                return '定位中...';
+        result() {
+            if (this.isCity) {
+                return this.$store.getters.doneCity || '定位中...';
+            } else {
+                return this.$store.getters.doneAddress || '定位中...';
             }
-            return this.$store.getters.doneAddress;
+
+        },
+        logo() {
+            if (this.isCity) {
+                return 'near_me';
+            }
+            return 'place';
+        },
+        logoClass() {
+            // if (this.isCity) {
+            //     return 'material-icons';
+            // }
+            // return 'material-icons-outlined';
+            return {
+                'material-icons': this.isCity,
+                'material-icons-outlined': !this.isCity,
+                'logo-blue': this.isCity,
+            }
         }
     },
     methods: {
+        switchPage(){
+            if (this.isCity) {
+                this.$router.back();
+            } else {
+                this.$router.push('/home');
+
+            }
+        },
         relocate() {
             const that = this;
             /* eslint-disable */
@@ -44,6 +78,8 @@ export default {
                                 city: result.regeocode.addressComponent['city'] || result.regeocode.addressComponent['province'],
                                 province: result.regeocode.addressComponent['province'],
                                 address: result.regeocode.formattedAddress,
+                                lat: that.lngResult,
+                                lng: that.latResult,
                             }
                             that.address = result.regeocode.formattedAddress;
                             that.$store.dispatch('getAddress', payload)
@@ -81,6 +117,8 @@ export default {
             /* eslint-disable */
         }
     },
+    mounted() {
+    },
 
 }
 </script>
@@ -94,7 +132,7 @@ export default {
 }
 
 .title {
-    color: #ccc;
+    color: #aaa;
     font-size: 12px;
 }
 .location-bar {
@@ -123,6 +161,12 @@ export default {
     color: #2b99dd;
     font-size: 12px;
     position: relative;
-    bottom: 4px;
+    /* bottom: 4px; */
+}
+
+.logo-blue {
+    color: #2b99dd;
+    font-size: 12px;
+    margin-right: 2px;
 }
 </style>

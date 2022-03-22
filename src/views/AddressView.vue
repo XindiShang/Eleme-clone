@@ -4,12 +4,15 @@
         <div class="select-menu">
             <span class="material-icons-outlined select-menu-left" @click="switchHomePage">close</span>
             <span class="select-menu-middle">选择收货地址</span>
-            <span >新增地址</span>
+            <span>新增地址</span>
         </div>
         <!-- search bar  -->
         <div class="search-bar">
-            <span class="city">{{city}}</span>
-            <span class="material-icons-outlined down-arrow-icon">expand_more</span>
+            <div @click="switchCityPage">
+                <span class="city">{{ city }}</span>
+                <span class="material-icons-outlined down-arrow-icon">expand_more</span>
+            </div>
+
             <div class="divider"></div>
             <span class="material-icons-outlined search-icon">search</span>
             <p @click="switchLocatePage">请输入你的收货地址</p>
@@ -17,12 +20,11 @@
     </base-header>
 
     <current-location></current-location>
-
 </template>
 
 <script>
 import BaseHeader from '../components/BaseHeader.vue';
-import CurrentLocation from '../components/currentLocation.vue';
+import CurrentLocation from '../components/CurrentLocation.vue';
 
 export default {
     components: {
@@ -30,7 +32,7 @@ export default {
         CurrentLocation,
     },
     computed: {
-        city(){
+        city() {
             return this.$store.getters.doneCity || '定位中';
         }
     },
@@ -38,8 +40,12 @@ export default {
         switchHomePage() {
             this.$router.push('/home');
         },
-        switchLocatePage(){
-            this.$router.push('/locate')
+        switchLocatePage() {
+            this.$router.push('/locate');
+        },
+        switchCityPage(){
+            this.$router.push('/city');
+
         }
     },
 }
@@ -84,7 +90,6 @@ export default {
     width: calc(12%);
     font-size: 12px;
     color: rgb(73, 72, 72);
-    
 }
 
 .down-arrow-icon {
@@ -95,7 +100,6 @@ export default {
 .search-icon {
     color: rgb(73, 72, 72);
     font-size: 16px;
-
 }
 
 .search-bar p {
@@ -111,5 +115,4 @@ export default {
     background: #ccc;
     margin: 0 4px;
 }
-
 </style>

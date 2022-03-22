@@ -13,9 +13,12 @@
             <!-- search bar  -->
             <div class="wrapper">
                 <div class="search-bar">
-                    <span class="city">{{ city }}</span>
-                    <span class="material-icons-outlined down-arrow-icon">expand_more</span>
+                    <div @click="switchCityPage">
+                        <span class="city">{{ city }}</span>
+                        <span class="material-icons-outlined down-arrow-icon">expand_more</span>
+                    </div>
                     <div class="divider"></div>
+
                     <div class="input-field">
                         <div class="input-field-left">
                             <span class="material-icons-outlined search-icon">search</span>
@@ -32,7 +35,7 @@
 
         <div class="search-results up">
             <result-item v-for="item in results" :key="item.id" :result="item"></result-item>
-            <div v-if="showMsg"  class="no-result">
+            <div v-if="showMsg" class="no-result">
                 <h3>找不到地址？</h3>
                 <p>请尝试只输入小区，写字楼或学校名，</p>
                 <p>详细地址（如门牌号）可稍后输入哦。</p>
@@ -61,17 +64,21 @@ export default {
         city() {
             return this.$store.getters.doneCity;
         },
-        showMsg(){
+        showMsg() {
             if (!this.inputVal) {
                 return false;
             } else {
                 return true;
             }
-        } 
+        }
     },
     methods: {
         switchAddressPage() {
             this.$router.push('/address');
+        },
+        switchCityPage() {
+            this.$router.push('/city');
+
         },
         debouncedSearch: debounce(
             function () {
