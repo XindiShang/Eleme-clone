@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <h1>首页</h1>
+    <router-view></router-view>
     <tab-bar :tabs="tabsPassed"></tab-bar>
   </div>
 </template>
@@ -29,6 +29,6 @@ export default {
 .index {
   width: 100%;
   height: calc(100% - 60px);
-  background-color: red;
+  /* background-color: red; */
 }
 </style>

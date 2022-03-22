@@ -8,7 +8,6 @@ export default {
     return {
       latResult: null,
       lngResult: null,
-      address: null,
     }
   },
   methods: {
@@ -30,8 +29,16 @@ export default {
             if (status === 'complete' && result.info === 'OK') {
               // result为对应的地理位置详细信息
               // console.log('converted')
-              that.address = result.regeocode.formattedAddress
-              // console.log(that.address)
+              const payload = {
+                city: result.regeocode.addressComponent['city'] || result.regeocode.addressComponent['province'],
+                province: result.regeocode.addressComponent['province'],
+                address: result.regeocode.formattedAddress,
+                lat: that.lngResult,
+                lng: that.latResult,
+              }
+              // console.log(payload);
+              that.address = result.regeocode.formattedAddress;
+              that.$store.dispatch('getAddress', payload)
             }
           })
         })
@@ -69,7 +76,6 @@ export default {
         function onError() {
           // 定位出错
           that.address = '定位失败'
-
         }
       })
 
@@ -88,6 +94,6 @@ export default {
   height: 100%;
   width: 100%;
   font-size: 14px;
-  background: #f1f1f1;
+  background: white;
 }
 </style>

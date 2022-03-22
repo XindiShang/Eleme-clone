@@ -84,7 +84,7 @@ export default {
   color: #aaa;
   font-size: 12px; 
   height: 100%;
-  padding: 0 8px;
+  
 }
 .inputBtn[disabled] {
   border: 1px solid #ccc;

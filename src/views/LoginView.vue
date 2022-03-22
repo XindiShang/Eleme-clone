@@ -114,7 +114,8 @@ export default {
                 //     .then(res => {
                 //         console.log(res);
                 //     });
-                this.correctCode = Math.floor(Math.random() * 10000) + 1
+                this.correctCode = Math.floor(Math.random() * 10000) + 1;
+                console.log(this.correctCode)
             }
         },
         validateTel() {

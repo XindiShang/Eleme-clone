@@ -6,6 +6,8 @@ const HomeView = () => import('../views/HomeView.vue');
 const SocialView = () => import('../views/SocialView.vue');
 const OrderView = () => import('../views/OrderView.vue');
 const ProfileView = () => import('../views/ProfileView.vue');
+const AddressView = () => import('../views/AddressView.vue');
+const LocateView = () => import('../views/LocateView.vue');
 
 const routes = [
   {
@@ -40,6 +42,18 @@ const routes = [
             // login required
           }
         ]
+      },
+      {
+        path: '/address',
+        name: 'address',
+        component: AddressView,
+
+      },
+      {
+        path: '/locate',
+        name: 'locate',
+        component: LocateView,
+
       },
 
     ]
