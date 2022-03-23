@@ -18,9 +18,10 @@
                 </ul>
             </div>
 
-            <div class="city_wrap">
+            <div class="city_wrap" ref="stickyTop">
                 <div class="city_content selectTargets" v-for="(letter, i) in keys" :key="i">
                     <div class="title">{{ letter }}</div>
+
                     <ul>
                         <li
                             @click="setCity"
@@ -64,14 +65,17 @@ export default {
             const result = [];
             for (let i = 0; i < 3; i++) {
                 let lastIdx = visitedCities.length - 1;
-                if (visitedCities[lastIdx - i] !== undefined){
+                if (visitedCities[lastIdx - i] !== undefined) {
                     result.push(visitedCities[lastIdx - i]);
                 }
             }
-            if (result.length === 0){
+            if (result.length === 0) {
                 return null;
             }
             return result;
+        },
+        stickyTop() {
+            return this.$refs.stickyTop;
         }
     },
     methods: {
@@ -105,14 +109,15 @@ export default {
 .citiesList {
     margin-top: 6px;
     box-sizing: border-box;
-    padding: 0 16px;
-    background: #fff;
+
+    background: #f1f1f1;
     height: calc(100% - 65px);
     width: 100%;
     overflow: hidden;
 }
 .scroll_wrap {
     background: #fff;
+    padding: 0 16px;
     overflow: auto;
 }
 .title {

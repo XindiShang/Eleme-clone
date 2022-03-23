@@ -1,12 +1,37 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { Toast, Button, Tag } from 'vant';
+// import { Loading } from 'vant';
 import router from './router'
 import store from './store'
-import Axios from 'axios';
+import axios from 'axios';
+
+// const print = console.log.bind(console);
 
 const app = createApp(App)
+app.use(Toast);
+app.use(Button);
+app.use(Tag);
 
-app.config.globalProperties.$axios = Axios; 
+
+axios.interceptors.request.use(config => {
+    Toast.loading({
+        message: '加载中',
+        forbidClick: true,
+    });
+    return config;
+}, err => {
+    return Promise.reject(err)
+})
+
+axios.interceptors.response.use(res => {
+    Toast.clear();
+    return res;
+}, err => {
+    return Promise.reject(err)
+})
+
+app.config.globalProperties.$axios = axios;
 
 app.use(store);
 app.use(router);

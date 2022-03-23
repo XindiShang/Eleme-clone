@@ -10,13 +10,17 @@
             ></base-search-bar>
         </header>
         <section v-if="!showSearchResults">
-            <current-location class="current" :isCity="true"></current-location>
+            <current-location size="24px" class="current" :isCity="true"></current-location>
             <cities-list ref="roll" class="cities" :cityInfo="cityInfo" :keys="keys"></cities-list>
         </section>
 
         <div class="search_list" v-else>
             <ul>
-                <li @click="setCity" v-for="(item, i) in finalSearchResults" :key="i">{{ item.name }}</li>
+                <li
+                    @click="setCity"
+                    v-for="(item, i) in finalSearchResults"
+                    :key="i"
+                >{{ item.name }}</li>
             </ul>
         </div>
     </div>
@@ -81,7 +85,7 @@ export default {
                     });
                     // this.$store.dispatch('flatAllCities')
 
-                    console.log(this.$store.getters.doneAllCities)
+                    // console.log(this.$store.getters.doneAllCities)
 
                 })
                 .catch((err) => {
@@ -117,11 +121,11 @@ export default {
 <style scoped>
 .city {
     height: 100%;
-    width: 100;
+    /* width: 100; */
     background-color: #f1f1f1;
     overflow: auto;
     box-sizing: border-box;
-    /* padding-top: 45px; */
+    padding-top: 45px;
 }
 
 header {
@@ -136,8 +140,8 @@ header {
 }
 
 section {
-    top: 45px;
-    position: relative;
+    /* top: 45px;
+    position: relataie; */
     height: 100%;
 }
 .current {
@@ -149,44 +153,11 @@ section {
     /* position: relative; */
 }
 
-/* header {
-    background-color: white;
-    padding: 0px 16px 4px 16px;
-    height: 5%;
-    left: 0;
-    right: 0;
-    position: fixed;
-    z-index: 1;
-    
-} */
-
-/* .current {
-    left: 0;
-    right: 0;
-    top: 5.5%;
-    position: absolute;
-}
-
-section {
-    z-index: 0;
-    height: 100vh !important;
-
-}
-
-.cities {
-    left: 0;
-    right: 0;
-    position: absolute;
-    top: 13%;
-} */
-
 .search_list {
     background: #fff;
     padding: 5px 16px;
     height: 100%;
     overflow: scroll;
-    top: 45px;
-    position: relative;
 }
 .search_list li {
     padding: 10px;

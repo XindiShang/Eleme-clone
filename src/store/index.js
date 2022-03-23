@@ -9,6 +9,8 @@ export default createStore({
     lng: null,
     visitedCities: [],
     allCities: [],
+    // home page
+    recommendTags: ['凉皮米线', '一点点', '麦当劳', '蛋糕', '奶茶', '包子',],
   },
   getters: {
     doneAddress(state) {
@@ -29,6 +31,9 @@ export default createStore({
     },
     doneAllCities(state) {
       return state.allCities;
+    },
+    doneTags(state) {
+      return state.recommendTags;
     }
   },
   mutations: {
