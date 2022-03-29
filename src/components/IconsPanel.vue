@@ -1,5 +1,6 @@
 <template>
     <section class="panel">
+        <recent-search></recent-search>
         <table>
             <tr class="top">
                 <td v-for="(img, i) in imagesTop" :key="i">
@@ -24,7 +25,12 @@
 </template>
 
 <script>
+import RecentSearch from './RecentSearch.vue';
+
 export default {
+    components:{
+        RecentSearch,
+    },
     data() {
         return {
             imagesTop: [
@@ -60,6 +66,7 @@ export default {
 }
 
 table {
+    margin-top: 6px;
 }
 
 td {

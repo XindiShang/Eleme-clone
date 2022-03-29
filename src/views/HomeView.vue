@@ -104,7 +104,7 @@ export default {
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
-  background-color: #f1f1f1;
+  background-color: #fafafa;
   /* background-color: red; */
 }
 

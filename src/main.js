@@ -1,17 +1,19 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { Toast, Button, Tag } from 'vant';
-// import { Loading } from 'vant';
+
 import router from './router'
 import store from './store'
 import axios from 'axios';
 
 // const print = console.log.bind(console);
 
-const app = createApp(App)
+const app = createApp(App);
+
 app.use(Toast);
 app.use(Button);
 app.use(Tag);
+
 
 
 axios.interceptors.request.use(config => {
