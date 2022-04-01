@@ -19,7 +19,7 @@
         </div>
     </base-header>
 
-    <current-location></current-location>
+    <current-location ></current-location>
 </template>
 
 <script>

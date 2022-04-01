@@ -109,11 +109,10 @@ export default {
 .citiesList {
     margin-top: 6px;
     box-sizing: border-box;
-
     background: #f1f1f1;
     height: calc(100% - 65px);
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 .scroll_wrap {
     background: #fff;

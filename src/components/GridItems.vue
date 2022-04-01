@@ -34,6 +34,7 @@ export default {
 <style scoped>
 .grid-items {
     margin: 2px 10px 6px 10px;
+    box-sizing: border-box;
 }
 
 table {
@@ -64,8 +65,10 @@ td {
     flex-direction: column;
     align-items: flex-start;
     width: 70%;
-
     margin-bottom: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
 }
 

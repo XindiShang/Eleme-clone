@@ -9,6 +9,7 @@
                 :placeholder="placeholderPassed"
             ></base-search-bar>
         </header>
+        
         <section v-if="!showSearchResults">
             <current-location size="24px" class="current" :isCity="true"></current-location>
             <cities-list ref="roll" class="cities" :cityInfo="cityInfo" :keys="keys"></cities-list>

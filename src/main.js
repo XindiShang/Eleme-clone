@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { Toast, Button, Tag } from 'vant';
+import { Toast, Button, Tag, Sticky } from 'vant';
 
 import router from './router'
 import store from './store'
@@ -13,6 +13,7 @@ const app = createApp(App);
 app.use(Toast);
 app.use(Button);
 app.use(Tag);
+app.use(Sticky);
 
 
 

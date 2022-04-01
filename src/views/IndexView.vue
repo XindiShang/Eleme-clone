@@ -27,8 +27,7 @@ export default {
 
 <style scoped>
 .index {
-  width: 100%;
+  width: 100vw;
   height: calc(100% - 60px);
-  /* background-color: red; */
 }
 </style>

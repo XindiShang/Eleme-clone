@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="home">
     <section class="address-wrapper">
       <div class="address-bar">
         <div class="address-bar-left" @click="switchAddressPage">
@@ -13,12 +13,12 @@
       </div>
     </section>
 
-    <section class="search-wrapper">
+    <section ref="searchWrapper" class="search-wrapper" :class="{ 'sort-applied': isShown }">
       <div class="search-bar">
         <div class="search-bar-left">
           <span class="material-icons-outlined">qr_code_scanner</span>
           <div class="divider"></div>
-          <p>搜索商家</p>
+          <p class="search-text">搜索商家</p>
         </div>
         <div class="search-bar-right">
           <button>搜索</button>
@@ -36,6 +36,12 @@
         </van-swipe-item>
       </van-swipe>
     </div>
+
+    <!-- 商家筛选 -->
+    <van-sticky :offset-top="50">
+      <filter-bar @searchFixed="showFilters" ></filter-bar>
+    </van-sticky>
+    <div :class="{ 'filter-on': isShown }" ref="shopList" style="height: 2000px"></div>
   </div>
 </template>
 
@@ -45,6 +51,7 @@ import { Swipe, SwipeItem } from 'vant';
 import IconsPanel from '../components/IconsPanel.vue';
 import GridItems from '../components/GridItems.vue';
 import BeansNotification from '../components/BeansNotification.vue';
+import FilterBar from '../components/home/FilterBar.vue';
 
 export default {
   components: {
@@ -54,12 +61,13 @@ export default {
     IconsPanel,
     GridItems,
     BeansNotification,
+    FilterBar,
 
   },
   data() {
     return {
       swipeImgs: [],
-
+      isShown: false,
     }
   },
   computed: {
@@ -74,7 +82,8 @@ export default {
         return '定位中...';
       }
       return this.$store.getters.donePlace;
-    }
+    },
+
   },
   methods: {
     switchAddressPage() {
@@ -85,16 +94,20 @@ export default {
         this.swipeImgs = res.data.swipeImgs;
         // this.entries = res.data.entries;
       });
-      // this.$axios("/api/profile/filter").then(res => {
-      //   // console.log(res.data);
-      //   this.filterData = res.data;
-      // });
+      this.$axios("/api/profile/filter").then(res => {
+        // console.log(res.data);
+        this.$store.dispatch('getFilterData', res.data);
+      });
       // this.loadData();
+    },
+    showFilters(payload) {
+      this.isShown = payload;
     }
   },
   created() {
     this.getData();
-  }
+  },
+
 }
 </script>
 
@@ -110,19 +123,24 @@ export default {
 
 .address-wrapper {
   background-color: white;
-  padding: 18px 16px 4px 16px;
+  padding: 18px 16px 0 16px;
   /* height: 9%; */
-  width: auto;
+  width: 100%;
 }
+
 .search-wrapper {
   background-color: white;
-  padding: 0 16px 4px 16px;
-  /* height: 9%; */
-  width: auto;
+  padding: 4px 16px 4px 16px;
+  width: 100%;
+  height: 46px;
+  position: sticky;
+  top: -1px;
+  margin-top: 0;
+  z-index: 10;
 }
 
 .container {
-  height: 2000px;
+  /* width: auto; */
 }
 .address-bar {
   width: 100%;
@@ -161,7 +179,8 @@ export default {
   border: 1px solid rgb(14, 179, 255);
   border-radius: 20px;
   font-size: 13px;
-  padding: 6px 0 0 0;
+  /* padding: 6px 0 0 0; */
+  margin: 8px 0;
 }
 
 .search-bar-left {
@@ -177,9 +196,9 @@ export default {
   color: rgb(14, 179, 255);
   margin: 0 4px;
 }
-.search-bar-left p {
-  height: 70%;
-  line-height: 1.2;
+.search-text {
+  height:50%;
+  line-height: 13px;
   font-size: 13px;
   overflow: hidden;
   white-space: nowrap;
@@ -187,6 +206,7 @@ export default {
   margin: 0 4px;
   width: calc(80%);
   color: #ccc;
+  vertical-align: text-bottom;
 }
 
 .divider {
@@ -215,6 +235,7 @@ export default {
   height: 100px;
   border-radius: 6px;
   margin: 2px 14px 6px 14px;
+  box-sizing: border-box;
 }
 .my-swipe .van-swipe-item {
   color: #fff;
@@ -229,4 +250,54 @@ export default {
   width: 100%;
   height: 100px;
 }
+
+.sort-applied {
+  /* position: fixed;
+  
+  width: 90%;
+  top: -1px;
+  z-index: 10; */
+  width: auto;
+  padding: 4px 16px 4px 16px;
+  position: fixed;
+  top: -1px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+}
+
+/* .filter-on {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  z-index: 100;
+} */
+
+/* .shoplist-title {
+  display: flex;
+  align-items: flex;
+  justify-content: center;
+  height: 9.6vw;
+  line-height: 9.6vw;
+  font-size: 16px;
+  color: #333;
+  background: #fff;
+}
+.shoplist-title:after,
+.shoplist-title:before {
+  display: block;
+  content: "一";
+  width: 5.333333vw;
+  height: 0.266667vw;
+  color: #999;
+}
+.shoplist-title:before {
+  margin-right: 3.466667vw;
+}
+.shoplist-title:after {
+  margin-left: 3.466667vw;
+} */
 </style>

@@ -1,56 +1,66 @@
 <template>
-    <div class="text_group">
-
-        <div class="input_group" :class="{'is-invalid':errorMsg}">
-            <input :type="inputType" :value="modelValue" :placeholder="inputPlaceholder" @input="emitInputValue" :name="inputName">
-            <div id="clearBtn" v-if="hasClearBtn" @click="emitclearBtn"><p>x</p></div>
-            <button v-if="inputBtnText" class="inputBtn" :class="{'available': isAvailable}" :disabled="isDisabled" @click="setBtnEvent">{{inputBtnText}}</button>
-        </div>
-
-        <div v-if="errorMsg" class="invalid-feedback">
-            {{errorMsg}}
-        </div>
-
+  <div class="text_group">
+    <div class="input_group" :class="{ 'is-invalid': errorMsg }">
+      <input
+        :type="inputType"
+        :value="modelValue"
+        :placeholder="inputPlaceholder"
+        @input="emitInputValue"
+        :name="inputName"
+      />
+      <div id="clearBtn" v-if="hasClearBtn" @click="emitclearBtn">
+        <p>x</p>
+      </div>
+      <button
+        v-if="inputBtnText"
+        class="inputBtn"
+        :class="{ 'available': isAvailable }"
+        :disabled="isDisabled"
+        @click="setBtnEvent"
+      >{{ inputBtnText }}</button>
     </div>
+
+    <div v-if="errorMsg" class="invalid-feedback">{{ errorMsg }}</div>
+  </div>
 </template>
 
 
 <script>
 export default {
-    emits: ['update:modelValue', 'inputBtnClick', 'clearBtnClick'],
-    props: {
-        inputType: {
-            type: String,
-            default: 'Text here'
-        },
-        modelValue: String,
-        inputPlaceholder: String,
-        inputName: String,
-        inputBtnText: String,
-        isDisabled: Boolean,
-        errorMsg: String,
-        hasClearBtn: Boolean,
-        isAvailable: Boolean,
+  emits: ['update:modelValue', 'inputBtnClick', 'clearBtnClick'],
+  props: {
+    inputType: {
+      type: String,
+      default: 'Text here'
     },
-    data() {
-        return {
-    
-        }
-    },
-    methods: {
-        emitInputValue(event){
-            this.$emit('update:modelValue', event.target.value);
-        },
-        setBtnEvent(){
-            this.$emit('inputBtnClick');
-        },
-        emitclearBtn(){
-            this.$emit('clearBtnClick');
-          
-        }
+    modelValue: String,
+    inputPlaceholder: String,
+    inputName: String,
+    inputBtnText: String,
+    isDisabled: Boolean,
+    errorMsg: String,
+    hasClearBtn: Boolean,
+    isAvailable: Boolean,
+  },
+  data() {
+    return {
 
+    }
+  },
+  methods: {
+    emitInputValue(event) {
+      this.$emit('update:modelValue', event.target.value);
     },
-    
+    setBtnEvent() {
+      this.$emit('inputBtnClick');
+    },
+    emitclearBtn() {
+      this.$emit('clearBtnClick');
+
+    }
+
+  },
+
 }
 </script>
 
@@ -64,9 +74,10 @@ export default {
   /* padding: 6px; */
   padding: 6px 10px;
   display: flex;
-  height: 30px;
+  height: 40px;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 .input_group input {
   height: 100%;
@@ -75,16 +86,15 @@ export default {
 }
 .input_group input:enabled {
   border: none;
-  outline: none
+  outline: none;
 }
 .inputBtn {
   border: 1px solid #ccc;
   border-radius: 20px;
   background: none;
   color: #aaa;
-  font-size: 12px; 
+  font-size: 12px;
   height: 100%;
-  
 }
 .inputBtn[disabled] {
   border: 1px solid #ccc;
@@ -104,7 +114,6 @@ export default {
   height: 16px;
   color: #fff;
   background-color: #ccc;
-  margin-top: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,7 +139,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 </style>

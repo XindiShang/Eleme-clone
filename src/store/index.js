@@ -11,6 +11,7 @@ export default createStore({
     allCities: [],
     // home page
     recommendTags: ['凉皮米线', '一点点', '麦当劳', '蛋糕', '奶茶', '包子',],
+    filterData: null,
   },
   getters: {
     doneAddress(state) {
@@ -34,6 +35,9 @@ export default createStore({
     },
     doneTags(state) {
       return state.recommendTags;
+    },
+    doneFilterData(state) {
+      return state.filterData;
     }
   },
   mutations: {
@@ -84,6 +88,9 @@ export default createStore({
     },
     flatAllCities(state) {
       state.allCities = [].concat(...state.allCities);
+    },
+    setFilterData(state, payload) {
+      state.filterData = payload;
     }
   },
   actions: {
@@ -101,6 +108,9 @@ export default createStore({
     },
     flatAllCities(context) {
       context.commit('flatAllCities');
+    },
+    getFilterData(context, payload) {
+      context.commit('setFilterData', payload)
     }
 
   },

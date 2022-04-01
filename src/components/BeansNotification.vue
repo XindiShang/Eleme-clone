@@ -28,6 +28,8 @@ export default {
 <style scoped>
 .beans {
     margin: 2px 14px 6px 14px;
+    /* width: 100%; */
+    box-sizing: border-box;
 }
 
 .notification {

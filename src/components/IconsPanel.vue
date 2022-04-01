@@ -28,7 +28,7 @@
 import RecentSearch from './RecentSearch.vue';
 
 export default {
-    components:{
+    components: {
         RecentSearch,
     },
     data() {
@@ -63,10 +63,14 @@ export default {
 <style scoped>
 .panel {
     margin: 2px 15px;
+    box-sizing: border-box;
 }
 
 table {
-    margin-top: 6px;
+    margin: 6px 0px 0;
+    box-sizing: border-box;
+    display: block;
+    left: 0;
 }
 
 td {
@@ -75,27 +79,35 @@ td {
     align-content: center;
     flex-direction: column;
     padding: 0 6px;
-    width: 60px;
+    width: 100%;
     text-align: center;
     margin-bottom: 14px;
 }
 
+p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: auto;
+    display: grid;
+    gap: 2%;
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .top img {
-    width: 56px;
-    height: 56px;
+    width: 50px;
+    height: 50px;
     margin: auto;
 }
 
 .middle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: auto;
+    display: grid;
+    gap: 2%;
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .middle img {
@@ -105,9 +117,10 @@ td {
 }
 
 .bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: auto;
+    display: grid;
+    gap: 2%;
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .bottom img {
