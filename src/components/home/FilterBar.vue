@@ -43,7 +43,13 @@
                     <div v-for="(screen, i) in filterData.screenBy" :key="i" class="morefilter">
                         <p class="screen-title">{{ screen.title }}</p>
                         <ul>
-                            <li class="screen-item" v-for="(item, idx) in screen.data" :key="idx">
+                            <li
+                                :class="{ 'selected': item.select }"
+                                class="screen-item"
+                                v-for="(item, idx) in screen.data"
+                                :key="idx"
+                                @click="selectScreen(item, screen)"
+                            >
                                 <img v-if="item.icon" :src="item.icon" alt />
                                 <span>{{ item.name }}</span>
                             </li>
@@ -51,8 +57,12 @@
                     </div>
                 </div>
                 <div class="morefilter-btn">
-                    <span class="morefilter-clear">清空</span>
-                    <span class="morefilter-ok">查看商家</span>
+                    <span
+                        :class="{ 'edit': editStatus, 'disable': !editStatus }"
+                        class="morefilter-clear"
+                        @click="clearScreen"
+                    >清空</span>
+                    <span class="morefilter-ok" @click="setScreen">查看商家</span>
                 </div>
             </div>
         </section>
@@ -69,6 +79,7 @@ export default {
             openFilter: false,
             currentSort: 0,
             openScreen: false,
+            isEdit: false
 
         }
     },
@@ -78,6 +89,10 @@ export default {
         },
         filterData() {
             return this.$store.getters.doneFilterData;
+        },
+        editStatus() {
+            this.checkScreen();
+            return this.isEdit;
         }
 
 
@@ -87,9 +102,15 @@ export default {
             this.currentIdx = idx;
             switch (idx) {
                 case 0:
-                    this.openFilter = true;
+                    if (this.openFilter) {
+                        this.openFilter = false;
+                        this.$emit('searchFixed', false)
+
+                    } else {
+                        this.openFilter = true;
+                        this.$emit('searchFixed', true)
+                    }
                     this.openScreen = false;
-                    this.$emit('searchFixed', true)
                     break;
                 case 1:
                     console.log(this.filterData.navTab[1].condition);
@@ -100,9 +121,15 @@ export default {
                     this.hideFilter();
                     break;
                 case 3:
-                    this.openScreen = true;
+                    if (this.openScreen) {
+                        this.openScreen = false;
+                        this.$emit('searchFixed', false)
+
+                    } else {
+                        this.openScreen = true;
+                        this.$emit('searchFixed', true)
+                    }
                     this.openFilter = false;
-                    this.$emit('searchFixed', true)
                     break;
                 default:
                     this.hideFilter();
@@ -121,6 +148,60 @@ export default {
 
             const condition = name.code;
             console.log(condition);
+        },
+        selectScreen(item, screen) {
+            if (screen.id !== "MPI") {
+                // single select
+                screen.data.forEach(el => {
+                    if (el != item) {
+                        el.select = false
+                    }
+                })
+            }
+            item.select = !item.select;
+        },
+        checkScreen() {
+            this.isEdit = false;
+            this.filterData.screenBy.forEach(screen => {
+                screen.data.forEach(item => {
+                    if (item.select) {
+                        this.isEdit = true;
+                    }
+                })
+            })
+        },
+        clearScreen() {
+            this.filterData.screenBy.forEach(screen => {
+                screen.data.forEach(item => {
+                    item.select = false;
+                })
+            })
+        },
+        setScreen() {
+            let screenData = {
+                MPI: '',
+                offer: '',
+                per: ''
+            }
+            let mpiStr = "";
+            this.filterData.screenBy.forEach(screen => {
+                screen.data.forEach((item, idx) => {
+                    if (item.select) {
+                        //single
+                        if (screen.id !== "MPI") {
+                            console.log(idx)
+                            screenData[screen.id] = item.code
+                        } else {
+                            //multi
+                            mpiStr += item.code + ",";
+                            screenData[screen.id] = mpiStr
+                        }
+                    }
+                })
+            })
+            console.log(screenData);
+            this.hideFilter();
+
         }
     },
 
@@ -128,6 +209,9 @@ export default {
 </script>
 
 <style scoped>
+.disable {
+    pointer-events: none;
+}
 .filter_wrap {
     background: transparent;
     padding: 4px 16px 4px 16px;
@@ -173,7 +257,6 @@ export default {
     gap: 30px;
     width: 90%;
     /* background: white; */
-
 }
 .filter-nav {
     /* flex: 1; */

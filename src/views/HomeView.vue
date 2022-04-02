@@ -41,17 +41,21 @@
     <van-sticky :offset-top="50">
       <filter-bar :fixedOn="fixedOn" @searchFixed="showFilters"></filter-bar>
     </van-sticky>
-    <div :class="{ 'filter-on': isShown }" ref="shopList" style="height: 2000px"></div>
+    <!-- <div :class="{ 'filter-on': isShown }" style="height: 2000px">
+      
+    </div>-->
+    <shop-list @finish-loading="resetInit" :isInit="initFinished"></shop-list>
   </div>
 </template>
 
 <script>
 // import BaseHeader from '../components/BaseHeader.vue';
-import { Swipe, SwipeItem } from 'vant';
+import { Swipe, SwipeItem, Toast } from 'vant';
 import IconsPanel from '../components/IconsPanel.vue';
 import GridItems from '../components/GridItems.vue';
 import BeansNotification from '../components/BeansNotification.vue';
 import FilterBar from '../components/home/FilterBar.vue';
+import ShopList from '../components/home/ShopList.vue';
 
 export default {
   components: {
@@ -62,6 +66,7 @@ export default {
     GridItems,
     BeansNotification,
     FilterBar,
+    ShopList,
 
   },
   data() {
@@ -70,6 +75,9 @@ export default {
       isShown: false,
       fixedOn: false,
       scrollTop: 0,
+      page: 1,
+      size: 5,
+      initFinished: false,
     }
   },
   computed: {
@@ -95,28 +103,55 @@ export default {
       this.$router.push('/address');
     },
     getData() {
+
       this.$axios("/api/profile/shopping").then(res => {
+        Toast.loading({
+          message: '加载中',
+          forbidClick: true,
+        });
         this.swipeImgs = res.data.swipeImgs;
-        // this.entries = res.data.entries;
+        Toast.clear();
       });
+
       this.$axios("/api/profile/filter").then(res => {
-        // console.log(res.data);
+        Toast.loading({
+          message: '加载中',
+          forbidClick: true,
+        });
         this.$store.dispatch('getFilterData', res.data);
+        Toast.clear();
+
       });
-      // this.loadData();
+
+      //shops
+      this.$store.dispatch('clearAllShops');
+      this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`).then(res => {
+        Toast.loading({
+          message: '加载中',
+          forbidClick: true,
+        });
+        this.$store.dispatch('initialize', res.data);
+        Toast.clear();
+
+      })
+      this.initFinished = true;
     },
     showFilters(payload) {
       this.isShown = payload;
     },
+    resetInit(payload){
+      this.initFinished = payload;
+    }
 
   },
   created() {
     this.getData();
   },
   mounted() {
-    let homeContainer = this.$refs.home
+    let homeContainer = this.$refs.home;
 
-    homeContainer.addEventListener('scroll', ()=>{
+    homeContainer.addEventListener('scroll', () => {
+      // console.log(homeContainer.scrollTop)
       if (homeContainer.scrollTop >= 500) {
         this.fixedOn = true;
       } else {
