@@ -44,7 +44,7 @@ table {
 
 tr {
     display: flex;
-    justify-content: space-bewteen;
+    justify-content: space-between;
     align-items: center;
 }
 

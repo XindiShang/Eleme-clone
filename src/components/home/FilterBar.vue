@@ -3,7 +3,7 @@
         <div
             v-if="showFilter"
             class="filter_wrap"
-            :class="{ 'filter-wrap-fixed': openFilter || openScreen }"
+            :class="{ 'filter-wrap-fixed': openFilter || openScreen || fixedOn }"
         >
             <aside class="filter" :class="{ 'filter-fixed': openFilter || openScreen }">
                 <div
@@ -62,6 +62,7 @@
 <script>
 export default {
     emits: ['searchFixed'],
+    props: ['fixedOn'],
     data() {
         return {
             currentIdx: 0,
@@ -88,7 +89,6 @@ export default {
                 case 0:
                     this.openFilter = true;
                     this.openScreen = false;
-                    console.log(this.openFilter)
                     this.$emit('searchFixed', true)
                     break;
                 case 1:
@@ -129,12 +129,13 @@ export default {
 
 <style scoped>
 .filter_wrap {
-    background: white;
+    background: transparent;
     padding: 4px 16px 4px 16px;
     position: sticky;
-    top: 48px;
+    top: 42px;
     z-index: 10;
     box-sizing: border-box;
+    height: 30px;
     /* background-color: white;
   padding: 4px 16px 4px 16px;
   width: auto; */
@@ -144,9 +145,10 @@ export default {
     background: white;
     padding: 4px 16px 4px 16px;
     position: fixed;
-    top: 48px;
+    top: 42px;
     z-index: 10;
     width: 100%;
+    box-sizing: border-box;
     height: 30px;
 }
 .filter {
@@ -164,12 +166,14 @@ export default {
     position: fixed;
     z-index: 101;
     height: 30px;
-    top: 50px;
+    top: 42px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 30px;
     width: 90%;
+    /* background: white; */
+
 }
 .filter-nav {
     /* flex: 1; */
@@ -201,7 +205,7 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh - 76px);
+    height: calc(100vh - 72px);
     background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease-in-out;
     z-index: 3;
@@ -274,8 +278,8 @@ export default {
     line-height: 3vw;
     padding: 10px 16px;
     /* margin: 1%; */
-    /* background: #fafafa; */
-    background: red;
+    background: #fafafa;
+    /* background: red; */
     border-radius: 5px;
     display: flex;
     justify-content: center;

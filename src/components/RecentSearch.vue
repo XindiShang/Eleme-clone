@@ -33,7 +33,7 @@ export default {
 .recent-wrapper {
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: nowrap;
 }
 .van-tag {

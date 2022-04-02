@@ -39,7 +39,7 @@
 
     <!-- 商家筛选 -->
     <van-sticky :offset-top="50">
-      <filter-bar @searchFixed="showFilters" ></filter-bar>
+      <filter-bar :fixedOn="fixedOn" @searchFixed="showFilters"></filter-bar>
     </van-sticky>
     <div :class="{ 'filter-on': isShown }" ref="shopList" style="height: 2000px"></div>
   </div>
@@ -68,6 +68,8 @@ export default {
     return {
       swipeImgs: [],
       isShown: false,
+      fixedOn: false,
+      scrollTop: 0,
     }
   },
   computed: {
@@ -83,6 +85,9 @@ export default {
       }
       return this.$store.getters.donePlace;
     },
+    home() {
+      return this.scrollTop;
+    }
 
   },
   methods: {
@@ -102,11 +107,27 @@ export default {
     },
     showFilters(payload) {
       this.isShown = payload;
-    }
+    },
+
   },
   created() {
     this.getData();
   },
+  mounted() {
+    let homeContainer = this.$refs.home
+
+    homeContainer.addEventListener('scroll', ()=>{
+      if (homeContainer.scrollTop >= 500) {
+        this.fixedOn = true;
+      } else {
+        this.fixedOn = false;
+      }
+    })
+
+
+
+  },
+
 
 }
 </script>
@@ -197,7 +218,7 @@ export default {
   margin: 0 4px;
 }
 .search-text {
-  height:50%;
+  height: 50%;
   line-height: 13px;
   font-size: 13px;
   overflow: hidden;
