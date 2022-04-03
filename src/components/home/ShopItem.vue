@@ -159,7 +159,7 @@ export default {
   
 }
 .brand-img {
-    width: 40%;
+    width: 36%;
     display: inline;
     position: absolute;
     top: -3%;
@@ -174,7 +174,6 @@ export default {
     padding-left: 2.666667vw;
     font-size: 0.2rem;
     flex-grow: 1;
-    /* --gap: 50px */
 }
 
 .first-row {

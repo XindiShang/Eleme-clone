@@ -9,6 +9,7 @@ const ProfileView = () => import('../views/ProfileView.vue');
 const AddressView = () => import('../views/AddressView.vue');
 const LocateView = () => import('../views/LocateView.vue');
 const CityView = () => import('../views/CityView.vue');
+const SearchView = () => import('../views/SearchView.vue');
 
 const routes = [
   {
@@ -68,6 +69,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: SearchView
   },
 
 ]

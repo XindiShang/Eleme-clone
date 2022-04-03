@@ -24,7 +24,7 @@
 
 <script>
 import BaseHeader from '../components/BaseHeader.vue';
-import CurrentLocation from '../components/CurrentLocation.vue';
+import CurrentLocation from '../components/address/CurrentLocation.vue';
 
 export default {
     components: {

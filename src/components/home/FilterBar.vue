@@ -71,7 +71,7 @@
 
 <script>
 export default {
-    emits: ['searchFixed'],
+    emits: ['searchFixed', 'get-condition', 'lift'],
     props: ['fixedOn'],
     data() {
         return {
@@ -113,12 +113,15 @@ export default {
                     this.openScreen = false;
                     break;
                 case 1:
-                    console.log(this.filterData.navTab[1].condition);
+                    this.$emit('get-condition', this.filterData.navTab[1].condition)
                     this.hideFilter();
+
                     break;
                 case 2:
-                    console.log(this.filterData.navTab[2].condition);
+                    this.$emit('get-condition', this.filterData.navTab[2].condition)
                     this.hideFilter();
+
+
                     break;
                 case 3:
                     if (this.openScreen) {
@@ -133,6 +136,7 @@ export default {
                     break;
                 default:
                     this.hideFilter();
+
                     break;
             }
         },
@@ -140,14 +144,18 @@ export default {
             this.openFilter = false;
             this.openScreen = false;
             this.$emit('searchFixed', false);
+            this.$emit('lift')
+
         },
         selectSort(name, idx) {
             this.currentSort = idx;
             this.filterData.navTab[0].name = this.filterData.sortBy[idx].name;
             this.hideFilter();
-
             const condition = name.code;
-            console.log(condition);
+            this.$emit('get-condition', condition);
+            this.$emit('lift')
+
+
         },
         selectScreen(item, screen) {
             if (screen.id !== "MPI") {
@@ -201,6 +209,9 @@ export default {
             })
             console.log(screenData);
             this.hideFilter();
+            this.$emit('lift')
+
+
 
         }
     },
@@ -220,9 +231,6 @@ export default {
     z-index: 10;
     box-sizing: border-box;
     height: 30px;
-    /* background-color: white;
-  padding: 4px 16px 4px 16px;
-  width: auto; */
 }
 
 .filter-wrap-fixed {

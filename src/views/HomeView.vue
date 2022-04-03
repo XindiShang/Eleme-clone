@@ -15,7 +15,7 @@
 
     <section ref="searchWrapper" class="search-wrapper" :class="{ 'sort-applied': isShown }">
       <div class="search-bar">
-        <div class="search-bar-left">
+        <div @click="switchSearchPage" class="search-bar-left">
           <span class="material-icons-outlined">qr_code_scanner</span>
           <div class="divider"></div>
           <p class="search-text">搜索商家</p>
@@ -39,21 +39,26 @@
 
     <!-- 商家筛选 -->
     <van-sticky :offset-top="50">
-      <filter-bar :fixedOn="fixedOn" @searchFixed="showFilters"></filter-bar>
+      <filter-bar
+        @lift="scrollToShops"
+        @get-condition="setCondition"
+        :fixedOn="fixedOn"
+        @searchFixed="showFilters"
+      ></filter-bar>
     </van-sticky>
     <!-- <div :class="{ 'filter-on': isShown }" style="height: 2000px">
       
     </div>-->
-    <shop-list></shop-list>
+    <shop-list :condition="conditionPassed"></shop-list>
   </div>
 </template>
 
 <script>
 // import BaseHeader from '../components/BaseHeader.vue';
 import { Swipe, SwipeItem } from 'vant';
-import IconsPanel from '../components/IconsPanel.vue';
-import GridItems from '../components/GridItems.vue';
-import BeansNotification from '../components/BeansNotification.vue';
+import IconsPanel from '../components/home/IconsPanel.vue';
+import GridItems from '../components/home/GridItems.vue';
+import BeansNotification from '../components/home/BeansNotification.vue';
 import FilterBar from '../components/home/FilterBar.vue';
 import ShopList from '../components/home/ShopList.vue';
 
@@ -78,6 +83,8 @@ export default {
       page: 1,
       size: 5,
       initFinished: false,
+      conditionPassed: null,
+
     }
   },
   computed: {
@@ -93,29 +100,22 @@ export default {
       }
       return this.$store.getters.donePlace;
     },
-    home() {
-      return this.scrollTop;
-    }
+
 
   },
   methods: {
     switchAddressPage() {
       this.$router.push('/address');
     },
+    switchSearchPage(){
+      this.$router.push('/search')
+    },
     getData() {
-
       this.$axios("/api/profile/shopping").then(res => {
-
-
         this.swipeImgs = res.data.swipeImgs;
-
-
       });
-
       this.$axios("/api/profile/filter").then(res => {
-
         this.$store.dispatch('getFilterData', res.data);
-
       });
 
       //shops
@@ -136,6 +136,19 @@ export default {
     },
     resetInit(payload) {
       this.initFinished = payload;
+    },
+    setCondition(payload) {
+      this.conditionPassed = payload;
+
+    },
+    scrollToShops() {
+      let homeContainer = this.$refs.home;
+      // console.log(homeContainer.scrollHeight)
+      homeContainer.scrollTo({
+        top: 500,
+        behavior: 'smooth'
+      });
+
     }
 
   },
@@ -147,10 +160,11 @@ export default {
 
     homeContainer.addEventListener('scroll', () => {
       // console.log(homeContainer.scrollTop)
-      if (homeContainer.scrollTop >= 500) {
+      if (homeContainer.scrollTop >= 480) {
         this.fixedOn = true;
       } else {
         this.fixedOn = false;
+        this.isShown = false;
       }
     })
 

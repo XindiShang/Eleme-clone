@@ -22,7 +22,7 @@ app.use(List);
 
 
 axios.interceptors.request.use(config => {
-    console.log(config)
+    // console.log(config)
     if (!config.url.includes('restaurants')) {
         Toast.loading({
             message: '加载中',
