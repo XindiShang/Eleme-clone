@@ -127,6 +127,7 @@ export default {
     -webkit-box-shadow: 1px 0px 1px -1px rgba(0, 0, 0, 0.3);
     box-shadow: 1px 0px 1px -1px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
+    /* height: 20vh; */
 }
 .card-body {
     display: flex;
@@ -136,21 +137,27 @@ export default {
     height: 100%;
 }
 .logo_container {
-    max-width: 28%;
-    height: 100%;
+    width: 24vw;
+    /* height: 100%; */
     position: relative;
-
+    display: flex;
+    align-items: stretch;
 }
 
 .logo-img {
     display: block;
-    width: 100%;
+    width: 24vw;
     height: 100%;
     box-sizing: border-box;
     border: 0.133333vw solid rgba(0, 0, 0, 0.08);
     border-radius: 0.533333vw;
+    display: flex;
+    align-items: center;
 }
 
+.van-image__img {
+  
+}
 .brand-img {
     width: 40%;
     display: inline;
