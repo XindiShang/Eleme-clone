@@ -137,7 +137,7 @@ export default {
     height: 100%;
 }
 .logo_container {
-    width: 24vw;
+    width: 30vw;
     /* height: 100%; */
     position: relative;
     display: flex;
@@ -146,7 +146,7 @@ export default {
 
 .logo-img {
     display: block;
-    width: 24vw;
+    width: 30vw;
     height: 100%;
     box-sizing: border-box;
     border: 0.133333vw solid rgba(0, 0, 0, 0.08);
@@ -174,6 +174,7 @@ export default {
     padding-left: 2.666667vw;
     font-size: 0.2rem;
     flex-grow: 1;
+    /* --gap: 50px */
 }
 
 .first-row {
@@ -185,6 +186,8 @@ export default {
     font-size: 1rem;
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin: 1% 0;
+
 }
 
 .shop-name {
@@ -208,6 +211,8 @@ export default {
     overflow: hidden;
     justify-content: space-between;
     font-size: 0.8rem;
+    margin: 1% 0;
+
 }
 
 .rating {
@@ -223,6 +228,8 @@ export default {
     display: flex;
     justify-content: space-between;
     height: 1.1rem;
+    margin: 1% 0;
+
 }
 
 .delivery {
@@ -240,6 +247,8 @@ export default {
 
 .fourth-row {
     height: 1.1rem;
+    margin: 1% 0;
+
 }
 .comma {
     background-color: #ffe4ca;
@@ -250,5 +259,10 @@ export default {
 
 .impression {
     color: #ed7124;
+}
+
+.last-row {
+    margin: 1% 0;
+
 }
 </style>

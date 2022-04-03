@@ -66,16 +66,15 @@ td {
     align-items: flex-start;
     width: 70%;
     margin-bottom: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
 }
 
 h3 {
     font-weight: bold;
     font-size: 12px;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 p {
