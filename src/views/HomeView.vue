@@ -44,13 +44,13 @@
     <!-- <div :class="{ 'filter-on': isShown }" style="height: 2000px">
       
     </div>-->
-    <shop-list @finish-loading="resetInit" :isInit="initFinished"></shop-list>
+    <shop-list></shop-list>
   </div>
 </template>
 
 <script>
 // import BaseHeader from '../components/BaseHeader.vue';
-import { Swipe, SwipeItem, Toast } from 'vant';
+import { Swipe, SwipeItem } from 'vant';
 import IconsPanel from '../components/IconsPanel.vue';
 import GridItems from '../components/GridItems.vue';
 import BeansNotification from '../components/BeansNotification.vue';
@@ -105,41 +105,36 @@ export default {
     getData() {
 
       this.$axios("/api/profile/shopping").then(res => {
-        Toast.loading({
-          message: '加载中',
-          forbidClick: true,
-        });
+
+
         this.swipeImgs = res.data.swipeImgs;
-        Toast.clear();
+
+
       });
 
       this.$axios("/api/profile/filter").then(res => {
-        Toast.loading({
-          message: '加载中',
-          forbidClick: true,
-        });
+
         this.$store.dispatch('getFilterData', res.data);
-        Toast.clear();
 
       });
 
       //shops
-      this.$store.dispatch('clearAllShops');
-      this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`).then(res => {
-        Toast.loading({
-          message: '加载中',
-          forbidClick: true,
-        });
-        this.$store.dispatch('initialize', res.data);
-        Toast.clear();
+      // this.$store.dispatch('clearAllShops');
+      // this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`).then(res => {
+      //   Toast.loading({
+      //     message: '加载中',
+      //     forbidClick: true,
+      //   });
+      //   this.$store.dispatch('initialize', res.data);
+      //   Toast.clear();
 
-      })
-      this.initFinished = true;
+      // })
+      // this.initFinished = true;
     },
     showFilters(payload) {
       this.isShown = payload;
     },
-    resetInit(payload){
+    resetInit(payload) {
       this.initFinished = payload;
     }
 

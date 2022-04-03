@@ -16,11 +16,9 @@ export default {
     components: {
         ShopItem,
     },
-    props: ['isInit'],
-    emits: ['finish-loading'],
     data() {
         return {
-            page: 1,
+            page: 0,
             size: 5,
             loading: false,
             finished: false,
@@ -33,27 +31,48 @@ export default {
         }
     },
     methods: {
+        // onLoad() {
+        //     // 异步更新数据
+        //     // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+        //     if (this.isInit) {
+        //         this.page++;
+        //         this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`)
+        //             .then(res => {
+        //                 if (res.data.length > 0) {
+        //                     res.data.forEach(item => {
+        //                         this.$store.dispatch('getSingleShop', item);
+        //                     })
+        //                     this.loading = false;
+        //                 } else {
+        //                     this.finished = true;
+        //                     this.$emit('finish-loading', false);
+        //                 }
+        //                 console.log(this.$store.getters.doneAllShops.length)
+        //             })
+        //     }
+
+        // },
         onLoad() {
             // 异步更新数据
             // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-            if (this.isInit) {
-                this.page++;
-                this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`)
-                    .then(res => {
-                        if (res.data.length > 0) {
-                            res.data.forEach(item => {
-                                this.$store.dispatch('getSingleShop', item);
-                            })
-                            this.loading = false;
-                        } else {
-                            this.finished = true;
-                            this.$emit('finish-loading', false);
-                        }
-                        console.log(this.$store.getters.doneAllShops.length)
-                    })
+            if (this.page == 0) {
+                this.$store.dispatch('clearAllShops');
             }
-                
-          
+            this.page++;
+            console.log(`current page: ${this.page}`)
+            this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`)
+                .then(res => {
+                    if (res.data.length > 0) {
+                        res.data.forEach(item => {
+                            this.$store.dispatch('getSingleShop', item);
+                        })
+                        this.loading = false;
+                    } else {
+                        this.finished = true;
+                    }
+                    console.log(`current store length: ${this.$store.getters.doneAllShops.length}`)
+                })
+
 
         },
     }

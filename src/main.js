@@ -21,22 +21,26 @@ app.use(List);
 
 
 
-// axios.interceptors.request.use(config => {
-//     Toast.loading({
-//         message: '加载中',
-//         forbidClick: true,
-//     });
-//     return config;
-// }, err => {
-//     return Promise.reject(err)
-// })
+axios.interceptors.request.use(config => {
+    console.log(config)
+    if (!config.url.includes('restaurants')) {
+        Toast.loading({
+            message: '加载中',
+            forbidClick: true,
+        });
+    }
+    return config;
+    
+}, err => {
+    return Promise.reject(err)
+})
 
-// axios.interceptors.response.use(res => {
-//     Toast.clear();
-//     return res;
-// }, err => {
-//     return Promise.reject(err)
-// })
+axios.interceptors.response.use(res => {
+    Toast.clear();
+    return res;
+}, err => {
+    return Promise.reject(err)
+})
 
 app.config.globalProperties.$axios = axios;
 
