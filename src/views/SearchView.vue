@@ -27,7 +27,11 @@
             <result-not-found v-if="!hasResult"></result-not-found>
             <div v-else>
                 <van-sticky :offset-top="44">
-                    <filter-bar class="filter-bar-background" @get-condition="setCondition" :fixedOn="false"></filter-bar>
+                    <filter-bar
+                        class="filter-bar-background"
+                        @get-condition="setCondition"
+                        :fixedOn="false"
+                    ></filter-bar>
                 </van-sticky>
 
                 <shop-list :condition="conditionPassed"></shop-list>
@@ -84,7 +88,7 @@ export default {
             }
             return false;
         },
-        searchBarFixed (){
+        searchBarFixed() {
             return this.$refs.searchBarFixed;
         }
     },
@@ -138,6 +142,7 @@ export default {
         debouncedSearch: debounce(
             async function () {
                 /* eslint-disable */
+                // console.log('searching:' + this.inputVal)
                 const that = this;
                 if (this.inputVal.trim()) {
                     await this.$axios(`/api/profile/typeahead/${this.inputVal}`)
@@ -151,6 +156,7 @@ export default {
                         })
                 }
                 // console.log(this.restaurants);
+                // console.log(this.words);
                 /* eslint-disable */
             }, 300
 
@@ -160,7 +166,10 @@ export default {
     watch: {
         inputVal() {
             this.isConfirmed = false;
-            this.debouncedSearch();
+            if (this.inputVal.trim()) {
+                this.debouncedSearch();
+
+            }
         }
     },
 
