@@ -43,6 +43,7 @@ axios.interceptors.response.use(res => {
 })
 
 app.config.globalProperties.$axios = axios;
+app.config.unwrapInjectedRef = true;
 
 app.use(store);
 app.use(router);

@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <a class="search-text" @click="emitCancel">搜索</a>
+            <a class="search-text" @click="emitConfirm">搜索</a>
         </div>
     </div>
 </template>

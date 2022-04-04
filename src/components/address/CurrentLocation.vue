@@ -64,6 +64,7 @@ export default {
         },
         relocate() {
             const that = this;
+            // console.log('relocating')
             /* eslint-disable */
             const geocoderWrapper = function () {
                 AMap.plugin('AMap.Geocoder', function () {
@@ -71,8 +72,11 @@ export default {
                     })
 
                     var lnglat = [that.lngResult, that.latResult]
+                    // console.log(lnglat)
 
                     geocoder.getAddress(lnglat, function (status, result) {
+                        // console.log(status)
+                        // console.log(result)
                         if (status === 'complete' && result.info === 'OK') {
                             const payload = {
                                 city: result.regeocode.addressComponent['city'] || result.regeocode.addressComponent['province'],
@@ -81,6 +85,7 @@ export default {
                                 lat: that.lngResult,
                                 lng: that.latResult,
                             }
+                            // console.log(payload);
                             that.address = result.regeocode.formattedAddress;
                             that.$store.dispatch('getAddress', payload)
                         }
@@ -105,6 +110,7 @@ export default {
                 function onComplete(data) {
                     that.latResult = data.position.lat || null;
                     that.lngResult = data.position.lng || null;
+                    // console.log(data)
                     geocoderWrapper()
                 }
 
@@ -118,6 +124,7 @@ export default {
         }
     },
     mounted() {
+        this.relocate();
     },
 
 }

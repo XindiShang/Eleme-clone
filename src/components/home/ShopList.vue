@@ -20,7 +20,7 @@ export default {
     components: {
         ShopItem,
     },
-    props: ['condition', ],
+    props: ['condition',],
     data() {
         return {
             page: 0,
@@ -48,7 +48,7 @@ export default {
             }
             this.page++;
             console.log(`current page: ${this.page}`)
-            this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`, {condition: this.condition})
+            this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`, { condition: this.condition })
                 .then(res => {
                     console.log(`current condition is ${this.condition}`)
                     if (res.data.length > 0) {
@@ -76,7 +76,11 @@ export default {
             this.onRefresh();
 
         }
-    }
+    },
+    mounted() {
+        this.$store.dispatch('clearAllShops');
+        this.loadData();
+    },
 
 }
 </script>
