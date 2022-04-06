@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { Toast, Button, Tag, Sticky, Image as VanImage, Lazyload, Badge, PullRefresh, List   } from 'vant';
+import { Toast, Button, Tag, Sticky, Image as VanImage, Lazyload, Badge, PullRefresh, List, Swipe, SwipeItem   } from 'vant';
 import router from './router'
 import store from './store'
 import axios from 'axios';
@@ -18,6 +18,8 @@ app.use(Lazyload);
 app.use(Badge);
 app.use(PullRefresh);
 app.use(List);
+app.use(Swipe);
+app.use(SwipeItem);
 
 
 

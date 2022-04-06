@@ -1,5 +1,5 @@
 <template>
-    <section class="card">
+    <section class="card" @click="switchShopPage">
         <div class="card-body">
             <!-- left  -->
             <div class="logo_container">
@@ -15,7 +15,6 @@
                 </van-badge>
                 <img class="brand-img" v-if="shop.is_premium" :src="require('@/assets/品牌.png')" alt />
 
-                <!-- <span >品牌</span> -->
             </div>
             <!-- right  -->
             <div class="card_main">
@@ -111,7 +110,12 @@ export default {
         distance() {
             return (this.shop.distance / 1000).toFixed(2)
         }
-    }
+    },
+    methods: {
+        switchShopPage(){
+            this.$router.push('/shop');
+        }
+    },
 }
 </script>
 

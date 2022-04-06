@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import BaseSearchBar from '../components/BaseSearchBar.vue';
-import CurrentLocation from "../components/address/CurrentLocation.vue";
-import CitiesList from '../components/address/CitiesList.vue';
+import BaseSearchBar from '../../components/BaseSearchBar.vue';
+import CurrentLocation from "../../components/address/CurrentLocation.vue";
+import CitiesList from '../../components/address/CitiesList.vue';
 
 export default {
     components: {

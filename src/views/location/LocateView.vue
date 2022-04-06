@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import BaseHeader from '../components/BaseHeader.vue';
+import BaseHeader from '../../components/BaseHeader.vue';
 import debounce from 'lodash.debounce';
-import ResultItem from '../components/address/ResultItem.vue';
+import ResultItem from '../../components/address/ResultItem.vue';
 
 export default {
     components: {

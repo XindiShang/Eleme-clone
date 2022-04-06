@@ -6,10 +6,11 @@ const HomeView = () => import('../views/HomeView.vue');
 const SocialView = () => import('../views/SocialView.vue');
 const OrderView = () => import('../views/OrderView.vue');
 const ProfileView = () => import('../views/ProfileView.vue');
-const AddressView = () => import('../views/AddressView.vue');
-const LocateView = () => import('../views/LocateView.vue');
-const CityView = () => import('../views/CityView.vue');
+const AddressView = () => import('../views/location/AddressView.vue');
+const LocateView = () => import('../views/location/LocateView.vue');
+const CityView = () => import('../views/location/CityView.vue');
 const SearchView = () => import('../views/SearchView.vue');
+const ShopView = () => import('../views/shops/ShopView.vue');
 
 const routes = [
   {
@@ -74,6 +75,11 @@ const routes = [
     path: '/search',
     name: 'search',
     component: SearchView
+  },
+  {
+    path: '/shop',
+    name: 'shop',
+    component: ShopView
   },
 
 ]

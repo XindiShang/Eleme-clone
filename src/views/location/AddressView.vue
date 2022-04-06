@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import BaseHeader from '../components/BaseHeader.vue';
-import CurrentLocation from '../components/address/CurrentLocation.vue';
+import BaseHeader from '../../components/BaseHeader.vue';
+import CurrentLocation from '../../components/address/CurrentLocation.vue';
 
 export default {
     components: {

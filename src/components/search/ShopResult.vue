@@ -1,5 +1,5 @@
 <template>
-    <div class="shop-item mb-4">
+    <div @click="switchShopPage" class="shop-item mb-4">
         <span class="shop-icon material-icons-outlined mr-2">storefront</span>
 
         <div class="shop-wrapper">
@@ -34,7 +34,9 @@ export default {
         }
     },
     methods: {
-
+        switchShopPage(){
+            this.$router.push('/shop');
+        }
     },
     mounted() {
         let ipt = this.inputVal;
