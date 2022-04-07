@@ -6,7 +6,7 @@
                     <span
                         :class="{ 'icon-white': !final }"
                         class="material-icons-outlined"
-                        @click="switchPageBack"
+                        @click="switchPageHome"
                     >arrow_back_ios</span>
 
                     <div :class="inputContainerClass" class="input-container">
@@ -34,9 +34,15 @@
                     </div>
 
                     <div :class="rightCellClass" class="right-cell">
-                        <span :class="{ 'icon-white': !final }" class="material-icons-outlined">more_horiz</span>
-                        <span class="ml-3 " id="divider">|</span>
-                        <span :class="{ 'icon-white': !final }" class="ml-3 material-icons-outlined">close</span>
+                        <span
+                            :class="{ 'icon-white': !final }"
+                            class="material-icons-outlined"
+                        >more_horiz</span>
+                        <span class="ml-3" id="divider">|</span>
+                        <span
+                            :class="{ 'icon-white': !final }"
+                            class="ml-3 material-icons-outlined"
+                        >close</span>
                     </div>
                 </div>
             </div>
@@ -53,8 +59,8 @@ export default {
         }
     },
     methods: {
-        switchPageBack() {
-            this.$router.back();
+        switchPageHome() {
+            this.$router.push({ path: '/home' });
         },
     },
     computed: {
@@ -102,7 +108,7 @@ export default {
 
             }
         },
-        rightCellClass(){
+        rightCellClass() {
             return {
                 'right-cell-base': this.base || this.early || this.mid | this.late,
                 'right-cell-final': this.final
@@ -115,7 +121,6 @@ export default {
 </script>
 
 <style scoped>
-
 header {
     box-sizing: border-box;
     width: 100%;
@@ -124,12 +129,10 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-
 }
 .content-wrapper {
     padding: 10px 12px 4px 16px;
     background-color: transparent;
-
 }
 .content-wrapper-base {
     background-color: transparent;
@@ -269,7 +272,6 @@ header {
 .right-cell-final {
     background-color: transparent;
     border: 1px solid #d4d2d2;
-
 }
 
 .right-cell span {

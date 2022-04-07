@@ -11,6 +11,9 @@ const LocateView = () => import('../views/location/LocateView.vue');
 const CityView = () => import('../views/location/CityView.vue');
 const SearchView = () => import('../views/SearchView.vue');
 const ShopView = () => import('../views/shops/ShopView.vue');
+const MenuView = () => import('../views/shops/MenuView.vue');
+const CommentView = () => import('../views/shops/CommentView.vue');
+const SellerView = () => import('../views/shops/SellerView.vue');
 
 const routes = [
   {
@@ -20,31 +23,31 @@ const routes = [
     redirect: '/home',
     children: [
       {
-        path: '/home',
+        path: 'home',
         name: 'home',
         component: HomeView
       },
       {
-        path: '/social',
+        path: 'social',
         name: 'social',
         component: SocialView
       },
       {
-        path: '/order',
+        path: 'order',
         name: 'order',
         // login required
         component: OrderView
       },
       {
-        path: '/profile',
+        path: 'profile',
         name: 'profile',
         component: ProfileView,
-        children: [
-          {
-            path: '/:userId',
-            // login required
-          }
-        ]
+        // children: [
+        //   {
+        //     path: '/:userId',
+        //     // login required
+        //   }
+        // ]
       },
 
     ]
@@ -79,13 +82,32 @@ const routes = [
   {
     path: '/shop',
     name: 'shop',
-    component: ShopView
+    redirect: { name: 'menu' },
+    component: ShopView,
+    children: [
+      {
+        path: 'menu',
+        name: 'menu',
+        component: MenuView
+      },
+      {
+        path: 'reviews',
+        name: 'reviews',
+        component: CommentView
+      },
+      {
+        path: 'seller',
+        name: 'seller',
+        component: SellerView
+      },
+    ]
   },
 
 ]
 
 const router = createRouter({
   history: createWebHistory(),
+  linkActiveClass: 'active',
   routes
 })
 

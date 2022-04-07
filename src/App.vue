@@ -92,9 +92,10 @@ export default {
 <style>
 #app {
   height: 100%;
-  width: 100vw;
+  width: 100%;
   font-size: 14px;
   background: white;
+  box-sizing: border-box;
   
   
 }

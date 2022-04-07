@@ -9,6 +9,10 @@
             :shop="shopInfo"
             class="shop-info"
         ></shop-intro>
+
+        <shop-nav/>
+        <router-view></router-view>
+
         <discount-popup
             v-if="!isLoading"
             :shop="shopInfo"
@@ -21,7 +25,7 @@
             :infoIsShown="infoIsShown"
             @close-popup="toggleInfoShow"
         ></shop-info-popup>
-        <div class="shop-body" ref="shopBody"></div>
+        <!-- <div class="shop-body" ref="shopBody"></div> -->
     </section>
 </template>
 
@@ -30,13 +34,15 @@ import ShopHeader from '../../components/shop/ShopHeader.vue';
 import ShopIntro from '../../components/shop/ShopIntro.vue';
 import DiscountPopup from '../../components/shop/DiscountPopup.vue';
 import ShopInfoPopup from '../../components/shop/ShopInfoPopup.vue';
+import ShopNav from '@/components/shop/ShopNav.vue';
 
 export default {
     components: {
         ShopHeader,
         ShopIntro,
         DiscountPopup,
-        ShopInfoPopup
+        ShopInfoPopup,
+        ShopNav
     },
 
 
