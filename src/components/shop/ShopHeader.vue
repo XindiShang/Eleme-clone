@@ -207,6 +207,7 @@ header {
 
 .search-icon-early {
     opacity: 0.4;
+    color: white;
 }
 
 .red-icon {

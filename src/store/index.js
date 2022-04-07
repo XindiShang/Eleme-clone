@@ -13,6 +13,7 @@ export default createStore({
     recommendTags: ['凉皮米线', '一点点', '麦当劳', '蛋糕', '奶茶', '包子',],
     filterData: null,
     allShops: [],
+    selectedShop: {},
   },
   getters: {
     doneAddress(state) {
@@ -42,6 +43,9 @@ export default createStore({
     },
     doneAllShops(state) {
       return state.allShops;
+    },
+    doneSelectedShop(state) {
+      return state.selectedShop;
     }
   },
   mutations: {
@@ -105,6 +109,9 @@ export default createStore({
     },
     resetAllShops(state) {
       state.allShops = [];
+    },
+    setSelectedShop(state, payload) {
+      state.selectedShop = payload;
     }
   },
   actions: {
@@ -131,9 +138,12 @@ export default createStore({
     },
     initialize(context, payload) {
       context.commit('initializeShops', payload)
-     },
+    },
     clearAllShops(context) {
       context.commit('resetAllShops');
+    },
+    getSelectedShop(context, payload) {
+      context.commit('setSelectedShop', payload);
     }
 
   },

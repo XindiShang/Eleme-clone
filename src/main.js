@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { Toast, Button, Tag, Sticky, Image as VanImage, Lazyload, Badge, PullRefresh, List, Swipe, SwipeItem   } from 'vant';
+import { Toast, Button, Tag, Sticky, Image as VanImage, Lazyload, Badge, PullRefresh, List, Swipe, SwipeItem, Popup, NoticeBar  } from 'vant';
 import router from './router'
 import store from './store'
 import axios from 'axios';
@@ -20,7 +20,8 @@ app.use(PullRefresh);
 app.use(List);
 app.use(Swipe);
 app.use(SwipeItem);
-
+app.use(Popup);
+app.use(NoticeBar);
 
 
 axios.interceptors.request.use(config => {
@@ -32,7 +33,7 @@ axios.interceptors.request.use(config => {
         });
     }
     return config;
-    
+
 }, err => {
     return Promise.reject(err)
 })
