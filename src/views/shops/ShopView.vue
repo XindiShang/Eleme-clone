@@ -10,8 +10,8 @@
             class="shop-info"
         ></shop-intro>
 
-        <shop-nav/>
-        <router-view></router-view>
+        <shop-nav v-if="!isLoading" class="shop-nav" />
+        <router-view v-if="!isLoading" class="shop-body"></router-view>
 
         <discount-popup
             v-if="!isLoading"
@@ -25,7 +25,7 @@
             :infoIsShown="infoIsShown"
             @close-popup="toggleInfoShow"
         ></shop-info-popup>
-        <!-- <div class="shop-body" ref="shopBody"></div> -->
+        
     </section>
 </template>
 
@@ -65,16 +65,43 @@ export default {
     },
     methods: {
         async getData() {
-            this.isLoading = true,
-                await this.$axios("/api/profile/batch_shop")
-                    .then(res => {
-                        console.log(res.data);
-                        this.shopInfo = res.data;
-                        this.shopBackground = res.data.rst.scheme;
-                        this.shopRst = res.data.rst;
-                        this.isLoading = false;
-                        this.$store.dispatch('getSelectedShop', res.data);
+            this.isLoading = true;
+            try {
+                const res = await this.$axios("/api/profile/batch_shop");
+                res.data.recommend.forEach(recommend => {
+                    recommend.items.forEach(item => {
+                        item.count = 0
                     })
+                })
+                res.data.menu.forEach(category => {
+                    category.foods.forEach(foodItem => {
+                        foodItem.count = 0
+                    })
+                })
+                this.shopInfo = res.data;
+                this.shopBackground = res.data.rst.scheme;
+                this.shopRst = res.data.rst;
+
+                console.log(res.data);
+
+                this.$store.dispatch('getSelectedShop', res.data);
+
+            } catch (e) {
+                console.log(e);
+            }
+
+            this.isLoading = false;
+
+
+            //         .then(res => {
+            //     console.log(res.data);
+            //     this.shopInfo = res.data;
+            //     this.shopBackground = res.data.rst.scheme;
+            //     this.shopRst = res.data.rst;
+            //     this.isLoading = false;
+
+            //     this.$store.dispatch('getSelectedShop', res.data);
+            // })
         },
         toggleDiscountShow() {
             this.discountIsShown = !this.discountIsShown;
@@ -122,15 +149,14 @@ export default {
 <style scoped>
 .shop {
     width: 100%;
-    height: 100%;
-    overflow: auto;
+    height: 100vh;
+    overflow: scroll;
     box-sizing: border-box;
     background-color: #fafafa;
-    overflow: scroll;
+    
 }
 
 .shop-bg-image {
-    /* position: absolute; */
     display: block;
     top: 0;
     left: 0;
@@ -143,8 +169,18 @@ export default {
     bottom: 5%;
 }
 
+.shop-nav {
+    position: relative;
+    bottom: 4%;
+    width: 100%;
+}
+
 .shop-body {
-    height: 2000px;
-    background-color: pink;
+    position: relative;
+    bottom: 4%;
+    height: 100%;
+    display: initial;
+    overflow: scroll;
+    /* background-color: pink; */
 }
 </style>

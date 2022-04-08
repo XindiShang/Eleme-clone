@@ -1,7 +1,5 @@
 <template>
-  <div class="seller">
-      Seller
-  </div>
+  <div class="seller">Seller</div>
 </template>
 
 <script>
@@ -12,9 +10,8 @@ export default {
 
 <style scoped>
 .seller {
-    width: 100%;
-    box-sizing: border-box;
-    height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100vh;
 }
-
 </style>

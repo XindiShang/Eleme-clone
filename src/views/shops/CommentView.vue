@@ -1,8 +1,5 @@
 <template>
-  <div class="review">
-      Comment
-      
-  </div>
+  <div class="review">Comment</div>
 </template>
 
 <script>
@@ -13,9 +10,8 @@ export default {
 
 <style scoped>
 .review {
-    width: 100%;
-    box-sizing: border-box;
-    height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100vh;
 }
-
 </style>

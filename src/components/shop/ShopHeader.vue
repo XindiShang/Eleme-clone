@@ -1,53 +1,52 @@
 <template>
-    <header>
-        <van-sticky>
-            <div :class="contentWrapperClass" class="content-wrapper">
-                <div class="header-container">
+    <van-sticky>
+        <div :class="contentWrapperClass" class="content-wrapper">
+            <div class="header-container">
+                <span
+                    :class="{ 'icon-white': !final }"
+                    class="back-icon material-icons-outlined"
+                    @click="switchPageHome"
+                >arrow_back_ios</span>
+
+                <div :class="inputContainerClass" class="input-container ml-1">
+                    <span class="input-icon ml-2 material-icons-outlined">search</span>
+                    <input type="text" placeholder="想吃什么搜一搜" />
+                </div>
+
+                <a href>
+                    <img
+                        :class="redIconClass"
+                        class="red-icon"
+                        :src="require('@/assets/red-pocket.png')"
+                        alt
+                    />
+                </a>
+
+                <span :class="searchIconClass" class="material-icons-outlined">search</span>
+
+                <div class="heart-container">
                     <span
                         :class="{ 'icon-white': !final }"
                         class="material-icons-outlined"
+                    >favorite_border</span>
+                    <span :class="heartTextClass" class="icon-white">关注</span>
+                </div>
+
+                <div :class="rightCellClass" class="right-cell">
+                    <span
+                        :class="{ 'icon-white': !final }"
+                        class="material-icons-outlined"
+                    >more_horiz</span>
+                    <span class="ml-3" id="divider">|</span>
+                    <span
                         @click="switchPageHome"
-                    >arrow_back_ios</span>
-
-                    <div :class="inputContainerClass" class="input-container">
-                        <span class="input-icon ml-2 material-icons-outlined">search</span>
-                        <input type="text" placeholder="想吃什么搜一搜" />
-                    </div>
-
-                    <a href>
-                        <img
-                            :class="redIconClass"
-                            class="red-icon"
-                            :src="require('@/assets/red-pocket.png')"
-                            alt
-                        />
-                    </a>
-
-                    <span :class="searchIconClass" class="material-icons-outlined">search</span>
-
-                    <div class="heart-container">
-                        <span
-                            :class="{ 'icon-white': !final }"
-                            class="material-icons-outlined"
-                        >favorite_border</span>
-                        <span :class="heartTextClass" class="icon-white">关注</span>
-                    </div>
-
-                    <div :class="rightCellClass" class="right-cell">
-                        <span
-                            :class="{ 'icon-white': !final }"
-                            class="material-icons-outlined"
-                        >more_horiz</span>
-                        <span class="ml-3" id="divider">|</span>
-                        <span
-                            :class="{ 'icon-white': !final }"
-                            class="ml-3 material-icons-outlined"
-                        >close</span>
-                    </div>
+                        :class="{ 'icon-white': !final }"
+                        class="ml-3 material-icons-outlined"
+                    >close</span>
                 </div>
             </div>
-        </van-sticky>
-    </header>
+        </div>
+    </van-sticky>
 </template>
 
 <script>
@@ -121,18 +120,16 @@ export default {
 </script>
 
 <style scoped>
-header {
-    box-sizing: border-box;
+.content-wrapper {
+    padding: 10px 16px 4px 16px;
+    background-color: transparent;
+    max-width: 100%;
     width: 100%;
     z-index: 10;
-    background-color: transparent;
     position: fixed;
     top: 0;
     left: 0;
-}
-.content-wrapper {
-    padding: 10px 12px 4px 16px;
-    background-color: transparent;
+    height: 2.4rem;
 }
 .content-wrapper-base {
     background-color: transparent;
@@ -151,7 +148,7 @@ header {
 }
 
 .content-wrapper-final {
-    background-color: rgb(239, 239, 239);
+    background-color: #fff;
     transition: 0.1s ease-out;
 }
 
@@ -160,6 +157,10 @@ header {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.back-icon {
+    font-size: 0.9rem;
 }
 
 .input-container {
@@ -288,8 +289,12 @@ header {
     color: rgb(243, 243, 243);
 }
 
+.ml-1 {
+    margin-left: 2%;
+}
+
 .ml-2 {
-    margin-left: 3%;
+    margin-left: 4%;
 }
 .ml-3 {
     margin-left: 8%;
