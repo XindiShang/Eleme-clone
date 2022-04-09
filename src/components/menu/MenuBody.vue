@@ -1,12 +1,11 @@
 <template>
-    <div class="menu-body-wrapper" >
+    <div class="menu-body-wrapper">
         <ul>
             <li class="menu-body-item" v-for="(item, i) in menuItems" :key="i">
-                    <div class="body-item-title">
-                        <strong>{{ item.name }}</strong>
-                        <span>{{ item.description }}</span>
-                    </div>
-               
+                <div class="body-item-title">
+                    <strong>{{ item.name }}</strong>
+                    <span>{{ item.description }}</span>
+                </div>
 
                 <div class="body-item-main" v-for="(foodItem, idx) in item.foods" :key="idx">
                     <!-- image container  -->
@@ -52,9 +51,18 @@
 </template>
 
 <script>
-import AddToCart from '@/components/shop/AddToCart.vue';
+import AddToCart from '@/components/menu/AddToCart.vue';
+// import BScroll from '@better-scroll/core'
+
 
 export default {
+    data() {
+        return {
+            scroller: null,
+            heightList: [],
+            height: 0,
+        }
+    },
     components: {
         AddToCart
     },
@@ -62,7 +70,7 @@ export default {
         menuItems() {
             return this.$store.getters.doneSelectedShop.menu
         },
-       
+
     },
     methods: {
         increaseNum(selectedFoodItem) {
@@ -71,9 +79,28 @@ export default {
         decreaseNum(selectedFoodItem) {
             selectedFoodItem.count--;
         },
+        getListHeight(){
+
+        }
+        // initScroll() {
+        //     this.scroller = new BScroll('.menu-body-wrapper', {
+        //         click: true,
+        //         probeType: 3,
+        //     });
+        //     // this.scroller.on('scroll', (position) => {
+        //     //     console.log(position.y);
+        //     // })
+        //     console.log(this.scroller)
+        // }
     },
     mounted() {
-        console.log(this.menuItems)
+        // console.log(this.menuItems)
+        // this.$nextTick(() => {
+        //     this.initScroll();
+        // })
+        // const bodyScroller = this.$refs.bodyScroller;
+        
+
     },
 
 }
@@ -85,14 +112,23 @@ export default {
     box-sizing: border-box;
     height: 100%;
     width: 81vw;
-    /* padding-bottom: 10.666667vw; */
+    padding-bottom: 7vh;
+}
+
+.menu-body-item {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.menu-body-item:last-of-type {
+    margin-bottom: 40%;
 }
 .body-item-title {
     /* margin-left: 2.666667vw; */
     padding: 2vw 8vw 2vw 2.6vw;
-    overflow: hidden;
     height: 6vh;
     background-color: #fff;
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -106,7 +142,6 @@ export default {
     font-size: 0.8rem;
     color: #000;
     flex: none;
-
 }
 .body-item-title span {
     flex: 1;
@@ -116,12 +151,11 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 0.9;
-
 }
 .body-item-main {
     height: 30vw;
     padding: 2.6vw;
-    margin-bottom: 0.133333vw;
+    /* margin-bottom: 0.133333vw; */
     display: flex;
     align-items: flex-start;
 }
@@ -195,4 +229,7 @@ export default {
     height: 100%;
 }
 
+::-webkit-scrollbar {
+    width: 0 !important;
+}
 </style>

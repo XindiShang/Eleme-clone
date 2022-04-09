@@ -2,7 +2,13 @@
     <!-- <section class="sidebar-container"> -->
     <div class="sidebar-wrapper">
         <ul>
-            <li class="bar-item" v-for="(item, i) in menuItems" :key="i">
+            <li
+                @click="emitSelectCategory(i)"
+                :class="{'current': i === currentIdx}"
+                class="bar-item"
+                v-for="(item, i) in menuItems"
+                :key="i"
+            >
                 <van-image
                     v-if="item.icon_url"
                     class="menu-icon"
@@ -24,12 +30,22 @@
 </template>
 
 <script>
+
 export default {
+    props: ['currentIdx'],
+    emits: ['selectCategory'],
+
     computed: {
         menuItems() {
             return this.$store.getters.doneSelectedShop.menu
         }
     },
+    methods: {
+        emitSelectCategory(index) {
+            this.$emit('selectCategory', index)
+        }
+    },
+
 
 }
 </script>
@@ -41,16 +57,23 @@ export default {
     background-color: pink;
     display: flex;
 } */
+
+.current {
+    background-color: white;
+    font-weight: bold;
+    color: #000 !important;
+}
+
 .sidebar-wrapper {
-    /* overflow-y: scroll; */
+    overflow-y: auto;
     height: 100%;
     /* bottom cart set to fixed  */
     /* height: calc(100% - 12.8vw); */
     background-color: #f8f8f8;
     padding-left: 4px;
-    padding-bottom: 10.666667vw;
+    padding-bottom: 7vh;
     width: 19vw;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 .bar-item {
     padding: 4.666667vw 2vw;

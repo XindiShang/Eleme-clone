@@ -13,19 +13,23 @@
         <shop-nav v-if="!isLoading" class="shop-nav" />
         <router-view v-if="!isLoading" class="shop-body"></router-view>
 
+        <keep-alive>
+            <shop-cart v-if="!isLoading && showCart"></shop-cart>
+        </keep-alive>
+
         <discount-popup
             v-if="!isLoading"
             :shop="shopInfo"
             :discountIsShown="discountIsShown"
             @close-popup="toggleDiscountShow"
         ></discount-popup>
+
         <shop-info-popup
             v-if="!isLoading"
             :shop="shopInfo"
             :infoIsShown="infoIsShown"
             @close-popup="toggleInfoShow"
         ></shop-info-popup>
-        
     </section>
 </template>
 
@@ -35,6 +39,7 @@ import ShopIntro from '../../components/shop/ShopIntro.vue';
 import DiscountPopup from '../../components/shop/DiscountPopup.vue';
 import ShopInfoPopup from '../../components/shop/ShopInfoPopup.vue';
 import ShopNav from '@/components/shop/ShopNav.vue';
+import ShopCart from '@/components/shop/ShopCart.vue';
 
 export default {
     components: {
@@ -42,7 +47,8 @@ export default {
         ShopIntro,
         DiscountPopup,
         ShopInfoPopup,
-        ShopNav
+        ShopNav,
+        ShopCart
     },
 
 
@@ -61,6 +67,9 @@ export default {
         }
     },
     computed: {
+        showCart() {
+            return this.$route.name !== 'seller';
+        }
 
     },
     methods: {
@@ -117,7 +126,6 @@ export default {
 
     },
     mounted() {
-
         const shop = this.$refs.shop;
         const that = this;
         shop.addEventListener('scroll', function () {
@@ -153,7 +161,6 @@ export default {
     overflow: scroll;
     box-sizing: border-box;
     background-color: #fafafa;
-    
 }
 
 .shop-bg-image {
@@ -177,7 +184,7 @@ export default {
 
 .shop-body {
     position: relative;
-    bottom: 4%;
+    bottom: 3%;
     height: 100%;
     display: initial;
     overflow: scroll;

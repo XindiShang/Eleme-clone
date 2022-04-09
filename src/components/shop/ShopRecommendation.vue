@@ -80,7 +80,6 @@ export default {
     overflow-x: scroll;
     display: flex;
     width: 100%;
-    /* flex-direction: row; */
 }
 
 .recommend-body ul {

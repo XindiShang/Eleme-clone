@@ -91,7 +91,6 @@ export default {
         selectKey(idx) {
             const selects = this.$refs.scrollArea.querySelectorAll('.selectTargets');
             let target = selects[idx];
-
             this.scroll.scrollToElement(target, 250);
 
         }
