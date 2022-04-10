@@ -24,7 +24,7 @@
                     class="use-button"
                     size="small"
                     round
-                    color="linear-gradient(to right, #e0c372, #a87300)"
+                    color="linear-gradient(to right, #dea05b, #bf7a31)"
                     text-color="#fff"
                 >兑换</van-button>
             </div>
@@ -66,7 +66,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     border-radius: 6px;
-    background-color: #f5e19f;
+    background-color: #fbdc9f;
     height: 100%;
 }
 
@@ -77,7 +77,7 @@ export default {
     align-items: flex-end;
     width: 20%;
     margin-right: 6%;
-    color: #59460c;
+    color: #8b511e;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -90,7 +90,7 @@ export default {
     align-items: flex-start;
     width: 80%;
     font-size: 0.7em;
-    color: #59460c;
+    color: #63573c;
 }
 
 .value {
@@ -119,13 +119,13 @@ export default {
 .divider {
     /* height: ; */
     height: 60%;
-    outline: 1px dashed #382b04;
+    outline: 1px dashed #cab07d;
     /* offset: -1px; */
 }
 .coupon-use {
     width: 30%;
     border-radius: 6px;
-    background-color: #f5e19f;
+    background-color: #fbdc9f;
     height: 100%;
     display: flex;
     flex-direction: column;

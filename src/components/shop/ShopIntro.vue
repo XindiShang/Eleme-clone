@@ -42,8 +42,8 @@
                             :key="i"
                             class="coupon"
                             size="large"
-                            color="#f5e19f"
-                            text-color="#524004"
+                            color="linear-gradient(to right, #f9dfac, #eed090)"
+                            text-color="#7d4d1f"
                         >
                             <img class="crown" :src="require('@/assets/crown.png')" alt />
                             ￥
@@ -59,7 +59,7 @@
                                 :key="i"
                                 class="discount mr-2"
                                 plain
-                                color="#f54c4c"
+                                color="#f1525b"
                             >{{ item }}</van-tag>
                         </div>
 
@@ -233,7 +233,7 @@ export default {
     width: 20%;
     justify-content: flex-end;
     align-items: center;
-    color: #7d7d7d;
+    color: #9b9b9b;
 }
 
 .expand-icon {

@@ -28,7 +28,7 @@ export default {
         },
         emitDecrease() {
             this.$emit('decrease');
-        }
+        },
     }
 }
 </script>
@@ -43,12 +43,12 @@ export default {
     align-items: center;
 }
 .add-icon {
-    color: #3ea2fa;
+    color: #00b6fd;
     font-size: 1.4rem;
     margin-left: 10%;
 }
 .minus-icon {
-    color: #3ea2fa;
+    color: #00b6fd;
     font-size: 1.4rem;
 }
 

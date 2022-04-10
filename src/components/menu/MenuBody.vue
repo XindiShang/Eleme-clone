@@ -79,6 +79,7 @@ export default {
         decreaseNum(selectedFoodItem) {
             selectedFoodItem.count--;
         },
+        // emitEmpty(){},
         getListHeight(){
 
         }
@@ -214,7 +215,7 @@ export default {
 .price {
     font-size: 0.7rem;
     line-height: 4.266667vw;
-    color: #ff5339;
+    color: #fe4a32;
     padding-bottom: 0.933333vw;
     display: flex;
     align-items: baseline;

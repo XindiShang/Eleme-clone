@@ -69,7 +69,7 @@ export default {
     height: 100%;
     /* bottom cart set to fixed  */
     /* height: calc(100% - 12.8vw); */
-    background-color: #f8f8f8;
+    background-color: #f1f1f1;
     padding-left: 4px;
     padding-bottom: 7vh;
     width: 19vw;

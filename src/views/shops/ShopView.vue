@@ -51,7 +51,6 @@ export default {
         ShopCart
     },
 
-
     data() {
         return {
             shopInfo: null,

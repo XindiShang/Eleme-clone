@@ -33,6 +33,7 @@
                 <tag-item
                     v-for="(item, i) in discounts"
                     :key="i"
+                    class="discount-tag"
                     :color="discountColor"
                     :title="item.icon_name"
                     :text="item.description"
@@ -74,7 +75,7 @@ export default {
             return date
         },
         discountColor() {
-            return '#f54c4c';
+            return '#fe4d35';
         },
         headerClass() {
             return {
@@ -133,6 +134,7 @@ export default {
     top: 8%;
     padding: 2px 12px;
 }
+
 
 .h3-title {
     font-weight: bold;

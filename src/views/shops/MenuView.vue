@@ -109,6 +109,11 @@ export default {
       that.setCategoryIndex();
     }
 
+  },
+  watch: {
+    shopInfo(){
+      console.log(this.shopInfo)
+    }
   }
 
 }

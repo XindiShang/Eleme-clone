@@ -122,7 +122,7 @@ export default {
 
 .price {
     font-size: 0.6rem;
-    color: #ff5339;
+    color: #fe4a32;
     width: 80%;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -140,7 +140,7 @@ export default {
 }
 
 .add-icon {
-    color: #3ea2fa;
+    color: #00b6fd;
     font-size: 1.4rem;
 }
 
