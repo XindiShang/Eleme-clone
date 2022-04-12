@@ -119,6 +119,7 @@ export default {
 }
 
 .header-text {
+    font-size: 2vh;
     font-weight: bold;
     text-align: center;
 }
@@ -139,7 +140,7 @@ export default {
 .h3-title {
     font-weight: bold;
     margin-bottom: 2%;
-    font-size: 0.84rem;
+    font-size: 1.6vh;
 }
 
 .mb-2 {

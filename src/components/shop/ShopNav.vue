@@ -133,7 +133,7 @@ export default {
 
 .nav-item {
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 1.7vh;
     text-decoration: none;
     color: #000;
     height: 100%;

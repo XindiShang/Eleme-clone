@@ -3,12 +3,11 @@
         <p class="title">当前定位</p>
         <div class="location-bar">
             <div class="location">
-                <span :class="logoClass">{{logo}}</span>
+                <span :class="logoClass">{{ logo }}</span>
                 <span @click="switchPage" class="location-text">{{ result }}</span>
             </div>
             <a href class="relocate" @click="relocate">重新定位</a>
-        </div>
-    </div>
+        </div>  </div>
 </template>
 
 <script>
@@ -54,7 +53,7 @@ export default {
         }
     },
     methods: {
-        switchPage(){
+        switchPage() {
             if (this.isCity) {
                 this.$router.back();
             } else {
@@ -143,11 +142,13 @@ export default {
 .title {
     color: #aaa;
     font-size: 12px;
+    margin-bottom: 2%;
 }
+
 .location-bar {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: center;
     height: 58%;
 }
 
@@ -159,22 +160,26 @@ export default {
 }
 
 .location-text {
+    font-size: 1rem;
     font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 100%;
 }
+
 .relocate {
     text-decoration: none;
-    color: #2b99dd;
-    font-size: 12px;
+    color: #53c1fc;
+    font-size: .86rem;
     position: relative;
+    line-height: 1;
+    margin: auto;
     /* bottom: 4px; */
 }
 
 .logo-blue {
-    color: #2b99dd;
+    color: #46a4ff;
     font-size: 12px;
     margin-right: 2px;
 }

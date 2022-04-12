@@ -64,7 +64,7 @@ export default {
     justify-content: start;
     align-items: center;
     border: none;
-    background-color: #f1f1f1;
+    background-color: #eaeaea;
     border-radius: 20px;
     font-size: 13px;
     padding: 0px;
@@ -77,7 +77,7 @@ export default {
     font-size: 13px;
     line-height: 100%;
     text-decoration: none;
-    color: #2b99dd;
+    color: #53c1fc;
 }
 
 .input-field {
@@ -102,7 +102,7 @@ export default {
 }
 
 .search-icon {
-    color: rgb(73, 72, 72);
+    color: #757575;
     font-size: 16px;
     margin: 2% 0 0 8%;
 }

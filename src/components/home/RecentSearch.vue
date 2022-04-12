@@ -1,6 +1,6 @@
 <template>
 <div class="recent-wrapper">
-    <van-tag v-for="(search, i) in doneSearches" :key="i" color="#ebebeb" text-color="black" round type="primary"> {{search}} </van-tag>
+    <van-tag v-for="(search, i) in doneSearches" :key="i" color="#ececec" text-color="black" round type="primary"> {{search}} </van-tag>
 
 </div>
 </template>

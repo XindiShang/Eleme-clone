@@ -119,7 +119,7 @@ export default {
     overflow: auto;
 }
 .title {
-    color: #aaa;
+    color: #848484;
     padding: 12px 0;
     font-size: 13px;
 }
@@ -131,7 +131,7 @@ export default {
 }
 .hot_city li {
     width: 30%;
-    background: #f1f1f1;
+    background: #f6f6f6;
     margin: 0 8px 8px 0;
     text-align: center;
     padding: 6px;
@@ -146,7 +146,7 @@ export default {
     position: fixed;
     right: 0;
     top: 25%;
-    color: #aaa;
+    color: #7a7a7a;
     font-size: 12px;
     line-height: 1.4;
     text-align: center;

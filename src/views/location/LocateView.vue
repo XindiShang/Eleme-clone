@@ -151,7 +151,7 @@ export default {
     justify-content: start;
     align-items: center;
     border: none;
-    background-color: #f1f1f1;
+    background-color: #eaeaea;
     border-radius: 20px;
     font-size: 13px;
     padding: 0px;
@@ -203,7 +203,7 @@ export default {
 }
 
 .search-icon {
-    color: rgb(73, 72, 72);
+    color: #757575;
     font-size: 16px;
 }
 

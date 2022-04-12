@@ -60,7 +60,7 @@
                 </div>
                 <!-- 5 discounts -->
                 <div class="last-row">
-                    <van-tag color="#f73e00" plain type="primary">{{ randTag }}</van-tag>
+                    <van-tag color="#f1525b" plain type="primary">{{ randTag }}</van-tag>
                 </div>
             </div>
         </div>
@@ -254,7 +254,7 @@ export default {
 
 }
 .comma {
-    background-color: #ffe4ca;
+    background-color: #faefe3;
     color: #ffad60;
     padding: 1.2%;
     border-radius: 5px;

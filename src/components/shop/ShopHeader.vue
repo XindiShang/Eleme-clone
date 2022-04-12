@@ -125,7 +125,7 @@ export default {
     background-color: transparent;
     max-width: 100%;
     width: 100%;
-    z-index: 10;
+    z-index: 4;
     position: fixed;
     top: 0;
     left: 0;

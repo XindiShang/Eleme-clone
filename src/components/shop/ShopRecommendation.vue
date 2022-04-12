@@ -4,15 +4,8 @@
 
         <div class="recommend-body">
             <ul>
-                <li v-for="(item, idx) in recommendation.items" :key="idx">
-                    <van-image
-                        class="recommend-img"
-                        fit="cover"
-                        radius="6px"
-                        lazy-load
-                        :src="item.image_path"
-                        alt
-                    />
+                <li @click="switchDetails(item)" v-for="(item, idx) in recommendation.items" :key="idx">
+                    <van-image class="recommend-img" fit="cover" radius="6px" lazy-load :src="item.image_path" alt />
                     <div class="recommend-description">
                         <div class>
                             <p class="des-title">{{ item.name }}</p>
@@ -33,19 +26,15 @@
                             <span class="price-old">￥{{ item.activity.fixed_price * 2 }}</span>
                         </div>
                         <div class="add">
-                            <span
-                                class="add-icon material-icons-outlined"
-                                @click="increase(item)"
-                            >add_circle</span>
-                            <div v-show="item.count > 0" class="count-container">
-                                <span class="count-num">{{ item.count }}</span>
+                            <span class="add-icon material-icons-outlined" @click.stop="increase(item)">add_circle</span>
+                            <div v-show="count(item) > 0" class="count-container">
+                                <span class="count-num">{{ count(item) }}</span>
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
-        </div>
-    </div>
+        </div>  </div>
 </template>
 
 <script>
@@ -53,13 +42,37 @@ export default {
     computed: {
         recommendations() {
             return this.$store.getters.doneSelectedShop.recommend
-        }
+        },
+
     },
     methods: {
+        count(foodItem) {
+            const cart = this.$store.getters.doneCart;
+            if (cart.length === 0) {
+                return 0;
+            } else {
+                for (let item of cart) {
+                    if (item.id === foodItem.item_id) {
+                        return item.count;
+                    }
+                }
+                return 0;
+            }
+        },
         increase(foodItem) {
             foodItem.count++;
+            const cartItem = {
+                id: foodItem.item_id,
+                name: foodItem.name,
+                count: foodItem.count,
+                price: foodItem.activity.fixed_price,
+                img: foodItem.image_path,
+            }
 
-
+            this.$store.dispatch('getCartItem', cartItem);
+        },
+        switchDetails(item) {
+            this.$router.push({ name: 'foodDetails', params: { foodId: item.item_id, foodItem: JSON.stringify(item) } })
         }
     }
 }
@@ -72,10 +85,11 @@ export default {
 }
 
 .recommend-title {
-    font-size: 0.8rem;
+    font-size: 1.5vh;
     font-weight: bold;
     margin-bottom: 1%;
 }
+
 .recommend-body {
     overflow-x: scroll;
     display: flex;
@@ -85,6 +99,7 @@ export default {
 .recommend-body ul {
     display: flex;
 }
+
 .recommend-body ul li {
     flex: none;
     width: 28vw;
@@ -97,17 +112,19 @@ export default {
     height: 28vw;
     border-radius: 4px;
 }
+
 .recommend-description .des-title {
     color: #333;
-    font-size: 0.8rem;
+    font-size: 1.55vh;
     margin: 3% 0 2%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
 .des-subtitle {
     color: #999;
-    font-size: 0.6rem;
+    font-size: 1vh;
     margin-bottom: 2%;
     min-height: 1em;
     display: flex;
@@ -121,7 +138,7 @@ export default {
 }
 
 .price {
-    font-size: 0.6rem;
+    font-size:1vh;
     color: #fe4a32;
     width: 80%;
     white-space: nowrap;
@@ -130,7 +147,7 @@ export default {
 }
 
 .price-bold {
-    font-size: 1rem;
+    font-size: 2vh;
     font-weight: bold;
 }
 
@@ -141,7 +158,7 @@ export default {
 
 .add-icon {
     color: #00b6fd;
-    font-size: 1.4rem;
+    font-size: 3vh;
 }
 
 .add {

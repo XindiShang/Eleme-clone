@@ -123,7 +123,7 @@ export default {
 .city {
     height: 100%;
     /* width: 100; */
-    background-color: #f1f1f1;
+    background-color: #eaeaea;
     overflow: auto;
     box-sizing: border-box;
     padding-top: 45px;

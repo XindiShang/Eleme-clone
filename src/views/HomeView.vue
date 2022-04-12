@@ -241,7 +241,7 @@ export default {
   height: 28px;
   display: flex;
   justify-content: space-between;
-  border: 1px solid rgb(14, 179, 255);
+  border: 1px solid #53c1fc;
   border-radius: 20px;
   font-size: 13px;
   /* padding: 6px 0 0 0; */
@@ -258,7 +258,7 @@ export default {
 }
 
 .search-bar-left span {
-  color: rgb(14, 179, 255);
+  color: #53c1fc;
   margin: 0 4px;
 }
 .search-text {
@@ -291,7 +291,7 @@ export default {
   border-radius: 20px;
   border: none;
   padding: 0;
-  background-image: linear-gradient(to right, #69bee6, #29a9db, #2b99dd);
+  background-image: linear-gradient(to right, #54c5ff, #4bbbfa, #46aef7);
   color: white;
   font-weight: 200;
 }

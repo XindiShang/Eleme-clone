@@ -99,6 +99,7 @@ export default {
 }
 .header-text {
     width: 90%;
+    font-size: 2vh;
     font-weight: bold;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -119,14 +120,14 @@ export default {
 }
 
 .announcement {
-    font-size: 0.7rem;
+    font-size: 1.5vh;
     color: #474646;
 }
 
 .h3-title {
     font-weight: bold;
     margin-bottom: 2%;
-    font-size: 0.84rem;
+    font-size: 1.6vh;
 }
 
 .mb-2 {

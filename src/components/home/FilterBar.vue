@@ -322,13 +322,13 @@ export default {
 .filter-check {
     font-size: 13px;
     float: right;
-    color: rgb(14, 179, 255);
+    color: #53c1fc;
     margin-right: 3.733333vw;
     line-height: 7vw;
 }
 
 .name-selected {
-    color: rgb(14, 179, 255);
+    color: #53c1fc;
 }
 /* 筛选 */
 .filter-sort {
@@ -411,13 +411,13 @@ export default {
 }
 .morefilter-ok {
     color: #fff;
-    background: rgb(14, 179, 255);
-    border: 0.133333vw solid rgb(14, 179, 255);
+    background: #3ea1fe;
+    border: 0.133333vw solid #3ea1fe;
 }
 
 .selected {
-    color: #3190e8 !important;
-    background-color: #edf5ff !important;
+    color: #3ea1fe;
+    background-color: #e6f4ff;
 }
 
 .edit {

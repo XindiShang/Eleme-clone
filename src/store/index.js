@@ -14,6 +14,7 @@ export default createStore({
     filterData: null,
     allShops: [],
     selectedShop: {},
+    cart: [],
   },
   getters: {
     doneAddress(state) {
@@ -46,6 +47,10 @@ export default createStore({
     },
     doneSelectedShop(state) {
       return state.selectedShop;
+    },
+    doneCart(state) {
+      return state.cart;
+
     }
   },
   mutations: {
@@ -112,7 +117,30 @@ export default createStore({
     },
     setSelectedShop(state, payload) {
       state.selectedShop = payload;
+    },
+    setCartItem(state, payload) {
+      if (state.cart.length === 0) {
+        state.cart.push(payload);
+      } else {
+        for (let item of state.cart) {
+          if (item.id === payload.id) {
+            item.count = payload.count;
+            if (payload.count === 0) {
+              let idx = state.cart.indexOf(item);
+              state.cart.splice(idx, 1);
+            }
+            return;
+          }
+        }
+        state.cart.push(payload);
+
+      }
+    },
+    clearCart(state) {
+      state.cart = [];
+      
     }
+
   },
   actions: {
     getAddress(context, payload) {
@@ -144,6 +172,13 @@ export default createStore({
     },
     getSelectedShop(context, payload) {
       context.commit('setSelectedShop', payload);
+    },
+    getCartItem(context, payload) {
+      context.commit('setCartItem', payload);
+
+    },
+    resetCart(context) {
+      context.commit('clearCart');
     }
 
   },

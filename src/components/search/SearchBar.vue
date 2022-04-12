@@ -62,7 +62,7 @@ export default {
     justify-content: space-between;
     align-items: center; */
     padding: 8px 12px;
-    background-color: #f1f1f1;
+    background-color: #f6f6f6;
 }
 .search-bar {
     width: 100%;

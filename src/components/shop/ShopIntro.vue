@@ -6,14 +6,8 @@
                     <div class="title-left">
                         <h2 class="shop-title mb-2">{{ shop.rst.name }}</h2>
                         <div class="shop-details">
-                            <van-tag
-                                v-if="isExclusive"
-                                class="mr-2 exclusive-tag"
-                                plain
-                                text-color="#38bdf2"
-                                color="#e8f7fc"
-                                size="medium"
-                            >蓝骑士专送</van-tag>
+                            <van-tag v-if="isExclusive" class="mr-2 exclusive-tag" plain text-color="#38bdf2"
+                                color="#e8f7fc" size="medium">蓝骑士专送</van-tag>
                             <p class="mr-2">约{{ shop.rst.order_lead_time }}分钟</p>
                             <p class="mr-2">·</p>
                             <p>月售{{ shop.rst.recent_order_num }}</p>
@@ -21,13 +15,7 @@
                     </div>
 
                     <div class="title-right">
-                        <van-image
-                            class="shop-img"
-                            lazy-load
-                            fit="cover"
-                            :src="shop.rst.image_path"
-                            alt
-                        />
+                        <van-image class="shop-img" lazy-load fit="cover" :src="shop.rst.image_path" alt />
                     </div>
                 </div>
 
@@ -37,14 +25,8 @@
                     </div>
 
                     <div v-if="shop.redpack" class="second-row mb-2">
-                        <van-tag
-                            v-for="(pack, i) in shop.redpack"
-                            :key="i"
-                            class="coupon"
-                            size="large"
-                            color="linear-gradient(to right, #f9dfac, #eed090)"
-                            text-color="#7d4d1f"
-                        >
+                        <van-tag v-for="(pack, i) in shop.redpack" :key="i" class="coupon" size="large"
+                            color="linear-gradient(to right, #f9dfac, #eed090)" text-color="#7d4d1f">
                             <img class="crown" :src="require('@/assets/crown.png')" alt />
                             ￥
                             <span class="font-larger">{{ pack.value }}</span>
@@ -54,13 +36,8 @@
 
                     <div v-if="hasDiscount" class="last-row">
                         <div class="discount-left">
-                            <van-tag
-                                v-for="(item, i) in discountsShown"
-                                :key="i"
-                                class="discount mr-2"
-                                plain
-                                color="#f1525b"
-                            >{{ item }}</van-tag>
+                            <van-tag v-for="(item, i) in discountsShown" :key="i" class="discount mr-2" plain
+                                color="#f1525b">{{ item }}</van-tag>
                         </div>
 
                         <div class="expand">
@@ -71,7 +48,7 @@
                 </div>
             </div>
         </div>
-    </section>
+        </section>
 </template>
 
 <script>
@@ -168,7 +145,7 @@ export default {
 
 .shop-title {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 2.26vh;
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -178,6 +155,7 @@ export default {
 .exclusive-tag {
     border-radius: 4px;
 }
+
 .shop-details {
     display: flex;
     justify-content: flex-start;
@@ -185,17 +163,18 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 0.8rem;
+    font-size: 1.5vh;
 }
+
 .shop-img {
-    width: 3rem;
+    width: 16vw;
     border: 1px solid rgb(228, 225, 225);
     border-radius: 6px;
     overflow: hidden;
 }
 
 .announcement {
-    font-size: 0.8rem;
+    font-size: 1.5vh;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -203,11 +182,17 @@ export default {
 }
 
 .crown {
-    width: 0.94rem;
+    width: 1.8vh;
+}
+
+.font-larger {
+    font-size: 2vh;
+    font-weight: bold;
+    margin-right: 4px;
 }
 
 .coupon {
-    font-size: 0.76rem;
+    font-size: 1.4vh;
     line-height: 1;
 }
 
@@ -229,7 +214,7 @@ export default {
 
 .expand {
     display: flex;
-    font-size: 0.8rem;
+    font-size: 1.5vh;
     width: 20%;
     justify-content: flex-end;
     align-items: center;
@@ -237,7 +222,7 @@ export default {
 }
 
 .expand-icon {
-    font-size: 0.9rem;
+    font-size: 1.8vh;
 }
 
 /* helper classes */
@@ -247,11 +232,5 @@ export default {
 
 .mb-2 {
     margin-bottom: 2%;
-}
-
-.font-larger {
-    font-size: 1.08rem;
-    font-weight: bold;
-    margin-right: 4px;
 }
 </style>

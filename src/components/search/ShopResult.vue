@@ -5,7 +5,7 @@
         <div class="shop-wrapper">
             <div class="top-row mb-1">
                 <span ref="shopName" class="mr-1">{{ shop.name }}</span>
-                <van-tag v-if="showTag" text-color="#0EB3FF" plain color="#ededed">蓝骑士专送</van-tag>
+                <van-tag v-if="showTag" text-color="#47b6fd" plain color="#ededed">蓝骑士专送</van-tag>
             </div>
 
             <div class="bottom-row mb-2">

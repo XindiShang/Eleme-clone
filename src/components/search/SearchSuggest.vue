@@ -9,8 +9,8 @@
                 <van-tag
                     v-for="(search, i) in item.body"
                     :key="i"
-                    color="#ebebeb"
-                    text-color="black"
+                    color="#f6f6f6"
+                    text-color="#656565"
                     round
                     type="primary"
                 >{{ search }}</van-tag>

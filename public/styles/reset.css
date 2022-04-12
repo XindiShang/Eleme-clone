@@ -108,7 +108,7 @@ li {list-style: none}
 
 hr { -moz-box-sizing: content-box; box-sizing: content-box;height: 0; }
 
-mark { background: transparent; color: rgb(14, 179, 255); }
+mark { background: transparent; color: #47b6fd; }
 
 code, kbd, pre, samp { font-family: monospace, serif; font-size: 1em; }
 

@@ -1,36 +1,28 @@
 <template>
     <section class="shop" ref="shop">
-        <shop-header :early="early" :mid="mid" :late="late" :final="final"></shop-header>
-        <van-image class="shop-bg-image" lazy-load fit="cover" :src="shopBackground" />
-        <shop-intro
-            @show-discount="toggleDiscountShow"
-            @show-info="toggleInfoShow"
-            v-if="!isLoading"
-            :shop="shopInfo"
-            class="shop-info"
-        ></shop-intro>
+        <shop-header v-if="!isDetails" :early="early" :mid="mid" :late="late" :final="final"></shop-header>
+        <van-image v-if="!isDetails" class="shop-bg-image" lazy-load fit="cover" :src="shopBackground" />
 
-        <shop-nav v-if="!isLoading" class="shop-nav" />
-        <router-view v-if="!isLoading" class="shop-body"></router-view>
+        <shop-intro @show-discount="toggleDiscountShow" @show-info="toggleInfoShow" v-if="!isLoading && !isDetails"
+            :shop="shopInfo" class="shop-info"></shop-intro>
+
+        <shop-nav v-if="!isLoading && !isDetails" class="shop-nav" />
+        <router-view @share="hideCart" v-if="!isLoading" class="shop-body"></router-view>
 
         <keep-alive>
-            <shop-cart v-if="!isLoading && showCart"></shop-cart>
+            <shop-cart v-if="!isLoading && showCart && !shareIsOn"></shop-cart>
         </keep-alive>
 
-        <discount-popup
-            v-if="!isLoading"
-            :shop="shopInfo"
-            :discountIsShown="discountIsShown"
-            @close-popup="toggleDiscountShow"
-        ></discount-popup>
+        <div v-if="!isLoading && !isDetails" class="">
+            <discount-popup :shop="shopInfo" :discountIsShown="discountIsShown" @close-popup="toggleDiscountShow">
+            </discount-popup>
 
-        <shop-info-popup
-            v-if="!isLoading"
-            :shop="shopInfo"
-            :infoIsShown="infoIsShown"
-            @close-popup="toggleInfoShow"
-        ></shop-info-popup>
-    </section>
+            <shop-info-popup :shop="shopInfo" :infoIsShown="infoIsShown" @close-popup="toggleInfoShow">
+            </shop-info-popup>
+        </div>
+
+
+        </section>
 </template>
 
 <script>
@@ -62,12 +54,16 @@ export default {
             final: false,
             discountIsShown: false,
             infoIsShown: false,
+            shareIsOn: false,
 
         }
     },
     computed: {
         showCart() {
             return this.$route.name !== 'seller';
+        },
+        isDetails() {
+            return this.$route.name === 'foodDetails';
         }
 
     },
@@ -83,6 +79,9 @@ export default {
                 })
                 res.data.menu.forEach(category => {
                     category.foods.forEach(foodItem => {
+                        if (foodItem.activity.fixed_price < 0) {
+                            foodItem.activity.fixed_price *= -1;
+                        }
                         foodItem.count = 0
                     })
                 })
@@ -116,6 +115,9 @@ export default {
         },
         toggleInfoShow() {
             this.infoIsShown = !this.infoIsShown;
+        },
+        hideCart() {
+            this.shareIsOn = true;
         }
 
     },
@@ -145,7 +147,6 @@ export default {
             } else {
                 that.early = false;
             }
-            // console.log(shop.scrollTop)
         })
     }
 
