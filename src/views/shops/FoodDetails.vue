@@ -52,16 +52,16 @@
         </div>
 
         <div class="filters-container mb-1">
-          <a :class="{ 'review-filter-active': currentFilter === i }" v-for="(filter, i) in reviewFilters" :key="i"
+          <a @click="setFilter(i)" :class="{ 'review-filter-active': currentFilter === i }" v-for="(filter, i) in reviewFilters" :key="i"
             class="review-filter">{{ filter.name }} <span v-if="i === 0">{{ randNum }}</span> </a>
         </div>
       </div>
 
       <div class="review-skim">
-        <span v-if="isSkimmed" class="checked mr-1 material-icons">
+        <span @click="toggleSkim" v-if="isSkimmed" class="checked mr-1 material-icons">
           check_circle
         </span>
-        <span v-else class="uncheck mr-1 material-icons-outlined">
+        <span @click="toggleSkim" v-else class="uncheck mr-1 material-icons-outlined">
           radio_button_unchecked
         </span>
         <p class="skim-text">只看有内容的评价</p>
