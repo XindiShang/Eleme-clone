@@ -52,8 +52,9 @@
         </div>
 
         <div class="filters-container mb-1">
-          <a @click="setFilter(i)" :class="{ 'review-filter-active': currentFilter === i }" v-for="(filter, i) in reviewFilters" :key="i"
-            class="review-filter">{{ filter.name }} <span v-if="i === 0">{{ randNum }}</span> </a>
+          <a @click="setFilter(i)" :class="{ 'review-filter-active': currentFilter === i }"
+            v-for="(filter, i) in reviewFilters" :key="i" class="review-filter">{{ filter.name }} <span
+              v-if="i === 0">{{ randNum }}</span> </a>
         </div>
       </div>
 
@@ -67,7 +68,8 @@
         <p class="skim-text">只看有内容的评价</p>
       </div>
     </section>
-    <van-share-sheet class="share-panel" v-model:show="showShare" title="分享到" :options="options" @select="onSelect" />  </div>
+    <van-share-sheet class="share-panel" v-model:show="showShare" duration="0.15" close-on-popstate title="分享到" :options="options" @select="onSelect" />
+  </div>
 </template>
 
 <script>
@@ -143,16 +145,13 @@ export default {
     onSelect(option) {
       Toast(option.name);
     },
-    emitShare() {
-      this.$emit('share')
-    }
-  },
-  mounted() {
-    if (this.showShare == true) {
-      this.emitShare();
-    }
-  },
 
+  },
+  watch: {
+    showShare(val) {
+      this.$emit('share', val)
+    }
+  }
 
 }
 </script>

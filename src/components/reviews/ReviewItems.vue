@@ -39,8 +39,9 @@
       <!-- user review images  -->
       <div v-if="user.order_images">
         <div v-if="user.order_images.length > 0" class="rating-images mb-1">
-          <van-image class="rating-image" radius="4" v-for="(img, idx) in user.order_images" :key="idx"
-            :src="img.image_hash"></van-image>
+          <van-image @click="show = true" class="rating-image" radius="4" v-for="(img, idx) in user.order_images"
+            :key="idx" :src="img.image_hash"></van-image>
+
         </div>
       </div>
 
@@ -76,6 +77,7 @@
         </div>
       </div>
 
+
     </div>
 
     <p class="end-of-reviews">没有更多了</p>
@@ -86,21 +88,38 @@
 
 <script>
 export default {
-  props: ['reviews'],
+  props: ['comments'],
   data() {
     return {
-      comments: this.reviews.comments
+      // comments: this.reviews.comments,
+      show: false,
     }
   },
   computed: {
+
   },
   methods: {
     formatNum(num) {
       return parseFloat(num.toFixed(1));
     },
+    formattedImages(arr) {
+      let imgs = [];
+
+      if (arr.length === 0) {
+        return imgs;
+      } else {
+        for (let imgItem of arr) {
+          imgs.push(imgItem.image_hash)
+        }
+        return imgs;
+
+      }
+
+    }
+
   },
   mounted() {
-    // console.log(this.comments)
+    console.log(this.comments)
   },
 
 }
@@ -270,5 +289,4 @@ export default {
 .mb-2 {
   margin-bottom: 2vh;
 }
-
 </style>

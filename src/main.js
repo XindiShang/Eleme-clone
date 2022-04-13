@@ -1,6 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { Toast, Button, Tag, Sticky, Image as VanImage, Lazyload, Badge, PullRefresh, List, Swipe, SwipeItem, Popup, NoticeBar, Tab, Tabs, Overlay, ShareSheet, Rate  } from 'vant';
+import {
+    Toast, Button, Tag, Sticky, Image as VanImage,
+    Lazyload, Badge, PullRefresh, List, Swipe, SwipeItem,
+    Popup, NoticeBar, Tab, Tabs, Overlay, ShareSheet, Rate, ImagePreview,
+    ActionSheet 
+} from 'vant';
 import router from './router'
 import store from './store'
 import axios from 'axios';
@@ -27,6 +32,8 @@ app.use(Tabs);
 app.use(Overlay);
 app.use(ShareSheet);
 app.use(Rate);
+app.use(ImagePreview);
+app.use(ActionSheet);
 
 
 axios.interceptors.request.use(config => {

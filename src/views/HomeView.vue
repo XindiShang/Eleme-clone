@@ -37,7 +37,7 @@
       </van-swipe>
     </div>
 
-    <!-- 商家筛选 -->
+    <!-- shop filter nav -->
     <van-sticky :offset-top="50">
       <filter-bar
         @lift="scrollToShops"
@@ -46,9 +46,7 @@
         @searchFixed="showFilters"
       ></filter-bar>
     </van-sticky>
-    <!-- <div :class="{ 'filter-on': isShown }" style="height: 2000px">
-      
-    </div>-->
+
     <shop-list :condition="conditionPassed"></shop-list>
   </div>
 </template>

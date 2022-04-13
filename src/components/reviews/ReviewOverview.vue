@@ -36,7 +36,7 @@
       <div class="review-tags mb-1">
         <a v-for="(tag, i) in tags" :key="i" @click="setFilter(i)" :class="{ 'tag-item-active': currentFilter === i }"
           class="tag-item">
-          {{ tag.name }}<span>{{ tag.count }}</span>
+          {{ tag.name }}<span v-if="tag.count > 0">{{ tag.count }}</span>
         </a>
       </div>
 
@@ -59,6 +59,7 @@
 <script>
 export default {
   props: ['reviews'],
+  emits: ['setFilter'],
   data() {
     return {
       overallRating: this.reviews.rating.overall_score,
@@ -99,6 +100,7 @@ export default {
     },
     setFilter(filterId) {
       this.currentFilter = filterId;
+      this.$emit('setFilter', filterId)
     },
   },
 

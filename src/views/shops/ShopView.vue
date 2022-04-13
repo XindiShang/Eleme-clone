@@ -124,8 +124,8 @@ export default {
         toggleInfoShow() {
             this.infoIsShown = !this.infoIsShown;
         },
-        hideCart() {
-            this.shareIsOn = true;
+        hideCart(payload) {
+            this.shareIsOn = payload;
         }
 
     },
