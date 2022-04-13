@@ -11,7 +11,7 @@
 
                 <div class="nav-item-container mr-2">
                     <router-link
-                        @click="activate('review')"
+                        @click="activate('reviews')"
                         :to="{ name: 'reviews' }"
                         class="nav-item"
                     >
@@ -72,8 +72,8 @@ export default {
         },
         reviewLine() {
             return {
-                'underline': this.activeName === 'review',
-                'base-line': this.activeName !== 'review'
+                'underline': this.activeName === 'reviews',
+                'base-line': this.activeName !== 'reviews'
             }
         },
         sellerLine() {
@@ -87,7 +87,10 @@ export default {
         activate(name) {
             this.activeName = name;
         }
-    }
+    },
+    mounted() {
+        this.activate(this.$route.name)
+    },
 }
 </script>
 

@@ -1,18 +1,12 @@
 <template>
     <section class="shop" ref="shop">
+        <!-- header part  -->
         <shop-header v-if="!isDetails" :early="early" :mid="mid" :late="late" :final="final"></shop-header>
         <van-image v-if="!isDetails" class="shop-bg-image" lazy-load fit="cover" :src="shopBackground" />
-
         <shop-intro @show-discount="toggleDiscountShow" @show-info="toggleInfoShow" v-if="!isLoading && !isDetails"
             :shop="shopInfo" class="shop-info"></shop-intro>
 
-        <shop-nav v-if="!isLoading && !isDetails" class="shop-nav" />
-        <router-view @share="hideCart" v-if="!isLoading" class="shop-body"></router-view>
-
-        <keep-alive>
-            <shop-cart v-if="!isLoading && showCart && !shareIsOn"></shop-cart>
-        </keep-alive>
-
+        <!-- header popups -->
         <div v-if="!isLoading && !isDetails" class="">
             <discount-popup :shop="shopInfo" :discountIsShown="discountIsShown" @close-popup="toggleDiscountShow">
             </discount-popup>
@@ -21,8 +15,22 @@
             </shop-info-popup>
         </div>
 
+        <!-- navbar  -->
+        <shop-nav v-if="!isLoading && !isDetails" class="shop-nav" />
 
-        </section>
+        <!-- nav content: 1. menu 2. reviews 3. seller info  -->
+        <router-view @share="hideCart" v-if="!isLoading" class="shop-body" v-slot="{ Component }">
+            <transition name="slide">
+                <component :is="Component" />
+            </transition>
+        </router-view>
+
+        <!-- shopping cart for menu and reviews section  -->
+        <keep-alive>
+            <shop-cart v-if="!isLoading && showCart && !shareIsOn"></shop-cart>
+        </keep-alive>
+
+    </section>
 </template>
 
 <script>
@@ -155,6 +163,20 @@ export default {
 </script>
 
 <style scoped>
+.slide-leave-active,
+.slide-enter-active {
+    transition: .5s ease;
+}
+
+.slide-enter-from {
+    transform: translate(100%, 0);
+}
+
+.slide-leave-to {
+    transform: translate(-100%, 0);
+}
+
+
 .shop {
     width: 100%;
     height: 100vh;

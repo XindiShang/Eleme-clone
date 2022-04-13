@@ -14,7 +14,7 @@ const ShopView = () => import('../views/shops/ShopView.vue');
 const MenuView = () => import('../views/shops/MenuView.vue');
 const CommentView = () => import('../views/shops/CommentView.vue');
 const SellerView = () => import('../views/shops/SellerView.vue');
-const FoodDetails = () => import('../views/shops/FoodDetails.vue');
+const FoodDetailsView = () => import('../views/shops/FoodDetailsView.vue');
 
 const routes = [
   {
@@ -94,9 +94,9 @@ const routes = [
       {
         path: 'menu/:foodId',
         name: 'foodDetails',
-        component: FoodDetails,
-        props: true
-
+        component: FoodDetailsView,
+        props: true,
+        // meta: { transition: 'slide' },
       },
 
       {

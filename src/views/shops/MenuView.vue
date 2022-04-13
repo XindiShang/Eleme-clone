@@ -111,7 +111,7 @@ export default {
 
   },
   watch: {
-    shopInfo(){
+    shopInfo() {
       console.log(this.shopInfo)
     }
   }
@@ -120,6 +120,18 @@ export default {
 </script>
 
 <style scoped>
+.slide-leave-active,
+.slide-enter-active {
+  transition: .4s;
+}
+.slide-enter {
+  transform: translate(-100%, 0);
+}
+.slide-leave-to {
+  transform: translate(100%, 0);
+}
+
+
 .menu {
   width: 100%;
   box-sizing: border-box;

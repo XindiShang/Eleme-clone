@@ -211,7 +211,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   margin-bottom: 2vh;
-  /* align-items: space-between; */
 }
 
 .card-title {
