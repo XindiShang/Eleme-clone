@@ -2,32 +2,36 @@
 
     <div class="add-to-cart">
 
-        <span v-if="count > 0" @click.stop="emitChangeNUm(-1)"
-            class="minus-icon material-icons-outlined">remove_circle_outline</span>
-        <span v-if="count > 0" class="count-num">{{ count }}</span>
-        <span @click.stop="emitChangeNUm(1)" class="add-icon material-icons-outlined">add_circle</span>
-        <!-- <span v-if="boom" class="add-icon-after material-icons-outlined">add_circle</span> -->
+        <div v-if="haveInitializer && count === 0" @click.stop="emitChangeNUm(1)" class="initial-btn">
+            <span>加入购物车</span>
+        </div>
 
-        <!-- <div class="count-container">
-            <span class="count-num">{{ item.count }}</span>
-        </div>-->
+        <div v-else class="action-box">
+            <span v-if="count > 0" @click.stop="emitChangeNUm(-1)"
+                class="minus-icon material-icons-outlined">remove_circle_outline</span>
+            <span v-if="count > 0" class="count-num">{{ count }}</span>
+            <span @click.stop="emitChangeNUm(1)" id="cart-add-icon" :class="{ 'add-icon-active': toss }"
+                class="add-icon material-icons-outlined">add_circle</span>
+        </div>
+
+
     </div>
 
-    
+
 </template>
 
 <script>
+import debounce from 'lodash.debounce';
+
 export default {
-    props: ['item', 'isFromCart'],
+    props: ['item', 'isFromCart', 'haveInitializer'],
     data() {
         return {
-            // boom: false
+            toss: false,
+            timer: null,
         }
     },
     computed: {
-        // recommendations() {
-        //     return this.$store.getters.doneSelectedShop.recommend
-        // }
         count() {
             const cart = this.$store.getters.doneCart;
             if (cart.length === 0) {
@@ -39,9 +43,12 @@ export default {
     },
     methods: {
         emitChangeNUm(n) {
-            // if (n === 1) {
-            //     this.boom = true;
-            // }
+            if (n === 1) {
+                this.toss = false
+                this.debouncedToss();
+                this.debouncedCancelToss()
+
+            }
             let cartItem;
             if (this.isFromCart) {
                 cartItem = {
@@ -62,8 +69,17 @@ export default {
                 }
             }
             this.$store.dispatch('getCartItem', cartItem);
-            // this.boom = false;
         },
+        debouncedToss: debounce(
+            function () {
+                this.toss = true;
+            }, 100
+        ),
+        debouncedCancelToss: debounce(
+            function () {
+                this.toss = false;
+            }, 500
+        ),
         getCount() {
             const cart = this.$store.getters.doneCart;
             if (this.isFromCart) {
@@ -80,7 +96,7 @@ export default {
                 }
             }
             return 0;
-        }
+        },
     }
 }
 </script>
@@ -95,12 +111,31 @@ export default {
     align-items: center;
 }
 
+.action-box {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
+}
+
+.initial-btn {
+    width: 76%;
+    text-align: center;
+    background-color: #00b6fd;
+    color: #fff;
+    font-size: 1.6vh;
+    padding: 3% 4%;
+    border-radius: 20px;
+}
 
 .minus-icon {
     color: #00b6fd;
     font-size: 3vh;
-
+    animation: roll .2s;
+    animation-iteration-count: 1
 }
 
 .count-num {
@@ -112,46 +147,55 @@ export default {
     color: #00b6fd;
     font-size: 3vh;
     margin-left: 10%;
-    /* animation: bounceLeft 5s ease-in-out; */
-
 }
 
-/* .add-icon-after {
+
+.add-icon-active::after {
     color: #00b6fd;
-    font-size: 1.4rem;
+    font-size: 3vh;
     margin-left: 10%;
+    z-index: 1;
+    animation: bounceLeft .4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    content: 'add_circle';
     position: absolute;
-    z-index: -1;
-    animation: bounceLeft 1s ease-in-out;
-} */
+    right: 0;
+}
 
+@keyframes roll {
+    0% {
+        transform: rotate(90deg) translate(0, -40px);
+        opacity: .1;
+    }
 
+    25% {
+        transform: rotate(90deg) translate(0, -30px);
+        opacity: .3;
+    }
 
-/* .add-icon::after {
-    color: #00b6fd;
-    font-size: 1.4rem;
-    margin-left: 10%;
-} */
-/* .add-icon:active {
-    color: #00b6fd;
-    font-size: 1.4rem;
-    margin-left: 10%;
-    animation: bounceLeft 5s ease-in-out;;
+    50% {
+        transform: rotate(90deg) translate(0, -20px);
+        opacity: .5;
+    }
+
+    100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
 }
 
 @keyframes bounceLeft {
     0% {
         transform: translate(0, 0);
-        background-color: red;
     }
 
-    50% {
-        transform: translate(-25vw, -50vw);
-        background-color: red;
+    30% {
+        transform: translate(-25vw, -10vh);
+        opacity: .4;
     }
 
     100% {
-        transform: translate(-50vw, 0);
+        transform: translate(-40vw, 0);
+        opacity: 0;
     }
-} */
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <van-sticky offset-top="2.3rem">
+    <van-sticky offset-top="6.8vh">
         <div class="nav">
             <div class="nav-left">
                 <div class="nav-item-container mr-4">
@@ -10,22 +10,14 @@
                 </div>
 
                 <div class="nav-item-container mr-2">
-                    <router-link
-                        @click="activate('reviews')"
-                        :to="{ name: 'reviews' }"
-                        class="nav-item"
-                    >
+                    <router-link @click="activate('reviews')" :to="{ name: 'reviews' }" class="nav-item">
                         <p class="nav-title">评价</p>
                     </router-link>
                     <span :class="reviewLine" class="material-icons-outlined">maximize</span>
                 </div>
 
                 <div class="nav-item-container">
-                    <router-link
-                        @click="activate('seller')"
-                        :to="{ name: 'seller' }"
-                        class="nav-item"
-                    >
+                    <router-link @click="activate('seller')" :to="{ name: 'seller' }" class="nav-item">
                         <p class="nav-title">商家</p>
                     </router-link>
                     <span :class="sellerLine" class="material-icons-outlined">maximize</span>
@@ -33,27 +25,14 @@
             </div>
 
             <div class="nav-right">
-                <van-tag plain round color="#38bdf2" size="medium">好友拼单</van-tag>
+                <div class="friend-btn">
+                    <span>好友拼单</span>
+
+                </div>
             </div>
         </div>
     </van-sticky>
 
-    <!-- <div class>
-        <van-tabs swipeable line-width="20px" color="#2395ff" v-model:active="activeName">
-            <van-tab title-class="hi" :to="{ name: 'menu' }" title="点餐" name="menu">
-                <router-view></router-view>
-            </van-tab>
-            <van-tab :to="{ name: 'reviews' }" title="评价" name="reviews">
-                <router-view></router-view>
-            </van-tab>
-            <van-tab :to="{ name: 'seller' }" title="商家" name="seller">
-                <router-view></router-view>
-            </van-tab>
-            <template #nav-right>
-                <van-tag plain round size="medium" color="#38bdf2">好友拼单</van-tag>
-            </template>
-        </van-tabs>
-    </div>-->
 </template>
 
 <script>
@@ -104,7 +83,7 @@ export default {
     background: white;
     z-index: 10;
     padding: 6px 16px;
-    height: 2.4rem;
+    height: 4.2vh;
 }
 
 .nav-left {
@@ -122,12 +101,23 @@ export default {
     align-items: center;
 }
 
+.friend-btn {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #38bdf2;
+    border-radius: 20px;
+    color: #38bdf2;
+    padding: 4% 8%;
+    font-size: 1.2vh;
+}
+
+
 .nav-item-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 80%;
+    height: 100%;
 }
 
 .nav-title {
@@ -145,6 +135,7 @@ export default {
 .mr-4 {
     margin-right: 17%;
 }
+
 .mr-2 {
     margin-right: 8%;
 }
@@ -158,13 +149,8 @@ export default {
     width: 1rem;
     height: 0.2rem;
     background: #2395ff;
-    /* display: inline-block; */
     position: relative;
     top: 0.2rem;
-    /* position: absolute;
-    left: 45%;
-    bottom: 0;
-    margin-left: -10px; */
 }
 
 .base-line {
@@ -175,6 +161,7 @@ export default {
     opacity: 0;
     font-size: 1rem;
 }
+
 .underline {
     color: #2395ff;
     position: relative;

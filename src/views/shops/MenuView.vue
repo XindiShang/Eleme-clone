@@ -143,10 +143,10 @@ export default {
 .main {
   box-sizing: border-box;
   overflow: hidden;
-  height: calc(100% - 4.7rem);
+  height: calc(100% - 11.2vh);
   background-color: #fff;
   display: flex;
   position: sticky;
-  top: 4.5rem;
+  top: 10.8vh;
 }
 </style>

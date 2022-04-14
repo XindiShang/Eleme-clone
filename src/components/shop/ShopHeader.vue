@@ -27,7 +27,7 @@
                 <div class="heart-container">
                     <span
                         :class="{ 'icon-white': !final }"
-                        class="material-icons-outlined"
+                        class="heart-icon material-icons-outlined"
                     >favorite_border</span>
                     <span :class="heartTextClass" class="icon-white">关注</span>
                 </div>
@@ -87,7 +87,7 @@ export default {
         },
         searchIconClass() {
             return {
-                'icon-white': this.base,
+                'search-icon-base': this.base,
                 'search-icon-early': this.early,
                 'disappear': this.mid || this.late || this.final
             }
@@ -123,13 +123,14 @@ export default {
 .content-wrapper {
     padding: 10px 16px 4px 16px;
     background-color: transparent;
-    max-width: 100%;
-    width: 100%;
+    max-width: 100vw;
+    width: 100vw;
     z-index: 4;
     position: fixed;
     top: 0;
     left: 0;
-    height: 2.4rem;
+    height: 7vh;
+    box-sizing: border-box;
 }
 .content-wrapper-base {
     background-color: transparent;
@@ -157,10 +158,11 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 100%;
 }
 
 .back-icon {
-    font-size: 0.9rem;
+    font-size: 2vh;
 }
 
 .input-container {
@@ -199,14 +201,19 @@ export default {
 
 .input-icon {
     color: rgb(185, 183, 183);
-    font-size: 1rem;
+    font-size: 1.8vh;
 }
 
 .input-container input {
     border: none;
     width: 100%;
     background-color: transparent;
-    font-size: 0.8rem;
+    font-size: 1vh;
+}
+
+.search-icon-base {
+    color: white;
+    font-size: 2.4vh;
 }
 
 .search-icon-early {
@@ -219,20 +226,20 @@ export default {
 }
 .red-icon-mid {
     display: block;
-    width: 6px;
-    transform: translateY(-2px);
+    width: 1vh;
+    /* transform: translateY(-2px); */
     transition: 0.1s ease-out;
 }
 .red-icon-late {
     display: block;
-    width: 14px;
-    transform: translateY(-2px);
+    width: 1.8vh;
+    /* transform: translateY(-2px); */
     transition: 0.1s ease-out;
 }
 .red-icon-final {
     display: block;
-    width: 22px;
-    transform: translateY(-2px);
+    width: 2.2vh;
+    /* transform: translateY(-2px); */
     transition: 0.1s ease-out;
     /* right: 0; */
 }
@@ -246,14 +253,18 @@ export default {
     width: 16%;
 }
 
+.heart-icon {
+    font-size: 2.4vh;
+}
+
 .heart-text-base {
-    font-size: 0.9rem;
+    font-size: 1.7vh;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .heart-text-early {
-    font-size: 0.2rem;
+    font-size: 1vh;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
@@ -265,7 +276,7 @@ export default {
     border-radius: 14px;
     width: 18%;
     padding: 1px;
-    transform: translateY(-4%);
+    /* transform: translateY(-4%); */
 }
 .right-cell-base {
     background-color: rgba(105, 104, 104, 0.593);
@@ -276,17 +287,17 @@ export default {
 }
 
 .right-cell span {
-    font-size: 1.1rem;
+    font-size: 2vh;
 }
 
 #divider {
     color: rgba(128, 128, 128, 0.163);
-    /* font-size: .3rem; */
     font-weight: lighter;
 }
 
 .icon-white {
     color: rgb(243, 243, 243);
+    
 }
 
 .ml-1 {

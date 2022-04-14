@@ -69,11 +69,11 @@
 
         </div>
 
-        <div class="thumbs-up">
-          <span class="thumbs-up-icon material-icons-outlined">
+        <div @click="toggleUseful" class="thumbs-up">
+          <span :class="thumbClasses" class="thumbs-up-icon">
             thumb_up
           </span>
-          <span>有用</span>
+          <span>有用<span v-if="isUseful">1</span></span>
         </div>
       </div>
 
@@ -93,33 +93,30 @@ export default {
     return {
       // comments: this.reviews.comments,
       show: false,
+      isUseful: false,
     }
   },
   computed: {
+    thumbClasses(){
+      return {
+        'thumb-filled': this.isUseful,
+        'material-icons': this.isUseful,
+        'material-icons-outlined': !this.isUseful
+      }
+    }
 
   },
   methods: {
     formatNum(num) {
       return parseFloat(num.toFixed(1));
     },
-    formattedImages(arr) {
-      let imgs = [];
-
-      if (arr.length === 0) {
-        return imgs;
-      } else {
-        for (let imgItem of arr) {
-          imgs.push(imgItem.image_hash)
-        }
-        return imgs;
-
-      }
-
+    toggleUseful(){
+      this.isUseful = !this.isUseful;
     }
 
   },
   mounted() {
-    console.log(this.comments)
+    // console.log(this.comments)
   },
 
 }
@@ -260,7 +257,7 @@ export default {
   align-items: center;
   justify-content: flex-end;
   width: 15%;
-  line-height: 1.5vh;
+  line-height: 1.6vh;
 }
 
 .thumbs-up-icon {
@@ -268,9 +265,25 @@ export default {
   margin-right: 3%;
 }
 
-/* .recommend-title {
-  font-size: 1.5vh;
-} */
+.thumb-filled {
+  color: #fe4a32;
+  animation: awesomeScale .5s ease-in;
+}
+
+@keyframes awesomeScale {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.25);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 .end-of-reviews {
   text-align: center;

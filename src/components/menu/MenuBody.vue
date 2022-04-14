@@ -30,7 +30,7 @@
                                 <strong class="price-bold">{{ foodItem.activity.fixed_price }}</strong>
                             </span>
                             <div class="action-container">
-                                <add-to-cart class="action-component" :isFromCart="false" :item="foodItem">
+                                <add-to-cart :haveInitializer="false" class="action-component" :isFromCart="false" :item="foodItem">
                                 </add-to-cart>
                             </div>
                         </div>

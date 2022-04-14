@@ -15,7 +15,7 @@
             <!-- main cart component -->
             <div class="cart-wrapper">
                 <div class="left-container" @click="showCartPopup">
-                    <div :class="{ 'icon-container-active': !isEmpty }" class="icon-container">
+                    <div :class="{ 'icon-container-active': !isEmpty }" id="cart-target" class="icon-container">
                         <span class="cart-icon material-icons-outlined">shopping_cart</span>
 
                         <div v-if="!isEmpty" class="cart-count-container">
@@ -32,7 +32,7 @@
                                     ￥
                                     <span class="price-bold">{{ finalPrice }}</span>
                                 </span>
-                                <span v-if="priceHasDiscount" class="price-old">￥{{ oldPrice }}</span>
+                                <span v-if="discountIsApplied" class="price-old">￥{{ currentPrice }}</span>
                             </p>
 
                             <span v-else class="price-none">未选购商品</span>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="right-container">
-                    <a href :class="{ 'btn-active': !isEmpty && finalPrice >= minFee }" class="btn">
+                    <a href :class="{ 'btn-active': !isEmpty && currentPrice >= minFee }" class="btn">
                         <span>{{ btnText }}</span>
                     </a>
                 </div>
@@ -76,18 +76,19 @@
                 </div>
 
                 <div class="cart-pop-main">
-                    <div @click="switchDetails(item)" v-for="(item, i) in cart" :key="i" class="pop-body-container mb-2">
+                    <div @click="switchDetails(item)" v-for="(item, i) in cart" :key="i"
+                        class="pop-body-container mb-2">
                         <div class="pop-item-container">
                             <div class="pop-left">
                                 <van-image class="pop-img mr-2" radius="4" fit="cover" lazy-load :src="item.img">
                                 </van-image>
                                 <div class="pop-text">
                                     <p class="pop-name mb-4">{{ item.name }}</p>
-                                    <p class="pop-price">￥{{ item.price * item.count }}</p>
+                                    <p class="pop-price">￥{{ formatNum(item.price * item.count) }}</p>
                                 </div>
                             </div>
                             <div class="pop-right">
-                                <add-to-cart :isFromCart="true" :item="item"></add-to-cart>
+                                <add-to-cart :haveInitializer="false" :isFromCart="true" :item="item"></add-to-cart>
                             </div>
                         </div>
                     </div>
@@ -101,7 +102,7 @@
             <div class="cta-container">
                 <p class="cta-title">确定清空购物车？</p>
                 <div class="cta-actions">
-                    <van-button class="cta-cancel" @click="showCTA = false" size="mini" round plain color="#47b6fd">取消
+                    <van-button class="cta-cancel" @click="showCTA = false" size="small" round plain color="#47b6fd">取消
                     </van-button>
                     <van-button class="cta-confirm" @click="clearCart" size="small" round color="#47b6fd">确定
                     </van-button>
@@ -112,7 +113,7 @@
         </van-popup>
     </div>
 
-    
+
 </template>
 
 <script>
@@ -144,6 +145,7 @@ export default {
             discountIsApplied: false,
             discountBar: 0,
             discountApplied: 0,
+            timesPassed: 0,
         }
     },
     computed: {
@@ -152,7 +154,6 @@ export default {
         },
         discountLeft() {
             return this.calculateDiscount();
-
         },
         shopInfo() {
             return this.$store.getters.doneSelectedShop
@@ -174,7 +175,7 @@ export default {
             }
             return false;
         },
-        finalPrice() {
+        currentPrice() {
             if (this.isEmpty) {
                 return 0;
             }
@@ -184,13 +185,19 @@ export default {
             }
             return this.formatNum(price);
         },
+        finalPrice() {
+            if (this.discountIsApplied) {
+                return this.formatNum(this.currentPrice - this.discountApplied)
+            } else {
+                return this.currentPrice
+            }
+        },
         btnText() {
-            if (this.finalPrice < this.minFee) {
-                if (this.finalPrice === 0) {
+            if (this.currentPrice < this.minFee) {
+                if (this.currentPrice === 0) {
                     return `￥${this.minFee}起送`
                 }
-                return `差￥${this.formatNum(this.minFee - this.finalPrice)}起送`
-
+                return `差￥${this.formatNum(this.minFee - this.currentPrice)}起送`
             } else {
                 return '去结算'
             }
@@ -208,24 +215,39 @@ export default {
         },
         calculateDiscount() {
             this.setBar();
-            if (this.finalPrice !== 0 && this.finalPrice < this.discountBar) {
+            if (this.currentPrice !== 0 && this.currentPrice < this.discountBar) {
+                if (this.timesPassed > 0) {
+                    this.discountIsApplied = true;
+                    return this.discounts[this.timesPassed - 1].discount
+                }
+
                 this.discountIsApplied = false;
-                return this.formatNum(this.discountBar - this.finalPrice);
-            } else if (this.finalPrice === 0) {
+                return this.formatNum(this.discountBar - this.currentPrice);
+            } else if (this.currentPrice === 0) {
+
                 this.discountIsApplied = false;
                 return 0;
-            }
-            else {
+            } else {
                 this.discountIsApplied = true;
                 return this.discountApplied;
             }
         },
         setBar() {
-            for (let el of this.discounts) {
-                if (this.finalPrice <= el.bar) {
-                    this.discountBar = el.bar;
-                    this.discountApplied = el.discount;
-                    return;
+            this.timesPassed = 0;
+            const lastIdx = this.discounts.length - 1;
+            if (this.currentPrice > this.discounts[lastIdx].bar) {
+                this.discountBar = this.discounts[lastIdx].bar;
+                this.discountApplied = this.discounts[lastIdx].discount;
+            } else {
+                for (let el of this.discounts) {
+                    if (this.currentPrice > el.bar){
+                        this.timesPassed++;
+                    }
+                    if (this.currentPrice <= el.bar) {
+                        this.discountBar = el.bar;
+                        this.discountApplied = el.discount;
+                        return;
+                    }
                 }
             }
         },
@@ -256,6 +278,9 @@ export default {
 
                 }
                 console.log(this.cart);
+                // console.log(this.discountIsApplied)
+                // console.log(this.discountBar)
+
                 // console.log('bar is: ' + this.discountBar);
                 // console.log('discount is : ' + this.discountApplied);
                 // console.log('use discount : ' + this.discountIsApplied);
@@ -377,6 +402,8 @@ export default {
     text-decoration: line-through;
     margin-left: 4px;
     color: #9f9f9f;
+    font-size: 1.6vh;
+
 }
 
 .price-bold {
@@ -429,7 +456,7 @@ export default {
 }
 
 .cart-count-num {
-    font-size: 0.1rem;
+    font-size: 1vh;
     color: white;
     line-height: .9;
     margin: auto;
@@ -480,7 +507,8 @@ export default {
 
 .pop-wrapper {
     position: fixed;
-    bottom: 7vh;
+    box-sizing: border-box;
+    bottom: 6.9vh;
     width: 100%;
     background-color: #fff;
     z-index: 1;

@@ -7,7 +7,8 @@
                 <span @click="switchPage" class="location-text">{{ result }}</span>
             </div>
             <a href class="relocate" @click="relocate">重新定位</a>
-        </div>  </div>
+        </div> 
+    </div>
 </template>
 
 <script>
@@ -41,10 +42,6 @@ export default {
             return 'place';
         },
         logoClass() {
-            // if (this.isCity) {
-            //     return 'material-icons';
-            // }
-            // return 'material-icons-outlined';
             return {
                 'material-icons': this.isCity,
                 'material-icons-outlined': !this.isCity,
@@ -135,14 +132,12 @@ export default {
     padding: 4px 16px 2px 16px;
     height: 7%;
     width: auto;
-    /* display: relative;
-    margin-top: 100px; */
 }
 
 .title {
     color: #aaa;
     font-size: 12px;
-    margin-bottom: 2%;
+    margin-bottom: .4vh;
 }
 
 .location-bar {
@@ -175,7 +170,6 @@ export default {
     position: relative;
     line-height: 1;
     margin: auto;
-    /* bottom: 4px; */
 }
 
 .logo-blue {

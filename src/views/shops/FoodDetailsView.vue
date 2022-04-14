@@ -31,7 +31,7 @@
           <span class="price">￥<strong class="price-bold">{{ item.activity.fixed_price }}</strong>
           </span>
           <div class="action-container">
-            <add-to-cart class="action-component" :isFromCart="false" :item="item">
+            <add-to-cart class="action-component" :haveInitializer="true" :isFromCart="false" :item="item">
             </add-to-cart>
           </div>
         </div>
