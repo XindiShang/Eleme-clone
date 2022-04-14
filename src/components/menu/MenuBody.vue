@@ -44,9 +44,6 @@
 <script>
 import AddToCart from '@/components/menu/AddToCart.vue';
 
-// import BScroll from '@better-scroll/core'
-
-
 export default {
     data() {
         return {

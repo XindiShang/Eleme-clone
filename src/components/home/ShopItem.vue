@@ -4,14 +4,7 @@
             <!-- left  -->
             <div class="logo_container">
                 <van-badge :content="cartNum" color="#f73e00">
-                    <van-image
-                        class="logo-img"
-                        fit="cover"
-                        radius="5"
-                        lazy-load
-                        :src="shop.image_path"
-                        alt
-                    />
+                    <van-image class="logo-img" fit="cover" radius="5" lazy-load :src="shop.image_path" alt />
                 </van-badge>
                 <img class="brand-img" v-if="shop.is_premium" :src="require('@/assets/品牌.png')" alt />
 
@@ -35,7 +28,7 @@
 
                     <div class>
                         <span class="mr-1">{{ shop.order_lead_time }}分钟</span>
-                        <span>{{distance}}km</span>
+                        <span>{{ distance }}km</span>
                     </div>
                 </div>
 
@@ -112,7 +105,7 @@ export default {
         }
     },
     methods: {
-        switchShopPage(){
+        switchShopPage() {
             this.$router.push('/shop');
         }
     },
@@ -123,26 +116,36 @@ export default {
 .mr-1 {
     margin-right: 0.4rem;
 }
+
 .card {
+    box-sizing: border-box;
     background: #fff;
     color: #666;
-    padding: 4vw 0;
-    margin: 2% 3%;
+    /* padding: 10px; */
+    /* margin: 2px 10px 6px 10px; */
+    /* margin: 2% 3%; */
     -webkit-box-shadow: 1px 0px 1px -1px rgba(0, 0, 0, 0.3);
     box-shadow: 1px 0px 1px -1px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    /* height: 20vh; */
+    height: 20%;
+    width: 100%;
+    margin-bottom: 10px;
 }
+
 .card-body {
     display: flex;
     justify-content: flex-start;
-    padding: 0 2.666667vw;
-    align-items: stretch;
+    padding: 10px;
+    align-items: flex-start;
     height: 100%;
+    width: 100%;
 }
+
 .logo_container {
-    width: 30vw;
-    /* height: 100%; */
+    width: 30%;
+    height: 100%;
+    max-width: 180px;
+    max-height: 180px;
     position: relative;
     display: flex;
     align-items: stretch;
@@ -150,18 +153,15 @@ export default {
 
 .logo-img {
     display: block;
-    width: 30vw;
+    width: 100%;
     height: 100%;
+    max-width: 180px;
+    max-height: 180px;
     box-sizing: border-box;
     border: 0.133333vw solid rgba(0, 0, 0, 0.08);
     border-radius: 0.533333vw;
-    display: flex;
-    align-items: center;
 }
 
-.van-image__img {
-  
-}
 .brand-img {
     width: 36%;
     display: inline;
@@ -172,12 +172,13 @@ export default {
 
 .card_main {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow: hidden;
     flex-direction: column;
-    padding-left: 2.666667vw;
     font-size: 0.2rem;
     flex-grow: 1;
+    width: 60%;
+    margin-left: 4%;
 }
 
 .first-row {
@@ -189,8 +190,7 @@ export default {
     font-size: 1rem;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin: 1% 0;
-
+    margin-bottom: 2%;
 }
 
 .shop-name {
@@ -208,14 +208,14 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .second-row {
     display: flex;
     align-items: center;
     overflow: hidden;
     justify-content: space-between;
     font-size: 0.8rem;
-    margin: 1% 0;
-
+    margin-bottom: 1.5%;
 }
 
 .rating {
@@ -231,32 +231,35 @@ export default {
     display: flex;
     justify-content: space-between;
     height: 1.1rem;
-    margin: 1% 0;
-
+    margin-bottom: 1.5%;
 }
 
 .delivery {
-    /* white-space: nowrap; */
-    margin-right: 2%;
+    width: 30%;
+    position: relative;
+
 }
+
 .delivery span {
-    background-color: #cde5f4;
-    color: #2b99dd;
-    padding: 3%;
+    border: 1px solid #cde5f4;
+    color: #41b3ec;
+    padding: 0 6px;
     border-radius: 5px;
-    width: 100%;
     white-space: nowrap;
+    right: 0;
+    position: absolute;
+
 }
 
 .fourth-row {
-    height: 1.1rem;
-    margin: 1% 0;
-
+    height: 1.3rem;
+    margin-bottom: 1.5%;
 }
+
 .comma {
     background-color: #faefe3;
     color: #ffad60;
-    padding: 1.2%;
+    padding: 4px;
     border-radius: 5px;
 }
 
@@ -265,7 +268,6 @@ export default {
 }
 
 .last-row {
-    margin: 1% 0;
-
+    margin-bottom: 1.5%;
 }
 </style>

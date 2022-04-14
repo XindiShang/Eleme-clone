@@ -6,7 +6,7 @@
             finished-text="没有更多啦"
             @load="onLoad"
         >
-            <div>
+            <div class="shop-list">
                 <shop-item v-for="(item, i ) in shops" :key="i" :shop="item.restaurant"></shop-item>
             </div>
         </van-list>
@@ -86,4 +86,14 @@ export default {
 </script>
 
 <style scoped>
+
+.shop-list {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 10px;
+
+}
 </style>

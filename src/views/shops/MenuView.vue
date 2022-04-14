@@ -131,7 +131,6 @@ export default {
   transform: translate(100%, 0);
 }
 
-
 .menu {
   width: 100%;
   box-sizing: border-box;

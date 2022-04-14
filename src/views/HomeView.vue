@@ -315,11 +315,6 @@ export default {
 }
 
 .sort-applied {
-  /* position: fixed;
-  
-  width: 90%;
-  top: -1px;
-  z-index: 10; */
   width: auto;
   padding: 4px 16px 4px 16px;
   position: fixed;
@@ -329,38 +324,4 @@ export default {
   bottom: 0;
   z-index: 99;
 }
-
-/* .filter-on {
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease-in-out;
-  z-index: 100;
-} */
-
-/* .shoplist-title {
-  display: flex;
-  align-items: flex;
-  justify-content: center;
-  height: 9.6vw;
-  line-height: 9.6vw;
-  font-size: 16px;
-  color: #333;
-  background: #fff;
-}
-.shoplist-title:after,
-.shoplist-title:before {
-  display: block;
-  content: "一";
-  width: 5.333333vw;
-  height: 0.266667vw;
-  color: #999;
-}
-.shoplist-title:before {
-  margin-right: 3.466667vw;
-}
-.shoplist-title:after {
-  margin-left: 3.466667vw;
-} */
 </style>
