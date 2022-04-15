@@ -10,7 +10,10 @@
                 <div @click="switchDetails(foodItem)" class="body-item-main" v-for="(foodItem, idx) in item.foods"
                     :key="idx">
                     <!-- image container  -->
+                    <div class="image-container">
                     <van-image class="food-item-img" radius="4" fit="cover" lazy-load :src="foodItem.image_path" />
+
+                    </div>
 
                     <div class="text-container">
                         <!-- description container  -->
@@ -105,23 +108,23 @@ export default {
     overflow: auto;
     box-sizing: border-box;
     height: 100%;
-    width: 80vw;
+    width: 100%;
     padding-bottom: 7vh;
 }
 
 .menu-body-item {
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
+
 }
 
 .menu-body-item:last-of-type {
     margin-bottom: 40%;
 }
 
+
 .body-item-title {
-    /* margin-left: 2.666667vw; */
-    padding: 2vw 8vw 2vw 2.6vw;
+    padding: 2vw 8vw 2vw 12px;
     height: 6vh;
     background-color: #fff;
     position: -webkit-sticky;
@@ -152,75 +155,90 @@ export default {
 }
 
 .body-item-main {
+    width: 100%;
     height: 30vw;
-    padding: 2.6vw;
-    /* margin-bottom: 0.133333vw; */
+    min-height: 120px;
+    max-height: 200px;
+    padding: 11px;
     display: flex;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
+.image-container {
+    width: 46%;
+    margin-right: 8px;
+    max-width: 180px;
+
+}
+
 .food-item-img {
-    width: 24vw;
-    height: 24vw;
-    flex: none;
-    margin-right: 2.6vw;
+    max-width: 170px;
+    max-height: 170px;
     box-sizing: border-box;
     border: 0.133333vw solid rgba(0, 0, 0, 0.08);
 }
 
 .food-item-description {
-    flex: 1;
-    /* padding-bottom: 6.666667vw; */
     padding-right: 4vw;
+    margin-bottom: 4px;
+
 }
 
-.food-item-description h3 {
+.des-title {
     padding-right: 4vw;
     font-weight: 700;
     overflow: hidden;
-    font-size: 2vh;
+    font-size: 1.8vh;
     white-space: nowrap;
     width: 40vw;
     text-overflow: ellipsis;
     color: #333;
+    margin-bottom: 4px;
 }
 
 .text-container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     height: 100%;
+    max-height: 180px;
+    width: 100%;
+    /* width: 100%; */
+
 }
 
 .des-main {
-    margin: 1.333333vw 0;
     font-size: 1vh;
     color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 42.666667vw;
+    margin-bottom: 4px;
+
 }
 
 .des-footer {
-    margin: 1.733333vw 0 !important;
     color: #999;
     font-size: 1vh;
     line-height: 1;
     min-height: 1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .food-item-action {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
 .price {
     font-size: 0.7rem;
-    line-height: 4.266667vw;
     color: #fe4a32;
-    padding-bottom: 0.933333vw;
     vertical-align: text-bottom;
 
 }

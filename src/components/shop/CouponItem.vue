@@ -35,12 +35,6 @@
 <script>
 export default {
     props: ['value', 'title', 'dueDate', 'beansLeft'],
-    data() {
-        return {
-           
-        }
-    },
-
 }
 </script>
 
@@ -76,7 +70,7 @@ export default {
     justify-content: center;
     align-items: flex-end;
     width: 20%;
-    margin-right: 6%;
+    margin-right: 16px;
     color: #8b511e;
     white-space: nowrap;
     overflow: hidden;
@@ -109,18 +103,15 @@ export default {
 .right-title {
     font-size: 0.86rem;
     font-weight: bold;
-    /* margin-bottom: 4%; */
     color: #000;
-    margin: 1% 0 3.4% 0;
+    margin: 2px 0 6px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 .divider {
-    /* height: ; */
     height: 60%;
     outline: 1px dashed #cab07d;
-    /* offset: -1px; */
 }
 .coupon-use {
     width: 30%;
@@ -145,15 +136,17 @@ export default {
     color: #59460c;
     justify-self: center;
     line-height: 1;
+    height: 50%;
 
 }
 .bean-img {
     width: 20%;
-    margin-right: 1%;
+    max-width: 26px;
+    margin-right: 1px;
 }
 
 .use-button {
-    padding: 0 6%;
+    padding: 0 7px;
     font-weight: bold;
     width: 80%;
 }

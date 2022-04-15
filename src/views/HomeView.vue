@@ -39,12 +39,8 @@
 
     <!-- shop filter nav -->
     <van-sticky :offset-top="50">
-      <filter-bar
-        @lift="scrollToShops"
-        @get-condition="setCondition"
-        :fixedOn="fixedOn"
-        @searchFixed="showFilters"
-      ></filter-bar>
+      <filter-bar @lift="scrollToShops" @get-condition="setCondition" :fixedOn="fixedOn" @searchFixed="showFilters">
+      </filter-bar>
     </van-sticky>
 
     <shop-list :condition="conditionPassed"></shop-list>
@@ -105,7 +101,7 @@ export default {
     switchAddressPage() {
       this.$router.push('/address');
     },
-    switchSearchPage(){
+    switchSearchPage() {
       this.$router.push('/search')
     },
     getData() {
@@ -115,19 +111,6 @@ export default {
       this.$axios("/api/profile/filter").then(res => {
         this.$store.dispatch('getFilterData', res.data);
       });
-
-      //shops
-      // this.$store.dispatch('clearAllShops');
-      // this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`).then(res => {
-      //   Toast.loading({
-      //     message: '加载中',
-      //     forbidClick: true,
-      //   });
-      //   this.$store.dispatch('initialize', res.data);
-      //   Toast.clear();
-
-      // })
-      // this.initFinished = true;
     },
     showFilters(payload) {
       this.isShown = payload;
@@ -166,8 +149,6 @@ export default {
       }
     })
 
-
-
   },
 
 
@@ -205,6 +186,7 @@ export default {
 .container {
   /* width: auto; */
 }
+
 .address-bar {
   width: 100%;
   display: flex;
@@ -214,6 +196,8 @@ export default {
 .address-bar-left {
   width: 40%;
   font-size: 18px;
+  cursor: pointer;
+
 }
 
 .address-bar-left p {
@@ -259,6 +243,7 @@ export default {
   color: #53c1fc;
   margin: 0 4px;
 }
+
 .search-text {
   height: 50%;
   line-height: 13px;
@@ -278,11 +263,13 @@ export default {
   background: #ccc;
   margin: 0 4px;
 }
+
 .search-bar-right {
   width: 14%;
   position: relative;
   left: 1px;
 }
+
 .search-bar-right button {
   width: 100%;
   height: 101%;
@@ -295,23 +282,24 @@ export default {
 }
 
 .my-swipe {
-  height: 100px;
   border-radius: 6px;
   margin: 2px 14px 6px 14px;
   box-sizing: border-box;
+  max-height: 200px;
 }
+
 .my-swipe .van-swipe-item {
   color: #fff;
   font-size: 20px;
-  height: 100%;
   text-align: center;
   background-color: transparent;
+  max-height: 200px;
 }
 
 .my-swipe img {
   border-radius: 6px;
   width: 100%;
-  height: 100px;
+  max-height: 200px;
 }
 
 .sort-applied {

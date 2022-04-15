@@ -87,7 +87,7 @@ export default {
 .recommend-title {
     font-size: 1.5vh;
     font-weight: bold;
-    margin-bottom: 1%;
+    margin-bottom: 4px;
 }
 
 .recommend-body {
@@ -103,6 +103,7 @@ export default {
 .recommend-body ul li {
     flex: none;
     width: 28vw;
+    max-width: 250px;
     margin-right: 2%;
 }
 
@@ -110,6 +111,8 @@ export default {
     display: block;
     width: 28vw;
     height: 28vw;
+    max-width: 250px;
+    max-height: 250px;
     border-radius: 4px;
 }
 
@@ -159,6 +162,7 @@ export default {
 .add-icon {
     color: #00b6fd;
     font-size: 3vh;
+    cursor: pointer;
 }
 
 .add {

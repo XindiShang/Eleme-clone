@@ -139,11 +139,11 @@ export default {
 
 .h3-title {
     font-weight: bold;
-    margin-bottom: 2%;
+    margin-bottom: 8px;
     font-size: 1.6vh;
 }
 
 .mb-2 {
-    margin-bottom: 2%;
+    margin-bottom: 8px;
 }
 </style>

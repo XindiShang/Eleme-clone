@@ -2,26 +2,36 @@
     <van-sticky offset-top="6.8vh">
         <div class="nav">
             <div class="nav-left">
-                <div class="nav-item-container mr-4">
-                    <router-link @click="activate('menu')" :to="{ name: 'menu' }" class="nav-item">
-                        <p class="nav-title">点餐</p>
-                    </router-link>
-                    <span :class="menuLine" class="material-icons-outlined">maximize</span>
+                <div class="nav-main-item-wrapper">
+                    <div class="nav-item-container">
+                        <router-link @click="activate('menu')" :to="{ name: 'menu' }" class="nav-item">
+                            <p class="nav-title">点餐</p>
+                        </router-link>
+                        <span :class="menuLine" class="material-icons-outlined">maximize</span>
+                    </div>
                 </div>
 
-                <div class="nav-item-container mr-2">
-                    <router-link @click="activate('reviews')" :to="{ name: 'reviews' }" class="nav-item">
-                        <p class="nav-title">评价</p>
-                    </router-link>
-                    <span :class="reviewLine" class="material-icons-outlined">maximize</span>
+                <div class="nav-item-wrapper">
+
+                    <div class="nav-item-container mr-2">
+                        <router-link @click="activate('reviews')" :to="{ name: 'reviews' }" class="nav-item">
+                            <p class="nav-title">评价</p>
+                        </router-link>
+                        <span :class="reviewLine" class="material-icons-outlined">maximize</span>
+                    </div>
+                </div>
+                <div class="nav-item-wrapper">
+                    <div class="nav-item-container">
+                        <router-link @click="activate('seller')" :to="{ name: 'seller' }" class="nav-item">
+                            <p class="nav-title">商家</p>
+                        </router-link>
+                        <span :class="sellerLine" class="material-icons-outlined">maximize</span>
+                    </div>
                 </div>
 
-                <div class="nav-item-container">
-                    <router-link @click="activate('seller')" :to="{ name: 'seller' }" class="nav-item">
-                        <p class="nav-title">商家</p>
-                    </router-link>
-                    <span :class="sellerLine" class="material-icons-outlined">maximize</span>
-                </div>
+
+
+
             </div>
 
             <div class="nav-right">
@@ -84,6 +94,8 @@ export default {
     z-index: 10;
     padding: 6px 16px;
     height: 4.2vh;
+    margin-bottom: 4px;
+
 }
 
 .nav-left {
@@ -96,6 +108,7 @@ export default {
 
 .nav-right {
     width: 20%;
+    height: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -103,11 +116,12 @@ export default {
 
 .friend-btn {
     width: 100%;
+    max-width: 170px;
     text-align: center;
     border: 1px solid #38bdf2;
     border-radius: 20px;
     color: #38bdf2;
-    padding: 4% 8%;
+    padding: 3px 6px;
     font-size: 1.2vh;
 }
 
@@ -118,6 +132,20 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: 100%;
+}
+
+.nav-main-item-wrapper {
+    display: flex;
+    width: 30%;
+    min-width: 70px;
+    max-width: 170px;
+}
+
+.nav-item-wrapper {
+    display: flex;
+    width: 30%;
+    min-width: 70px;
+    max-width: 170px;
 }
 
 .nav-title {
@@ -132,12 +160,9 @@ export default {
     height: 100%;
 }
 
-.mr-4 {
-    margin-right: 17%;
-}
 
 .mr-2 {
-    margin-right: 8%;
+    margin-right: 8px;
 }
 
 .active {

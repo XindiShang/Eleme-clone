@@ -111,12 +111,13 @@ export default {
     background: #f1f1f1;
     height: calc(100% - 65px);
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
 }
 .scroll_wrap {
     background: #fff;
     padding: 0 16px;
-    overflow: auto;
+    /* overflow: auto; */
+    /* height: 120%; */
 }
 .title {
     color: #848484;

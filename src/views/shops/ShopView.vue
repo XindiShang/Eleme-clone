@@ -3,8 +3,14 @@
         <!-- header part  -->
         <shop-header v-if="!isDetails" :early="early" :mid="mid" :late="late" :final="final"></shop-header>
         <van-image v-if="!isDetails" class="shop-bg-image" lazy-load fit="cover" :src="shopBackground" />
-        <shop-intro @show-discount="toggleDiscountShow" @show-info="toggleInfoShow" v-if="!isLoading && !isDetails"
-            :shop="shopInfo" class="shop-info"></shop-intro>
+
+        <div class="lift-area">
+            <shop-intro @show-discount="toggleDiscountShow" @show-info="toggleInfoShow" v-if="!isLoading && !isDetails"
+                :shop="shopInfo" class="shop-info"></shop-intro>
+            <!-- navbar  -->
+            <shop-nav v-if="!isLoading && !isDetails" class="shop-nav" />
+        </div>
+
 
         <!-- header popups -->
         <div v-if="!isLoading && !isDetails" class="">
@@ -15,8 +21,7 @@
             </shop-info-popup>
         </div>
 
-        <!-- navbar  -->
-        <shop-nav v-if="!isLoading && !isDetails" class="shop-nav" />
+
 
         <!-- nav content: 1. menu 2. reviews 3. seller info  -->
         <router-view @share="hideCart" v-if="!isLoading" class="shop-body" v-slot="{ Component }">
@@ -190,23 +195,29 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    height: 10rem;
+    height: 14vh;
+    max-height: 10rem;
+}
+
+.lift-area {
+    position: relative;
+    bottom: 6%;
 }
 
 .shop-info {
-    position: relative;
-    bottom: 5%;
+    /* position: relative;
+    bottom: 6%; */
 }
 
 .shop-nav {
-    position: relative;
-    bottom: 4%;
+    /* position: relative;
+    bottom: 6%; */
     width: 100%;
 }
 
 .shop-body {
     position: relative;
-    bottom: 3%;
+    bottom: 6%;
     height: 100%;
     display: initial;
     overflow: scroll;

@@ -11,7 +11,7 @@
           <div class="user-description">
             <div class="user-identity">
               <span class="user-name">{{ user.username }}</span>
-              <span v-if="user.is_super_vip" class="user-vip">VIP</span>
+              <van-image v-if="user.is_super_vip" class="user-vip" :src="require('@/assets/svip.png')"></van-image>
             </div>
             <div class="user-review-date">{{ user.rated_at }}</div>
           </div>
@@ -97,7 +97,7 @@ export default {
     }
   },
   computed: {
-    thumbClasses(){
+    thumbClasses() {
       return {
         'thumb-filled': this.isUseful,
         'material-icons': this.isUseful,
@@ -110,7 +110,7 @@ export default {
     formatNum(num) {
       return parseFloat(num.toFixed(1));
     },
-    toggleUseful(){
+    toggleUseful() {
       this.isUseful = !this.isUseful;
     }
 
@@ -124,14 +124,13 @@ export default {
 
 <style scoped>
 .card {
-  margin: 0 12px;
+  margin: 0 12px 8px;
   padding: 8px 12px;
   background-color: #fff;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 2vh;
 }
 
 .user-info-container {
@@ -150,6 +149,8 @@ export default {
 .user-avatar {
   width: 10vw;
   height: 10vw;
+  max-width: 48px;
+  max-height: 48px;
 }
 
 .user-description {
@@ -160,16 +161,24 @@ export default {
 }
 
 .user-name {
-  margin-right: 4%;
+  margin-right: 8px;
 }
 
 .user-identity {
-  margin-bottom: 2%;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .user-review-date {
   font-size: 1.4vh;
   color: #999;
+}
+
+.user-vip {
+  width: 64px;
+  height: 14px;
+  /* height: 100%; */
 }
 
 .report-icon {
@@ -198,6 +207,7 @@ export default {
 
 .rating-image {
   width: 49%;
+  max-width: 200px;
   border-radius: 4px;
 }
 
@@ -211,7 +221,7 @@ export default {
 
 .reply-title {
   font-weight: bold;
-  margin-bottom: 1%;
+  margin-bottom: 4px;
 }
 
 .rating-footer {
@@ -234,7 +244,7 @@ export default {
 .recommend-body {
   background-color: #e6f7ff;
   color: #00b6fd;
-  padding: 1% 2%;
+  padding: 3px 6px;
   max-width: 60%;
   display: flex;
   align-items: center;
@@ -274,12 +284,15 @@ export default {
   0% {
     transform: scale(1);
   }
+
   40% {
     transform: scale(1.25);
   }
+
   70% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
   }
@@ -292,14 +305,14 @@ export default {
 }
 
 .mr-1 {
-  margin-right: 2vw;
+  margin-right: 8px;
 }
 
 .mb-1 {
-  margin-bottom: 1.2vh;
+  margin-bottom: 10px;
 }
 
 .mb-2 {
-  margin-bottom: 2vh;
+  margin-bottom: 14px;
 }
 </style>

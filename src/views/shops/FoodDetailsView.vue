@@ -226,16 +226,14 @@ export default {
 
 .food-item-action {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
 }
 
 .price {
   font-size: 0.7rem;
-  line-height: 4.266667vw;
   color: #fe4a32;
-  padding-bottom: 0.933333vw;
   vertical-align: text-bottom;
 }
 
@@ -266,7 +264,7 @@ export default {
   width: 30%;
   background-color: #f6f6f6;
   padding: 1vh 1.3vh;
-  margin-right: 2vw;
+  margin-right: 8px;
   border-radius: 4px;
   font-size: 1vh;
 
@@ -308,14 +306,14 @@ export default {
 }
 
 .mr-1 {
-  margin-right: 2%;
+  margin-right: 7px;
 }
 
 .mb-1 {
-  margin-bottom: 1vh;
+  margin-bottom: 8px;
 }
 
 .mb-2 {
-  margin-bottom: 2vh;
+  margin-bottom: 16px;
 }
 </style>

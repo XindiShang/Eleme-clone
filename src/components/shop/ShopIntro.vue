@@ -34,7 +34,7 @@
                         </van-tag>
                     </div>
 
-                    <div v-if="hasDiscount" class="last-row">
+                    <div v-if="hasDiscount" class="last-row ">
                         <div class="discount-left">
                             <van-tag v-for="(item, i) in discountsShown" :key="i" class="discount mr-2" plain
                                 color="#f1525b">{{ item }}</van-tag>
@@ -98,15 +98,21 @@ export default {
 <style scoped>
 .shop-intro {
     width: 100%;
+    height: 20vh;
+    max-height: 190px;
     box-sizing: border-box;
+    margin-bottom: 4px;
 }
 
 .card-wrapper {
     padding: 2px 12px;
+    height: 100%;
 }
 
 .card {
     width: 100%;
+    height: 100%;
+    /* padding: 8px; */
     padding: 2%;
     border-radius: 6px;
     -webkit-box-shadow: 1px 0px 4px -1px rgba(0, 0, 0, 0.3);
@@ -114,8 +120,8 @@ export default {
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: space-between;
+    justify-content: center;
+    align-items: stretch;
 }
 
 .card-title {
@@ -123,8 +129,6 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    /* white-space: nowrap;
-    text-overflow: ellipsis; */
 }
 
 .title-left {
@@ -139,6 +143,7 @@ export default {
 
 .title-right {
     width: 20%;
+    /* height: 100%; */
     display: flex;
     justify-content: flex-end;
 }
@@ -168,6 +173,7 @@ export default {
 
 .shop-img {
     width: 16vw;
+    max-width: 64px;
     border: 1px solid rgb(228, 225, 225);
     border-radius: 6px;
     overflow: hidden;
@@ -215,7 +221,7 @@ export default {
 .expand {
     display: flex;
     font-size: 1.5vh;
-    width: 20%;
+    width: 30%;
     justify-content: flex-end;
     align-items: center;
     color: #9b9b9b;
@@ -231,6 +237,6 @@ export default {
 }
 
 .mb-2 {
-    margin-bottom: 2%;
+    margin-bottom: 6px;
 }
 </style>

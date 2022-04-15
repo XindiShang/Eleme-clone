@@ -4,8 +4,11 @@
         <ul>
             <li @click="emitSelectCategory(i)" :class="{ 'current': i === currentIdx }" class="bar-item"
                 v-for="(item, i) in menuItems" :key="i">
-                <van-image v-if="item.icon_url" class="menu-icon" fit="cover" lazy-load :src="item.icon_url" alt />
-                <span class="bar-item-text">{{ item.name }}</span>
+                <div class="text-container">
+                    <van-image v-if="item.icon_url" class="menu-icon" fit="cover" lazy-load :src="item.icon_url" alt />
+                    <span>{{ item.name }}</span>
+                </div>
+
                 <div v-if="!item.icon_url && count(item) !== 0" class="count-container">
                     <span class="count-num">{{ count(item) }}</span>
                 </div>
@@ -74,32 +77,39 @@ export default {
     /* bottom cart set to fixed  */
     /* height: calc(100% - 12.8vw); */
     background-color: #f1f1f1;
-    /* padding-left: 4px; */
     padding-bottom: 7vh;
-    width: 20vw;
+    width: 20%;
+    min-width: 80px;
+    max-width: 180px;
     /* overflow: scroll; */
 }
 
 .bar-item {
-    padding: 4vw 8px 4vw 16px;
+    /* padding: 4vw 8px 4vw 16px; */
+    padding: 22% 0;
     font-size: 1vh;
     color: #666;
     line-height: 1.2;
     width: 100%;
     position: relative;
-    
+    max-height: 80px;
+
 }
 
-.bar-item-text {
+.text-container {
     width: 100%;
+    padding: 0 10px 0 16px;
 }
+
 
 .menu-icon {
     max-width: 100%;
     width: 3.466667vw;
     height: 3.466667vw;
+    max-width: 14px;
+    max-height: 14px;
     vertical-align: top;
-    margin-right: 1.4vw;
+    margin-right: 5px;
 }
 
 .count-container {
@@ -107,8 +117,9 @@ export default {
     border-radius: 50%;
     width: 1.8vh;
     height: 1.8vh;
+    max-width: 15px;
+    max-height: 15px;
     text-align: center;
-    /* border: 1px solid white; */
     position: absolute;
     right: 8%;
     top: 14%;
@@ -121,8 +132,6 @@ export default {
     font-size: .1rem;
     color: white;
     line-height: .9;
-    /* width: .4rem;
-    height: .4rem; */
 }
 
 ::-webkit-scrollbar {

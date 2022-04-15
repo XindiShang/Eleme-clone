@@ -1,17 +1,9 @@
 <template>
     <div :class="{ 'open': openFilter || openScreen }" @click.self="hideFilter">
-        <div
-            v-if="showFilter"
-            class="filter_wrap"
-            :class="{ 'filter-wrap-fixed': openFilter || openScreen || fixedOn }"
-        >
+        <div v-if="showFilter" class="filter_wrap"
+            :class="{ 'filter-wrap-fixed': openFilter || openScreen || fixedOn }">
             <aside class="filter" :class="{ 'filter-fixed': openFilter || openScreen }">
-                <div
-                    class="filter-nav"
-                    v-for="(item, i) in filterData.navTab"
-                    :key="i"
-                    @click="filterSort(i)"
-                >
+                <div class="filter-nav" v-for="(item, i) in filterData.navTab" :key="i" @click="filterSort(i)">
                     <span :class="{ 'filter-selected': currentIdx == i }">{{ item.name }}</span>
                     <span v-if="item.icon" class="material-icons-outlined nav-icon">arrow_drop_down</span>
                 </div>
@@ -21,17 +13,12 @@
         <!-- sort -->
         <section v-if="openFilter" class="filter-extend">
             <ul>
-                <li
-                    class="filter-item"
-                    v-for="(item, i) in filterData.sortBy"
-                    :key="i"
-                    @click="selectSort(item, i)"
-                >
+                <li class="filter-item" v-for="(item, i) in filterData.sortBy" :key="i" @click="selectSort(item, i)">
                     <span :class="{ 'name-selected': currentSort == i }">{{ item.name }}</span>
-                    <span
-                        v-show="currentSort == i"
-                        class="material-icons-outlined filter-check"
-                    >done</span>
+                    <div v-show="currentSort == i" class="filter-check">
+                        <span class="material-icons-outlined check-icon">done</span>
+                    </div>
+
                 </li>
             </ul>
         </section>
@@ -40,29 +27,21 @@
         <section v-if="openScreen" class="filter-extend">
             <div class="filter-sort">
                 <div class="screen-box">
-                    <div v-for="(screen, i) in filterData.screenBy" :key="i" class="morefilter">
+                    <div v-for="(screen, i) in filterData.screenBy" :key="i" class="screen-container">
                         <p class="screen-title">{{ screen.title }}</p>
                         <ul>
-                            <li
-                                :class="{ 'selected': item.select }"
-                                class="screen-item"
-                                v-for="(item, idx) in screen.data"
-                                :key="idx"
-                                @click="selectScreen(item, screen)"
-                            >
+                            <li :class="{ 'selected': item.select }" class="screen-item"
+                                v-for="(item, idx) in screen.data" :key="idx" @click="selectScreen(item, screen)">
                                 <img v-if="item.icon" :src="item.icon" alt />
                                 <span>{{ item.name }}</span>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="morefilter-btn">
-                    <span
-                        :class="{ 'edit': editStatus, 'disable': !editStatus }"
-                        class="morefilter-clear"
-                        @click="clearScreen"
-                    >清空</span>
-                    <span class="morefilter-ok" @click="setScreen">查看商家</span>
+                <div class="screen-btn-container">
+                    <span :class="{ 'btn-clear-available': editStatus, 'btn-disabled': !editStatus }" class="screen-btn-clear"
+                        @click="clearScreen">清空</span>
+                    <span class="screen-btn-ok" @click="setScreen">查看商家</span>
                 </div>
             </div>
         </section>
@@ -220,9 +199,10 @@ export default {
 </script>
 
 <style scoped>
-.disable {
+.btn-disabled {
     pointer-events: none;
 }
+
 .filter_wrap {
     background: transparent;
     padding: 4px 16px 4px 16px;
@@ -243,11 +223,11 @@ export default {
     box-sizing: border-box;
     height: 30px;
 }
+
 .filter {
     position: relative;
     z-index: 101;
     height: 30px;
-    /* height: 10.666667vw; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -266,16 +246,15 @@ export default {
     width: 90%;
     /* background: white; */
 }
+
 .filter-nav {
-    /* flex: 1; */
-    /* text-align: center; */
-    /* flex-basis: 80px; */
     color: #666;
     font-size: 13px;
     line-height: 30px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
 }
 
 .nav-icon {
@@ -310,26 +289,40 @@ export default {
     z-index: 4;
     left: 0;
     top: 0;
-    /* top: -4px; */
     font-size: 13px;
 }
+
 .filter-item {
     position: relative;
-    line-height: 7vw;
-    padding: 4px 0px 4px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1;
+    padding: 4px 16px;
     overflow: hidden;
+    height: 7vw;
+    max-height: 40px;
+    margin: 6px 0;
+    cursor: pointer;
+
 }
+
 .filter-check {
-    font-size: 13px;
-    float: right;
     color: #53c1fc;
-    margin-right: 3.733333vw;
-    line-height: 7vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-icon {
+    font-size: 14px;
 }
 
 .name-selected {
     color: #53c1fc;
 }
+
 /* 筛选 */
 .filter-sort {
     background-color: #fff;
@@ -338,23 +331,26 @@ export default {
     width: 100%;
     z-index: 4;
     left: 0;
-    font-size: 13px;
+    font-size: 14px;
     line-height: normal;
 }
 
 .screen-box {
     padding: 0 16px;
 }
-.morefilter {
-    margin: 2.666667vw 0;
+
+.screen-container {
+    margin: 6px 0;
     overflow: hidden;
 }
+
 .screen-title {
-    margin-bottom: 2vw;
+    margin-bottom: 4px;
     color: #999;
     font-size: 0.5rem;
 }
-.morefilter ul {
+
+.screen-container ul {
     font-size: 0.8rem;
     width: 100%;
     margin: 8px auto;
@@ -362,54 +358,65 @@ export default {
     gap: 2%;
     grid-template-columns: repeat(3, 1fr);
 }
+
 .screen-item {
     box-sizing: border-box;
     width: 100%;
     height: 10vw;
-    line-height: 3vw;
-    padding: 10px 16px;
-    /* margin: 1%; */
+    max-height: 40px;
     background: #fafafa;
-    /* background: red; */
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    padding: 10px 16px;
     margin-bottom: 4px;
+    cursor: pointer;
+
 }
-.morefilter li img {
+
+.screen-container li img {
     width: 3vw;
     height: 3vw;
+    max-width: 18px;
+    max-height: 18px;
     vertical-align: middle;
+    line-height: normal;
     margin-right: 2vw;
-    position: relative;
-    bottom: 1px;
 }
-.morefilter li span {
+
+.screen-container li span {
     vertical-align: middle;
 }
 
-.morefilter-btn {
+.screen-btn-container {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     background-color: #fafafa;
     box-shadow: 0 -0.266667vw 0.533333vw 0 #ededed;
-    line-height: 11.466667vw;
+    height: 11.466667vw;
+    max-height: 50px;
     box-sizing: border-box;
+    cursor: pointer;
+
 }
-.morefilter-btn span {
+
+.screen-btn-container span {
     font-size: 0.826667rem;
-    text-align: center;
     text-decoration: none;
-    flex: 1;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.morefilter-clear {
+
+.screen-btn-clear {
     color: #999;
     background: #fff;
 }
-.morefilter-ok {
+
+.screen-btn-ok {
     color: #fff;
     background: #3ea1fe;
     border: 0.133333vw solid #3ea1fe;
@@ -420,7 +427,7 @@ export default {
     background-color: #e6f4ff;
 }
 
-.edit {
+.btn-clear-available {
     color: #333 !important;
 }
 </style>

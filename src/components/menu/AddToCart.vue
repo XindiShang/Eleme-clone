@@ -123,19 +123,29 @@ export default {
 
 .initial-btn {
     width: 76%;
+    max-width: 180px;
+    height: 100%;
     text-align: center;
     background-color: #00b6fd;
     color: #fff;
-    font-size: 1.6vh;
-    padding: 3% 4%;
+    line-height: 1.6vh;
+    padding: 4px 5px;
     border-radius: 20px;
+    cursor: pointer;
+
+}
+
+.initial-btn span {
+    font-size: 1.6vh;
 }
 
 .minus-icon {
     color: #00b6fd;
     font-size: 3vh;
     animation: roll .2s;
-    animation-iteration-count: 1
+    animation-iteration-count: 1;
+    cursor: pointer;
+
 }
 
 .count-num {
@@ -147,6 +157,8 @@ export default {
     color: #00b6fd;
     font-size: 3vh;
     margin-left: 10%;
+    cursor: pointer;
+
 }
 
 

@@ -38,8 +38,7 @@
       <p>举报商家</p>
     </div>
 
-    <van-action-sheet v-model:show="show" cancel-text="取消" close-on-click-action @select="makeCall"
-      @cancel="onCancel">
+    <van-action-sheet v-model:show="show" cancel-text="取消" close-on-click-action @select="makeCall" @cancel="onCancel">
       <div @click="makeCall" class="call-cell">
         <span class="tel-icon-pop material-icons">
           call
@@ -93,20 +92,20 @@ export default {
 }
 
 .card {
-  margin: 0 12px;
+  margin: 0 12px 8px;
+
   padding: 8px 12px;
   background-color: #fff;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 2vh;
 }
 
 .card-title {
   font-size: 1.5vh;
   font-weight: bold;
-  margin-bottom: 2%;
+  margin-bottom: 4px;
 }
 
 .shop-geography {
@@ -153,7 +152,7 @@ export default {
   font-size: 1.3vh;
   border-radius: 30px;
   border: 1px solid #ccc;
-  padding: 1% 4%;
+  padding: 4px 8px;
 
 }
 
@@ -171,21 +170,21 @@ export default {
 }
 
 .call-cell {
-  padding: 3% 4%;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  color: #147efb;
+  color: rgb(0, 122, 255);
   font-size: 2vh;
-  
+
 }
 
-.tel-icon-pop  {
+.tel-icon-pop {
   font-size: 3vh;
   color: #333;
   margin-right: 3%;
 }
 
 .mb-2 {
-  margin-bottom: 4%;
+  margin-bottom: 12px;
 }
 </style>

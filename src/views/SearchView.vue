@@ -106,6 +106,7 @@ export default {
         async confirm(payload = this.inputVal) {
             this.inputVal = payload;
             const that = this;
+            this.$router.push({name: 'search', query: { keyword: payload }})
             /* eslint-disable */
 
             await this.$axios(`/api/profile/typeahead/${payload}`)
@@ -119,7 +120,7 @@ export default {
                 .catch(e => {
                     that.restaurants = null;
                     that.words = null;
-                    console.log('no result')
+                    // console.log('no result')
                     that.clearInput();
                 })
             this.isConfirmed = true;

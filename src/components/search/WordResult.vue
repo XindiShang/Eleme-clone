@@ -1,9 +1,13 @@
 <template>
     <div class="word-item mb-4">
-        <span class="word-icon material-icons-outlined mr-2">search</span>
+        <div class="word-icon-container mr-2">
+            <span class="word-icon material-icons-outlined">search</span>
+
+        </div>
+
 
         <div class="word-wrapper">
-            <div class="top-row mb-2">
+            <div class="top-row">
                 <span @click="emitWordClick" v-if="noResult" class="mr-1 no-result-text">
                     查找
                     <span class="no-result-keyword">“{{ word }}”</span>
@@ -58,34 +62,37 @@ export default {
 .mr-1 {
     margin-right: 1%;
 }
+
 .mr-2 {
     margin-right: 2%;
 }
 
-.mb-2 {
-    margin-bottom: 2%;
-}
 .mb-4 {
-    margin-bottom: 4%;
+    margin-bottom: 10px;
 }
+
 .word-item {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    padding: 4px 0;
     border-bottom: 1px solid #f1f1f1;
     cursor: pointer;
+    height: 20%;
 }
 
 .word-icon {
     font-size: 1.2rem;
     color: #706c6c;
 }
+
 .word-wrapper {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
     width: 100%;
+    height: 100%;
 }
 
 .top-row {
@@ -99,6 +106,7 @@ export default {
 .no-result-text {
     color: #a09e9e;
 }
+
 .no-result-keyword {
     color: black;
 }

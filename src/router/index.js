@@ -81,7 +81,8 @@ const routes = [
     component: SearchView
   },
   {
-    path: '/shop',
+    // consider adding a conditional check if db is completed
+    path: '/shop/:shopId',
     name: 'shop',
     redirect: { name: 'menu' },
     component: ShopView,

@@ -77,19 +77,24 @@
 
                 <div class="cart-pop-main">
                     <div @click="switchDetails(item)" v-for="(item, i) in cart" :key="i"
-                        class="pop-body-container mb-2">
+                        class="pop-body-container">
                         <div class="pop-item-container">
                             <div class="pop-left">
-                                <van-image class="pop-img mr-2" radius="4" fit="cover" lazy-load :src="item.img">
+                                <van-image class="pop-img" radius="4" fit="cover" lazy-load :src="item.img">
                                 </van-image>
-                                <div class="pop-text">
-                                    <p class="pop-name mb-4">{{ item.name }}</p>
-                                    <p class="pop-price">￥{{ formatNum(item.price * item.count) }}</p>
-                                </div>
+
                             </div>
                             <div class="pop-right">
-                                <add-to-cart :haveInitializer="false" :isFromCart="true" :item="item"></add-to-cart>
+                                <div class="pop-text">
+                                    <p class="pop-name">{{ item.name }}</p>
+                                </div>
+                                <div class="bottom">
+                                    <p class="pop-price">￥{{ formatNum(item.price * item.count) }}</p>
+                                    <add-to-cart :haveInitializer="false" :isFromCart="true" :item="item"></add-to-cart>
+
+                                </div>
                             </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -240,7 +245,7 @@ export default {
                 this.discountApplied = this.discounts[lastIdx].discount;
             } else {
                 for (let el of this.discounts) {
-                    if (this.currentPrice > el.bar){
+                    if (this.currentPrice > el.bar) {
                         this.timesPassed++;
                     }
                     if (this.currentPrice <= el.bar) {
@@ -366,6 +371,8 @@ export default {
 
 .icon-container-active {
     background-color: #47b6fd;
+    cursor: pointer;
+
 }
 
 .cart-icon {
@@ -432,7 +439,7 @@ export default {
 
 .btn {
     width: 100%;
-    height: 5vh;
+    max-width: 180px;
     text-align: center;
     line-height: 5vh;
     border-radius: 200px;
@@ -442,6 +449,7 @@ export default {
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 0 2vw;
+    pointer-events: none;
 }
 
 .btn:link,
@@ -452,6 +460,7 @@ export default {
 
 .btn-active {
     background-color: #47b6fd;
+    pointer-events: all;
 
 }
 
@@ -491,9 +500,6 @@ export default {
     margin-bottom: 2%;
 }
 
-.mb-4 {
-    margin-bottom: 4%;
-}
 
 /* *** */
 
@@ -512,7 +518,14 @@ export default {
     width: 100%;
     background-color: #fff;
     z-index: 1;
-    max-height: 70vh;
+    /* max-height: 70vh; */
+
+}
+
+.cart-pop-main {
+    height: 100%;
+    max-height: 350px;
+    overflow: scroll;
 
 }
 
@@ -550,41 +563,62 @@ export default {
     font-size: 1.5vh;
     color: #666;
     line-height: 2vh;
+    cursor: pointer;
 }
 
 .clear-icon {
     font-size: 2vh;
 }
 
-.cart-pop-main {
-    height: 100%;
-    max-height: 63.6vh;
-    overflow: scroll;
 
+
+.pop-body-container {
+    height: 10vh;
+    max-height: 100px;
+    margin-bottom: 8px;
 }
 
 .pop-item-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-end;
     padding: 2px 12px;
     width: 100%;
+    height: 100%;
 }
 
 .pop-left {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 90%;
+    height: 100%;
+    margin-right: 6px;
+    
+}
 
+.pop-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .pop-img {
     width: 18vw;
+    max-width: 100px;
+    max-height: 100px;
 }
 
 .pop-text {
     width: 70%;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .pop-name {
@@ -593,12 +627,14 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* margin-bottom: 10px; */
 }
 
 .pop-price {
     font-size: 2.2vh;
     font-weight: bold;
     color: #47b6fd;
+    width: 100%;
 }
 
 /* *** */
@@ -607,6 +643,7 @@ export default {
 .cta-container {
     text-align: center;
     width: 80vw;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -630,7 +667,7 @@ export default {
 
 .cta-cancel,
 .cta-confirm {
-    padding: 1.4vh 7vw;
+    padding: 10px 20px;
     font-size: 1.8vh;
     width: 45%;
 }

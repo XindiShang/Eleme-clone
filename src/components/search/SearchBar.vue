@@ -1,22 +1,22 @@
 <template>
     <div class="wrapper">
         <div class="search-bar">
-            <span @click="emitBack" class="back-icon material-icons-outlined">arrow_back_ios</span>
-
-            <div class="input-field">
-                <div class="input-field-left">
-                    <input
-                        type="text"
-                        :value="modelValue"
-                        @input="$emit('update:modelValue', $event.target.value)"
-                        :placeholder="placeholder"
-                        autofocus
-                    />
+            <div class="bar-left">
+                <div class="back-icon-container">
+                    <span @click="emitBack" class="back-icon material-icons-outlined">arrow_back_ios</span>
                 </div>
-                <div v-show="modelValue" @click="emitClear" class="input-field-right">
-                    <span class="material-icons delete-icon">cancel</span>
+
+                <div class="input-field">
+                    <div class="input-field-left">
+                        <input type="text" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
+                            :placeholder="placeholder" autofocus />
+                    </div>
+                    <div v-show="modelValue" @click="emitClear" class="input-field-right">
+                        <span class="material-icons delete-icon">cancel</span>
+                    </div>
                 </div>
             </div>
+
 
             <a class="search-text" @click="emitConfirm">搜索</a>
         </div>
@@ -42,7 +42,7 @@ export default {
         emitInput() {
             this.$emit('inputChange', this.inputVal);
         },
-        emitBack(){
+        emitBack() {
             this.$emit('goBack')
         }
     },
@@ -58,12 +58,10 @@ export default {
 
 <style scoped>
 .wrapper {
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     padding: 8px 12px;
     background-color: #f6f6f6;
 }
+
 .search-bar {
     width: 100%;
     height: 28px;
@@ -75,13 +73,26 @@ export default {
     padding: 0px;
 }
 
+.bar-left {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
 .search-text {
     padding: 0px;
-    /* margin-top: 14px; */
     font-size: 0.86rem;
     line-height: 100%;
     text-decoration: none;
     color: rgb(73, 72, 72);
+}
+
+.back-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 7px;
 }
 
 .back-icon {
@@ -90,7 +101,7 @@ export default {
 }
 
 .input-field {
-    width: 80%;
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -99,17 +110,21 @@ export default {
     border-radius: 20px;
 }
 
+
 .input-field-left {
     display: flex;
     justify-content: start;
     align-items: center;
-    margin-left: 3%;
+    margin-left: 7px;
+    
 }
+
 .input-field-right {
     display: flex;
     align-items: center;
-    margin-right: 2%;
+    margin-right: 7px;
 }
+
 .delete-icon {
     color: #ccc;
     font-size: 16px;
@@ -128,12 +143,13 @@ export default {
     outline: none;
 }
 
-.no-result {
+/* .no-result {
     padding: 18px 16px 4px 16px;
     text-align: center;
     color: rgb(170, 166, 166);
 }
+
 .no-result p {
     font-size: 12px;
-}
+} */
 </style>

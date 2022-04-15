@@ -109,14 +109,14 @@ export default {
 
 <style scoped>
 .card {
-  margin: 0 12px;
+  margin: 0 12px 8px;
   padding: 8px 12px;
   background-color: #fff;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 2vh;
+
 }
 
 .ratings-container {
@@ -184,8 +184,8 @@ export default {
 
 .tag-item {
   background-color: #f6f6f6;
-  padding: 1.5vw 2vw;
-  margin: 0 2vw 2vw 0;
+  padding: 6px 8px;
+  margin: 0 8px 8px 0;
   border-radius: 4px;
   font-size: 1.5vh;
 }
@@ -222,15 +222,15 @@ export default {
 }
 
 .mr-1 {
-  margin-right: 2vw;
+  margin-right: 8px;
 }
 
 .mb-1 {
-  margin-bottom: 1vh;
+  margin-bottom: 8px;
 }
 
 .mb-2 {
-  margin-bottom: 2vh;
+  margin-bottom: 14px;
 }
 
 .flex-start {

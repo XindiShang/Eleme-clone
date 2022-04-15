@@ -1,11 +1,11 @@
 <template>
     <section class="suggest" >
         <div v-for="(item, i) in info" :key="i" class="suggest-container">
-            <div class="suggest-title mb-2">
+            <div class="suggest-title">
                 <p>{{ item.title }}</p>
             </div>
 
-            <div class="suggest-body mb-4">
+            <div class="suggest-body">
                 <van-tag
                     v-for="(search, i) in item.body"
                     :key="i"
@@ -52,12 +52,6 @@ export default {
 </script>
 
 <style scoped>
-.mb-2 {
-    margin-bottom: 3%;
-}
-.mb-4 {
-    margin-bottom: 4%;
-}
 .suggest {
     padding: 8px 12px;
 }
@@ -65,12 +59,16 @@ export default {
 .suggest-title {
     font-weight: bold;
     font-size: 0.8rem;
+    margin-bottom: 10px;
+
 }
 .suggest-body {
     box-sizing: border-box;
     display: flex;
     justify-content: flex-start;
     flex-wrap: nowrap;
+    margin-bottom: 20px;
+
 }
 .van-tag {
     font-size: 10px;

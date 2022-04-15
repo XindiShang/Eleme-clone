@@ -18,7 +18,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 2%;
+    margin-bottom: 8px;
 }
 
 .discount-text {
@@ -31,11 +31,11 @@ export default {
 }
 
 .discount-icon {
-    padding: 0 2%;
+    padding: 0 8px;
     font-size: 1.3vh;
 }
 
 .mr-2 {
-    margin-right: 2%;
+    margin-right: 8px;
 }
 </style>

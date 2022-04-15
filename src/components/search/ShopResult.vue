@@ -1,14 +1,14 @@
 <template>
-    <div @click="switchShopPage" class="shop-item mb-4">
+    <div @click="switchShopPage" class="shop-item">
         <span class="shop-icon material-icons-outlined mr-2">storefront</span>
 
         <div class="shop-wrapper">
-            <div class="top-row mb-1">
+            <div class="top-row ">
                 <span ref="shopName" class="mr-1">{{ shop.name }}</span>
                 <van-tag v-if="showTag" text-color="#47b6fd" plain color="#ededed">蓝骑士专送</van-tag>
             </div>
 
-            <div class="bottom-row mb-2">
+            <div class="bottom-row ">
                 <span class="mr-2">评价{{ shop.rating }}</span>
                 <span class="mr-2">配送￥{{ shop.float_delivery_fee }}</span>
                 <span>{{ distance }}km</span>
@@ -34,8 +34,8 @@ export default {
         }
     },
     methods: {
-        switchShopPage(){
-            this.$router.push('/shop');
+        switchShopPage() {
+            this.$router.push({ name: 'shop', params: { shopId: this.shop.id } });
         }
     },
     mounted() {
@@ -68,31 +68,26 @@ export default {
 .mr-1 {
     margin-right: 1%;
 }
+
 .mr-2 {
     margin-right: 2%;
 }
 
-.mb-1 {
-    margin-bottom: 1%;
-}
-.mb-2 {
-    margin-bottom: 2%;
-}
-.mb-4 {
-    margin-bottom: 4%;
-}
 .shop-item {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     border-bottom: 1px solid #f1f1f1;
     cursor: pointer;
+    margin-bottom: 10px;
+
 }
 
 .shop-icon {
     font-size: 1.2rem;
     color: #706c6c;
 }
+
 .shop-wrapper {
     display: flex;
     justify-content: center;
@@ -107,11 +102,13 @@ export default {
     text-overflow: ellipsis;
     width: 100%;
     font-size: 0.86rem;
+    margin-bottom: 4px;
 }
 
 .bottom-row {
     width: 100%;
     font-size: 0.7rem;
     color: #a09e9e;
+    margin-bottom: 4px;
 }
 </style>

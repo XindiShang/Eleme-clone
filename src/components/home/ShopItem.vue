@@ -106,7 +106,7 @@ export default {
     },
     methods: {
         switchShopPage() {
-            this.$router.push('/shop');
+            this.$router.push({ name: 'shop', params: { shopId: this.shop.id } });
         }
     },
 }
