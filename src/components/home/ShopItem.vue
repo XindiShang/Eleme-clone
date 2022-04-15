@@ -10,7 +10,7 @@
 
             </div>
             <!-- right  -->
-            <div class="card_main">
+            <div class="card-main">
                 <!-- 1 title and more  -->
                 <div class="first-row">
                     <span class="shop-name">{{ shop.name }}</span>
@@ -170,7 +170,7 @@ export default {
     left: 0;
 }
 
-.card_main {
+.card-main {
     display: flex;
     justify-content: flex-start;
     overflow: hidden;

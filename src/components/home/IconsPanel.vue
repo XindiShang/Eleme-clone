@@ -1,23 +1,23 @@
 <template>
     <section class="panel">
         <recent-search></recent-search>
-        <table>
-            <tr class="top">
-                <td v-for="(img, i) in imagesTop" :key="i">
+        <table class="panel-container">
+            <tr class="large-row panel-row">
+                <td class="panel-item" v-for="(img, i) in imagesTop" :key="i">
                     <img :src="require(`@/assets/${img}.png`)" alt />
-                    <p>{{ img }}</p>
+                    <p class="icon-name">{{ img }}</p>
                 </td>
             </tr>
-            <tr class="middle">
-                <td v-for="(img, i) in imagesMiddle" :key="i">
+            <tr class="normal-row panel-row">
+                <td class="panel-item" v-for="(img, i) in imagesMiddle" :key="i">
                     <img :src="require(`@/assets/${img}.png`)" alt />
-                    <p>{{ img }}</p>
+                    <p class="icon-name">{{ img }}</p>
                 </td>
             </tr>
-            <tr class="bottom">
-                <td v-for="(img, i) in imagesBottom" :key="i">
+            <tr class="normal-row panel-row">
+                <td class="panel-item" v-for="(img, i) in imagesBottom" :key="i">
                     <img :src="require(`@/assets/${img}.png`)" alt />
-                    <p>{{ img }}</p>
+                    <p class="icon-name">{{ img }}</p>
                 </td>
             </tr>
         </table>
@@ -66,70 +66,62 @@ export default {
     box-sizing: border-box;
 }
 
-table {
+.panel-container {
     margin: 6px 0px 0;
     box-sizing: border-box;
     display: block;
     left: 0;
 }
 
-td {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
+.panel-row {
+    width: 100%;
+    margin-bottom: 14px;
+
+}
+
+.panel-item {
     padding: 0 6px;
     width: 100%;
     text-align: center;
-    margin-bottom: 14px;
 }
 
-p {
+.icon-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
+    font-size: .75rem;
+    margin-top: 2%;
 }
 
-.top {
+.large-row {
     width: auto;
     display: grid;
     gap: 2%;
     grid-template-columns: repeat(5, 1fr);
 }
 
-.top img {
-    width: 50px;
-    height: 50px;
+.large-row img {
+    width: 92%;
+    height: 92;
+    max-width: 74px;
+    max-height: 74px;
     margin: auto;
 }
 
-.middle {
+.normal-row {
     width: auto;
     display: grid;
     gap: 2%;
     grid-template-columns: repeat(5, 1fr);
 }
 
-.middle img {
-    width: 30px;
-    height: 30px;
+.normal-row img {
+    width: 68%;
+    height: 68%;
+    max-width: 50px;
+    max-height: 50px;
     margin: auto;
 }
 
-.bottom {
-    width: auto;
-    display: grid;
-    gap: 2%;
-    grid-template-columns: repeat(5, 1fr);
-}
-
-.bottom img {
-    width: 30px;
-    height: 30px;
-    margin: auto;
-}
-
-p {
-    font-size: 13px;
-}
 </style>
