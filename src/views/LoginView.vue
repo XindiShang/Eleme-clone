@@ -4,37 +4,19 @@
             <img src="../assets/elemeLogo.svg" alt="eleme logo" />
         </div>
 
-        <input-group
-            inputType="number"
-            v-model="tel"
-            inputPlaceholder="手机号"
-            :errorMsg="telErrorMsg"
-            :hasClearBtn="true"
-            @clearBtnClick="clearTel"
-        ></input-group>
+        <input-group inputType="number" v-model="tel" inputPlaceholder="手机号" :errorMsg="telErrorMsg" :hasClearBtn="true"
+            @clearBtnClick="clearTel"></input-group>
 
-        <input-group
-            inputType="number"
-            v-model="verificationCode"
-            inputPlaceholder="验证码"
-            :isDisabled="isDisabledPassed"
-            :isAvailable="isAvailablePassed"
-            :inputBtnText="inputBtnTextPassed"
-            @inputBtnClick="sendCode"
-            :errorMsg="codeErrorMsg"
-        ></input-group>
+        <input-group inputType="number" v-model="verificationCode" inputPlaceholder="验证码" :isDisabled="isDisabledPassed"
+            :isAvailable="isAvailablePassed" :inputBtnText="inputBtnTextPassed" @inputBtnClick="sendCode"
+            :errorMsg="codeErrorMsg"></input-group>
 
         <div class="login_btn">
             <button @click="login" :disabled="canClick">登录</button>
         </div>
 
         <div class="login_des">
-            <button
-                type="text"
-                class="agreementBtn"
-                :class="{ 'agreed': isAgreed }"
-                @click="agreeToTerms"
-            >
+            <button type="text" class="agreementBtn" :class="{ 'agreed': isAgreed }" @click="agreeToTerms">
                 <span class="material-icons">check</span>
             </button>
             <p>
@@ -98,7 +80,12 @@ export default {
                 this.codeErrorMsg = '验证码错误，请重试'
             } else {
                 localStorage.setItem("eleme_login", true);
-                this.$router.push("/");
+                const fakeUserId = 'a-fake-id-333'
+                this.$store.dispatch('getUser', {
+                    userId: fakeUserId,
+                    phone: this.tel
+                })
+                this.$router.push(this.$route.query.redirect? { name: this.$route.query.redirect, params: { userId: fakeUserId } }: '/');
             }
         },
         sendCode() {
@@ -115,6 +102,7 @@ export default {
                 //         console.log(res);
                 //     });
                 this.correctCode = Math.floor(Math.random() * 10000) + 1;
+                this.verificationCode = this.correctCode + '';
                 console.log(this.correctCode)
             }
         },
@@ -194,17 +182,21 @@ export default {
 .login_btn {
     margin-top: 20px;
 }
+
 .login_des {
     color: #aaa;
     line-height: 22px;
 }
+
 .login_des a {
     color: rgb(14, 179, 255);
     text-decoration: none;
 }
+
 .login_des p {
     display: inline;
 }
+
 .login_btn button {
     width: 100%;
     height: 40px;
@@ -215,6 +207,7 @@ export default {
     border: none;
     outline: none;
 }
+
 .login_btn button[disabled] {
     background-color: #ccc;
 }
@@ -233,6 +226,7 @@ export default {
     margin-bottom: 4px;
     padding: 0;
 }
+
 .agreementBtn span {
     font-size: 1px;
     color: #fff;

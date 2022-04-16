@@ -1,6 +1,12 @@
 import { createStore } from 'vuex'
+// import authModule from './modules/auth/index.js';
+import userModule from './modules/user/index.js';
 
 export default createStore({
+  modules: {
+    // auth: authModule,
+    user: userModule,
+},
   state: {
     address: '',
     city: '',
@@ -15,6 +21,7 @@ export default createStore({
     allShops: [],
     selectedShop: {},
     cart: [],
+
   },
   getters: {
     doneAddress(state) {
@@ -50,8 +57,8 @@ export default createStore({
     },
     doneCart(state) {
       return state.cart;
+    },
 
-    }
   },
   mutations: {
     setAddress(state, payload) {
@@ -138,8 +145,10 @@ export default createStore({
     },
     clearCart(state) {
       state.cart = [];
-      
-    }
+
+    },
+
+
 
   },
   actions: {
@@ -182,6 +191,5 @@ export default createStore({
     }
 
   },
-  modules: {
-  }
+
 })

@@ -4,7 +4,7 @@ import {
     Toast, Button, Tag, Sticky, Image as VanImage,
     Lazyload, Badge, PullRefresh, List, Swipe, SwipeItem,
     Popup, NoticeBar, Tab, Tabs, Overlay, ShareSheet, Rate, ImagePreview,
-    ActionSheet 
+    ActionSheet, Popover, SwipeCell  
 } from 'vant';
 import router from './router'
 import store from './store'
@@ -34,6 +34,10 @@ app.use(ShareSheet);
 app.use(Rate);
 app.use(ImagePreview);
 app.use(ActionSheet);
+app.use(Popover);
+app.use(SwipeCell);
+
+
 
 
 axios.interceptors.request.use(config => {

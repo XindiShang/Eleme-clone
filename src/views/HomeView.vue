@@ -104,13 +104,21 @@ export default {
     switchSearchPage() {
       this.$router.push('/search')
     },
-    getData() {
-      this.$axios("/api/profile/shopping").then(res => {
-        this.swipeImgs = res.data.swipeImgs;
-      });
-      this.$axios("/api/profile/filter").then(res => {
-        this.$store.dispatch('getFilterData', res.data);
-      });
+    async getData() {
+      const bannerRes = await this.$axios("/api/profile/shopping");
+      const bannerData = await bannerRes.data;
+      this.swipeImgs = bannerData.swipeImgs;
+
+      const filterRes = await this.$axios("/api/profile/filter");
+      const filterData = filterRes.data;
+      this.$store.dispatch('getFilterData', filterData);
+
+      // this.$axios("/api/profile/shopping").then(res => {
+      //   this.swipeImgs = res.data.swipeImgs;
+      // });
+      // this.$axios("/api/profile/filter").then(res => {
+      //   this.$store.dispatch('getFilterData', res.data);
+      // });
     },
     showFilters(payload) {
       this.isShown = payload;

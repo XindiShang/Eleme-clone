@@ -5,7 +5,7 @@ const LoginView = () => import('../views/LoginView.vue');
 const HomeView = () => import('../views/HomeView.vue');
 const SocialView = () => import('../views/SocialView.vue');
 const OrderView = () => import('../views/OrderView.vue');
-const ProfileView = () => import('../views/ProfileView.vue');
+const ProfileView = () => import('../views/profile/ProfileView.vue');
 const AddressView = () => import('../views/location/AddressView.vue');
 const LocateView = () => import('../views/location/LocateView.vue');
 const CityView = () => import('../views/location/CityView.vue');
@@ -15,6 +15,7 @@ const MenuView = () => import('../views/shops/MenuView.vue');
 const CommentView = () => import('../views/shops/CommentView.vue');
 const SellerView = () => import('../views/shops/SellerView.vue');
 const FoodDetailsView = () => import('../views/shops/FoodDetailsView.vue');
+const UserAddressView = () => import('../views/profile/UserAddressView.vue');
 
 const routes = [
   {
@@ -43,15 +44,27 @@ const routes = [
         path: 'profile',
         name: 'profile',
         component: ProfileView,
-        // children: [
-        //   {
-        //     path: '/:userId',
-        //     // login required
-        //   }
-        // ]
       },
-
+      {
+        path: 'profile/:userId',
+        name: 'matchedProfile',
+        props: true,
+        component: ProfileView,
+      },
     ]
+  },
+  {
+    path: '/profile/:userId/address',
+    name: 'userAddress',
+    props: true,
+    component: UserAddressView,
+  },
+  // new route
+  {
+    path: '/profile/:userId/address/new',
+    name: 'userNewAddress',
+    props: true,
+    // component: UserAddressView,
   },
   {
     path: '/address',
@@ -93,14 +106,6 @@ const routes = [
         component: MenuView,
       },
       {
-        path: 'menu/:foodId',
-        name: 'foodDetails',
-        component: FoodDetailsView,
-        props: true,
-        // meta: { transition: 'slide' },
-      },
-
-      {
         path: 'reviews',
         name: 'reviews',
         component: CommentView
@@ -112,13 +117,12 @@ const routes = [
       },
     ]
   },
-  // {
-  //   path: '/shop/menu/:foodId',
-  //   name: 'foodDetails',
-  //   component: FoodDetails,
-  //   props: true
-
-  // },
+  {
+    path: '/shop/menu/:foodId',
+    name: 'foodDetails',
+    component: FoodDetailsView,
+    props: true
+  },
 
 ]
 

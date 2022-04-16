@@ -18,7 +18,7 @@ export default {
         {label: '首页', path: '/home', useImg: true},
         {label: '真香', icon: 'egg', path: '/social'},
         {label: '订单', icon: 'list_alt', path: '/order'},
-        {label: '我的', icon: 'insert_emoticon', path: '/profile'},
+        {label: '我的', icon: 'insert_emoticon', path: localStorage.getItem('eleme_login')? '/profile/a-fake-id-333' : '/profile'},
       ]
     }
   },

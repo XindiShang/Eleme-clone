@@ -121,7 +121,6 @@ export default {
         return null
       }
 
-      // return JSON.parse(this.$route.params.foodItem)
     },
     randNum() {
       return Math.floor(Math.random() * 1000 + 1);
