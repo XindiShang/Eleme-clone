@@ -1,18 +1,18 @@
 <template>
-  <div class="base-blue-header">
-    <div class="blue-header-content">
-      <div class="header-icon-container blue-header-container ">
+  <div :class="bgColorClass" class="base-util-header">
+    <div class="util-header-content">
+      <div class="header-icon-container util-header-container ">
         <span @click="emitGoBack" class="header-back-icon material-icons-outlined">
           arrow_back_ios
         </span>
       </div>
-      <div class="blue-header-container text-center">
-        <h3 class="blue-header-title">
+      <div class="util-header-container text-center">
+        <h3 class="util-header-title">
           {{ headerTitle }}
         </h3>
       </div>
-      <div class="blue-header-container text-end">
-        <span @click="emitRight" class="blue-header-right-text">
+      <div class="util-header-container text-end">
+        <span @click="emitRight" class="util-header-right-text">
           {{ rightText }}
         </span>
       </div>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ['headerTitle', 'rightText'],
+  props: ['headerTitle', 'rightText', 'bgColor'],
   emits: ['goBack', 'rightClick'],
   methods: {
     emitGoBack() {
@@ -33,19 +33,35 @@ export default {
 
     }
   },
+  computed: {
+    bgColorClass() {
+      return {
+        'bg-blue': this.bgColor === 'blue',
+        'bg-white': this.bgColor === 'white'
+      }
+    }
+  },
 }
 </script>
 
 <style scoped>
-.base-blue-header {
-  background: linear-gradient(to right, #42abfe, #3585fe);
-  /* padding: 18px 16px 4px 16px; */
+.base-util-header {
   padding: 8px 12px;
-  /* height: auto; */
   width: 100%;
 }
 
-.blue-header-content {
+.bg-blue {
+  background: linear-gradient(to right, #42abfe, #3585fe);
+  color: #fff;
+}
+
+.bg-white {
+  background: #fff;
+  color: #333;
+}
+
+
+.util-header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,8 +69,8 @@ export default {
   height: 28px;
 }
 
-.blue-header-container {
-  color: #fff;
+.util-header-container {
+  /* color: #fff; */
   width: 33.333%;
 }
 
@@ -67,12 +83,12 @@ export default {
   font-size: 1.4rem;
 }
 
-.blue-header-title {
+.util-header-title {
   font-size: 1.1rem;
   font-weight: bold;
 }
 
-.blue-header-right-text {
+.util-header-right-text {
   font-size: .9rem;
 }
 

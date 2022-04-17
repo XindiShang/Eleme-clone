@@ -1,27 +1,26 @@
 <template>
   <div class="user-address">
-    <base-blue-header class="header-fixed" @go-back="switchPageBack" @right-click="addNewAddress" header-title="收货地址"
-      right-text="新增地址">
-    </base-blue-header>
+    <base-util-header class="header-fixed" @go-back="switchPageBack" @right-click="addNewAddress" header-title="收货地址"
+      right-text="新增地址" bgColor="blue" />
 
     <div class="address-list">
       <div v-for="(address, i) in addresses" :key="i" class="cell-wrapper">
         <address-item :address="address" />
       </div>
-      
+
     </div>
   </div>
 
 </template>
 
 <script>
-import BaseBlueHeader from "@/components/BaseBlueHeader.vue";
+import BaseUtilHeader from "@/components/BaseUtilHeader.vue";
 import AddressItem from "@/components/profile/AddressItem.vue";
 // import { Dialog } from 'vant';
 
 export default {
   components: {
-    BaseBlueHeader,
+    BaseUtilHeader,
     AddressItem
   },
   computed: {
@@ -38,7 +37,7 @@ export default {
       this.$router.back();
     },
     addNewAddress() {
-
+      this.$router.push({ name: 'userNewAddress' });
     }
   },
 }
@@ -46,7 +45,7 @@ export default {
 
 <style scoped>
 .user-address {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-color: #f8f8f8;
 }

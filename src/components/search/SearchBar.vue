@@ -45,12 +45,7 @@ export default {
         emitBack() {
             this.$emit('goBack')
         }
-    },
-    watch: {
-        inputVal() {
-            this.emitInput();
-        }
-    },
+    }
 
 }
 </script>
@@ -116,7 +111,7 @@ export default {
     justify-content: start;
     align-items: center;
     margin-left: 7px;
-    
+
 }
 
 .input-field-right {
