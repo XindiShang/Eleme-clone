@@ -3,7 +3,7 @@
     <div class="util-header-content">
       <div class="header-icon-container util-header-container ">
         <span @click="emitGoBack" class="header-back-icon material-icons-outlined">
-          arrow_back_ios
+          {{leftIcon}}
         </span>
       </div>
       <div class="util-header-container text-center">
@@ -22,7 +22,23 @@
 
 <script>
 export default {
-  props: ['headerTitle', 'rightText', 'bgColor'],
+  props: {
+    headerTitle: {
+      type: String
+    },
+    rightText: {
+      type: String
+    },
+    bgColor: {
+      type: String
+      
+    },
+    leftIcon: {
+      type: String,
+      default: 'arrow_back_ios'
+
+    }
+  },
   emits: ['goBack', 'rightClick'],
   methods: {
     emitGoBack() {

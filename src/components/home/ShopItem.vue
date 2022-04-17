@@ -3,9 +3,12 @@
         <div class="card-body">
             <!-- left  -->
             <div class="logo_container">
-                <van-badge :content="cartNum" color="#f73e00">
+                <!-- <van-badge :content="cartNum" color="#f73e00"> -->
                     <van-image class="logo-img" fit="cover" radius="5" lazy-load :src="shop.image_path" alt />
-                </van-badge>
+                <!-- </van-badge> -->
+                <div v-if="cartNum" class="count-container">
+                    <span class="count-num">{{ cartNum }}</span>
+                </div>
                 <img class="brand-img" v-if="shop.is_premium" :src="require('@/assets/品牌.png')" alt />
 
             </div>
@@ -89,7 +92,7 @@ export default {
     computed: {
         cartNum() {
             // to be determined by store value
-            return this.cart;
+            return this.getCartLength();
         },
         randNum() {
             return Math.floor(Math.random() * (this.impressions.length))
@@ -107,6 +110,18 @@ export default {
     methods: {
         switchShopPage() {
             this.$router.push({ name: 'shop', params: { shopId: this.shop.id } });
+        },
+        getCartLength() {
+            const cart = this.$store.getters.doneCart;
+            if (cart.length === 0) {
+                return 0;
+            } else {
+                let total = 0;
+                for (let item of cart) {
+                    total += item.count
+                }
+                return total;
+            }
         }
     },
 }
@@ -116,6 +131,29 @@ export default {
 .mr-1 {
     margin-right: 0.4rem;
 }
+
+.count-container {
+    background-color: #ff5339;
+    border-radius: 50%;
+    width: 4vw;
+    height: 4vw;
+    max-width: 20px;
+    max-height: 20px;
+    text-align: center;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.count-num {
+    font-size: .8rem;
+    color: white;
+    line-height: .9;
+}
+
 
 .card {
     box-sizing: border-box;

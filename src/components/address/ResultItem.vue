@@ -12,6 +12,7 @@
 </template>
 
 <script>
+
 export default {
     props: ['result'],
     data() {
@@ -44,9 +45,12 @@ export default {
             this.doCount = true;
             this.changeAddress();
         },
-        setNewLocation(){
+        setNewLocation() {
             this.doCount = false;
+            // console.log(this.$route)
             this.changeAddress();
+            this.$router.push(this.$route.query.redirect ? { name: this.$route.query.redirect, params: { userId: 'a-fake-id-333' } } : { name: 'shop' });
+
         },
         changeAddress() {
             /* eslint-disable */
@@ -75,7 +79,9 @@ export default {
                                         lng: that.latResult,
                                     }
                                     that.$store.dispatch('getAddress', payload);
-                                    that.$router.push('/home');
+                                    // that.$router.push('/home');
+                        
+
                                 }
                             })
                         } else {
@@ -104,6 +110,7 @@ export default {
         this.showDistance();
     },
 
+
 }
 </script>
 
@@ -117,6 +124,7 @@ export default {
     height: 50px;
     padding: 2px 16px 2px 16px;
 }
+
 .result-top {
     display: flex;
     justify-content: space-between;

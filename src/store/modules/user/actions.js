@@ -14,5 +14,8 @@ export default {
   },
   callDeleteAddress(context, addressId) {
     context.commit('deleteAddress', addressId);
+  },
+  getNewAddress(context, payload) {
+    context.commit('addNewAddress', payload);
   }
 }

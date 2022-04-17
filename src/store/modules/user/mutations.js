@@ -6,5 +6,8 @@ export default {
   deleteAddress(state, addressId) {
     const targetIdx = state.addresses.findIndex(el => el.addressId === addressId);
     state.addresses.splice(targetIdx, 1);
+  },
+  addNewAddress(state, payload) {
+    state.addresses.push(payload);
   }
 }

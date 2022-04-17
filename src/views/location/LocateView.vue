@@ -1,37 +1,29 @@
 <template>
     <div class="locate-view">
-        <base-header>
-            <!-- select menu  -->
-            <div class="select-menu">
-                <span
-                    class="material-icons-outlined select-menu-left"
-                    @click="switchAddressPage"
-                >chevron_left</span>
-                <span class="select-menu-middle">选择收货地址</span>
-                <span class="select-menu-right">新增地址</span>
-            </div>
-            <!-- search bar  -->
-            <div class="wrapper">
-                <div class="search-bar">
-                    <div @click="switchCityPage">
-                        <span class="city">{{ city }}</span>
-                        <span class="material-icons-outlined down-arrow-icon">expand_more</span>
-                    </div>
-                    <div class="divider"></div>
+        <base-util-header bg-color="white" @go-back="switchBack" :header-title="headerTitle" />
 
-                    <div class="input-field">
-                        <div class="input-field-left">
-                            <span class="material-icons-outlined search-icon">search</span>
-                            <input v-model="inputVal" type="text" placeholder="请输入你的收货地址" />
-                        </div>
-                        <div v-show="inputVal" @click="clearInput" class="input-field-right">
-                            <span class="material-icons delete-icon">cancel</span>
-                        </div>
+        <!-- search bar  -->
+        <div class="wrapper">
+            <div class="search-bar">
+                <div @click="switchCityPage">
+                    <span class="city">{{ city }}</span>
+                    <span class="material-icons-outlined down-arrow-icon">expand_more</span>
+                </div>
+                <div class="divider"></div>
+
+                <div class="input-field">
+                    <div class="input-field-left">
+                        <span class="material-icons-outlined search-icon">search</span>
+                        <input v-model="inputVal" type="text" placeholder="请输入你的收货地址" />
+                    </div>
+                    <div v-show="inputVal" @click="clearInput" class="input-field-right">
+                        <span class="material-icons delete-icon">cancel</span>
                     </div>
                 </div>
-                <a class="cancel-text" href="/address">取消</a>
             </div>
-        </base-header>
+            <a class="cancel-text" @click="switchBack">取消</a>
+        </div>
+
 
         <div class="search-results up">
             <result-item v-for="item in results" :key="item.id" :result="item"></result-item>
@@ -45,14 +37,14 @@
 </template>
 
 <script>
-import BaseHeader from '../../components/BaseHeader.vue';
 import debounce from 'lodash.debounce';
 import ResultItem from '../../components/address/ResultItem.vue';
+import BaseUtilHeader from '@/components/BaseUtilHeader.vue';
 
 export default {
     components: {
-        BaseHeader,
-        ResultItem
+        ResultItem,
+        BaseUtilHeader
     },
     data() {
         return {
@@ -62,7 +54,7 @@ export default {
     },
     computed: {
         city() {
-            return this.$store.getters.doneCity;
+            return this.$store.getters.doneCity || '定位中';
         },
         showMsg() {
             if (!this.inputVal) {
@@ -70,11 +62,14 @@ export default {
             } else {
                 return true;
             }
+        },
+        headerTitle() {
+            return '选择收货地址'
         }
     },
     methods: {
-        switchAddressPage() {
-            this.$router.push('/address');
+        switchBack() {
+            this.$router.back();
         },
         switchCityPage() {
             this.$router.push('/city');
@@ -114,6 +109,11 @@ export default {
 </script>
 
 <style scoped>
+.locate-view {
+    width: 100%;
+    height: 100%;
+    padding-top: 8px;
+}
 .up {
     position: relative;
     top: -4px;
@@ -130,6 +130,7 @@ export default {
 .select-menu-left {
     width: 16%;
 }
+
 .select-menu-middle {
     font-size: 16px;
     font-weight: bold;
@@ -143,7 +144,10 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 4px 16px;
+
 }
+
 .search-bar {
     width: 88%;
     height: 28px;
@@ -155,12 +159,10 @@ export default {
     border-radius: 20px;
     font-size: 13px;
     padding: 0px;
-    margin-top: 14px;
 }
 
 .cancel-text {
     padding: 0px;
-    margin-top: 14px;
     font-size: 13px;
     line-height: 100%;
     text-decoration: none;
@@ -179,14 +181,17 @@ export default {
     justify-content: start;
     align-items: center;
 }
+
 .input-field-right {
     display: flex;
     align-items: center;
 }
+
 .delete-icon {
     color: #ccc;
     font-size: 16px;
 }
+
 .city {
     margin-left: 10px;
     overflow: hidden;
@@ -233,6 +238,7 @@ export default {
     text-align: center;
     color: rgb(170, 166, 166);
 }
+
 .no-result p {
     font-size: 12px;
 }

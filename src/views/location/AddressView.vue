@@ -1,39 +1,40 @@
 <template>
-    <base-header>
-        <!-- select menu  -->
-        <div class="select-menu">
-            <span class="material-icons-outlined select-menu-left" @click="switchHomePage">close</span>
-            <span class="select-menu-middle">选择收货地址</span>
-            <span>新增地址</span>
-        </div>
-        <!-- search bar  -->
-        <div class="search-bar">
-            <div @click="switchCityPage">
-                <span class="city">{{ city }}</span>
-                <span class="material-icons-outlined down-arrow-icon">expand_more</span>
-            </div>
+    <div class="address-view">
+        <base-util-header bg-color="white" left-icon="close" @go-back="switchHomePage" @right-click="addNewAddress"
+            :header-title="headerTitle" :right-text="rightText" />
 
-            <div class="divider"></div>
-            <span class="material-icons-outlined search-icon">search</span>
-            <p @click="switchLocatePage">请输入你的收货地址</p>
-        </div>
-    </base-header>
+        <div class="address-view-body">
+            <!-- search bar  -->
+            <address-search-bar />
+            <current-location class="current-location" />
 
-    <current-location ></current-location>
+        </div>
+
+    </div>
+
+
 </template>
 
 <script>
-import BaseHeader from '../../components/BaseHeader.vue';
+import AddressSearchBar from '../../components/address/AddressSearchBar.vue';
 import CurrentLocation from '../../components/address/CurrentLocation.vue';
+import BaseUtilHeader from '@/components/BaseUtilHeader.vue';
 
 export default {
     components: {
-        BaseHeader,
+        BaseUtilHeader,
         CurrentLocation,
+        AddressSearchBar
     },
     computed: {
         city() {
             return this.$store.getters.doneCity || '定位中';
+        },
+        headerTitle() {
+            return '选择收货地址'
+        },
+        rightText() {
+            return '新增地址'
         }
     },
     methods: {
@@ -43,76 +44,28 @@ export default {
         switchLocatePage() {
             this.$router.push('/locate');
         },
-        switchCityPage(){
+        switchCityPage() {
             this.$router.push('/city');
-
+        },
+        addNewAddress() {
+            this.$router.push({ name: 'userNewAddress', params: { userId: 'a-fake-id-333' } });
         }
     },
 }
 </script>
 
 <style scoped>
-.select-menu {
+.address-view {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-size: 14px;
+    height: 100%;
+    padding-top: 8px;
 }
 
-.select-menu-left {
-    width: 16%;
-}
-.select-menu-middle {
-    font-size: 16px;
-    font-weight: bold;
+.address-view-body {
+    padding: 4px 16px;
 }
 
-.search-bar {
-    width: 100%;
-    height: 28px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    border: none;
-    background-color: #eaeaea;
-    border-radius: 20px;
-    font-size: 13px;
-    padding: 0px;
-    margin-top: 14px;
-}
-
-.city {
-    margin-left: 10px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: calc(12%);
-    font-size: 12px;
-    color: rgb(73, 72, 72);
-}
-
-.down-arrow-icon {
-    color: #ccc;
-    font-size: 12px;
-}
-
-.search-icon {
-    color: #757575;
-    font-size: 16px;
-}
-
-.search-bar p {
-    line-height: 1.2;
-    font-size: 13px;
-    margin: 0 4px;
-    color: #aaaaaa;
-}
-
-.divider {
-    height: 60%;
-    width: 1px;
-    background: #ccc;
-    margin: 0 4px;
+.current-location {
+    margin-top: 8px;
 }
 </style>

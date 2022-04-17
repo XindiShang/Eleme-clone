@@ -3,13 +3,13 @@
     <div class="address-content">
       <div class="address-main">
         <div class="address-title">
-          <van-tag class="mr-1" color="#e5f7fd" text-color="#5cc8f7">{{ address.tag }}</van-tag>
+          <van-tag v-if="address.tag" class="mr-1" color="#e5f7fd" text-color="#5cc8f7">{{ address.tag }}</van-tag>
           <span class="mr-1">{{ address.address }}</span>
-          <span>{{ address.addressSpecific }}</span>
+          <span v-if="address.addressSpecific">{{ address.addressSpecific }}</span>
         </div>
         <div class="address-description">
           <span>{{ address.recipientName }}</span>
-          <span class="gender mr-1">({{ formatGender(address.gender) }})</span>
+          <span v-if="address.gender" class="gender mr-1">({{ formatGender(address.gender) }})</span>
           <span class="phone">{{ address.phone }}</span>
         </div>
       </div>

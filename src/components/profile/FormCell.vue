@@ -16,7 +16,7 @@
 
         <div class="icon-container">
           <slot name="rightSlot"></slot>
-          <span v-if="hasArrow" class="more-icon material-icons-outlined">
+          <span v-if="hasArrow" @click="emitExpand" class="more-icon material-icons-outlined">
             chevron_right
           </span>
         </div>
@@ -45,7 +45,7 @@ export default {
       default: String,
     }
   },
-  emits: ['clearVal', 'update:modelValue'],
+  emits: ['clearVal', 'update:modelValue', 'expand'],
   methods: {
     emitInput() {
       this.$emit('inputChange', this.inputVal);
@@ -53,6 +53,9 @@ export default {
     emitClear() {
       this.$emit('clearVal');
     },
+    emitExpand(){
+      this.$emit('expand');
+    }
   },
 
 }

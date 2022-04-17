@@ -17,6 +17,7 @@ const SellerView = () => import('../views/shops/SellerView.vue');
 const FoodDetailsView = () => import('../views/shops/FoodDetailsView.vue');
 const UserAddressView = () => import('../views/profile/UserAddressView.vue');
 const UserAddressManageView = () => import('../views/profile/UserAddressManageView.vue');
+const UserAddressConfirmView = () => import('../views/profile/UserAddressConfirmView.vue');
 
 const routes = [
   {
@@ -67,6 +68,12 @@ const routes = [
     name: 'userNewAddress',
     props: true,
     component: UserAddressManageView,
+  },
+  {
+    path: '/profile/:userId/address/confirm',
+    name: 'userConfirmAddress',
+    props: true,
+    component: UserAddressConfirmView,
   },
   {
     path: '/profile/:userId/address/edit',
