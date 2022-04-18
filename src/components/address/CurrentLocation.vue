@@ -129,7 +129,6 @@ export default {
 <style scoped>
 .current-location {
     background-color: white;
-    /* padding: 4px 16px 2px 16px; */
     height: 7%;
     width: auto;
 }

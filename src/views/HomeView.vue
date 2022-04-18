@@ -58,7 +58,6 @@ import ShopList from '../components/home/ShopList.vue';
 
 export default {
   components: {
-    // BaseHeader,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     IconsPanel,
@@ -113,12 +112,6 @@ export default {
       const filterData = filterRes.data;
       this.$store.dispatch('getFilterData', filterData);
 
-      // this.$axios("/api/profile/shopping").then(res => {
-      //   this.swipeImgs = res.data.swipeImgs;
-      // });
-      // this.$axios("/api/profile/filter").then(res => {
-      //   this.$store.dispatch('getFilterData', res.data);
-      // });
     },
     showFilters(payload) {
       this.isShown = payload;
@@ -132,7 +125,6 @@ export default {
     },
     scrollToShops() {
       let homeContainer = this.$refs.home;
-      // console.log(homeContainer.scrollHeight)
       homeContainer.scrollTo({
         top: 500,
         behavior: 'smooth'

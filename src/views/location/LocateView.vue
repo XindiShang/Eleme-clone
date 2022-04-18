@@ -5,10 +5,12 @@
         <!-- search bar  -->
         <div class="wrapper">
             <div class="search-bar">
-                <div @click="switchCityPage">
+                
+                <div class="city-container" @click="switchCityPage">
                     <span class="city">{{ city }}</span>
                     <span class="material-icons-outlined down-arrow-icon">expand_more</span>
                 </div>
+
                 <div class="divider"></div>
 
                 <div class="input-field">
@@ -20,7 +22,9 @@
                         <span class="material-icons delete-icon">cancel</span>
                     </div>
                 </div>
+
             </div>
+
             <a class="cancel-text" @click="switchBack">取消</a>
         </div>
 
@@ -119,27 +123,6 @@ export default {
     top: -4px;
 }
 
-.select-menu {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-size: 14px;
-}
-
-.select-menu-left {
-    width: 16%;
-}
-
-.select-menu-middle {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.select-menu-right {
-    opacity: 0;
-}
-
 .wrapper {
     display: flex;
     justify-content: space-between;
@@ -149,22 +132,20 @@ export default {
 }
 
 .search-bar {
-    width: 88%;
+    width: 90%;
     height: 28px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     border: none;
     background-color: #eaeaea;
     border-radius: 20px;
     font-size: 13px;
-    padding: 0px;
 }
 
 .cancel-text {
-    padding: 0px;
     font-size: 13px;
-    line-height: 100%;
+    line-height: 1;
     text-decoration: none;
     color: rgb(73, 72, 72);
 }
@@ -192,12 +173,15 @@ export default {
     font-size: 16px;
 }
 
-.city {
-    margin-left: 10px;
+.city-container {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: calc(12%);
+}
+
+.city {
+    margin-left: 10px;
+    width: 12%;
     font-size: 12px;
     color: rgb(73, 72, 72);
 }
@@ -212,12 +196,6 @@ export default {
     font-size: 16px;
 }
 
-/* .search-bar p {
-    line-height: 1.2;
-    font-size: 13px;
-    margin: 0 4px;
-    color: #ccc;
-} */
 
 .search-bar input,
 .search-bar input:enabled {

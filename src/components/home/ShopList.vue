@@ -1,11 +1,6 @@
 <template>
     <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-        <van-list
-            v-model:loading="loading"
-            :finished="finished"
-            finished-text="没有更多啦"
-            @load="onLoad"
-        >
+        <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多啦" @load="onLoad">
             <div class="shop-list">
                 <shop-item v-for="(item, i ) in shops" :key="i" :shop="item.restaurant"></shop-item>
             </div>
@@ -15,6 +10,7 @@
 
 <script>
 import ShopItem from './ShopItem.vue';
+import { Toast } from 'vant';
 
 export default {
     components: {
@@ -38,9 +34,8 @@ export default {
     methods: {
         onLoad() {
             this.loadData();
-
         },
-        loadData() {
+        async loadData() {
             if (this.refreshing) {
                 this.$store.dispatch('clearAllShops');
                 this.refreshing = false;
@@ -48,19 +43,21 @@ export default {
             }
             this.page++;
             console.log(`current page: ${this.page}`)
-            this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`, { condition: this.condition })
-                .then(res => {
-                    console.log(`current condition is ${this.condition}`)
-                    if (res.data.length > 0) {
-                        res.data.forEach(item => {
-                            this.$store.dispatch('getSingleShop', item);
-                        })
-                        this.loading = false;
-                    } else {
-                        this.finished = true;
-                    }
-                    console.log(`current store length: ${this.$store.getters.doneAllShops.length}`)
-                })
+            try {
+                const res = await this.$axios.post(`/api/profile/restaurants/${this.page}/${this.size}`, { condition: this.condition })
+                console.log(`current condition is ${this.condition}`)
+                if (res.data.length > 0) {
+                    res.data.forEach(item => {
+                        this.$store.dispatch('getSingleShop', item);
+                    })
+                    this.loading = false;
+                } else {
+                    this.finished = true;
+                }
+            } catch {
+                Toast('获取数据失败，请重试');
+            }
+            console.log(`current store length: ${this.$store.getters.doneAllShops.length}`)
         },
         onRefresh() {
             this.finished = false;
@@ -86,7 +83,6 @@ export default {
 </script>
 
 <style scoped>
-
 .shop-list {
     box-sizing: border-box;
     width: 100%;

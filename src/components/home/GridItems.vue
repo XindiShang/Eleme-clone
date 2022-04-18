@@ -19,7 +19,6 @@ export default {
 
     data() {
         return {
-
             gridAds: [
                 { title: '推荐有奖', des: '最高15元' },
                 { title: '关注服务号', des: '订阅消息' },
@@ -38,7 +37,6 @@ export default {
 }
 
 table {
-    /* margin: auto; */
     width: 100%;
 }
 

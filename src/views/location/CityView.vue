@@ -1,27 +1,18 @@
 <template>
     <div class="city">
         <header>
-            <base-search-bar
-                @cancelSearch="cancel"
-                @clearVal="clearInput"
-                class="search"
-                v-model="inputVal"
-                :placeholder="placeholderPassed"
-            ></base-search-bar>
+            <base-search-bar @cancelSearch="cancel" @clearVal="clearInput" class="search" v-model="inputVal"
+                :placeholder="placeholderPassed"></base-search-bar>
         </header>
-        
+
         <section v-if="!showSearchResults">
             <current-location size="24px" class="current" :isCity="true"></current-location>
-            <cities-list ref="roll" class="cities" :cityInfo="cityInfo" :keys="keys"></cities-list>
+            <cities-list v-if="cityInfo" ref="roll" class="cities" :cityInfo="cityInfo" :keys="keys"></cities-list>
         </section>
 
         <div class="search_list" v-else>
             <ul>
-                <li
-                    @click="setCity"
-                    v-for="(item, i) in finalSearchResults"
-                    :key="i"
-                >{{ item.name }}</li>
+                <li @click="setCity" v-for="(item, i) in finalSearchResults" :key="i">{{ item.name }}</li>
             </ul>
         </div>
     </div>
@@ -31,7 +22,7 @@
 import BaseSearchBar from '../../components/BaseSearchBar.vue';
 import CurrentLocation from "../../components/address/CurrentLocation.vue";
 import CitiesList from '../../components/address/CitiesList.vue';
-
+import { Toast } from 'vant';
 export default {
     components: {
         BaseSearchBar,
@@ -56,7 +47,6 @@ export default {
         }
     },
     methods: {
-        // ** handle emits **
         clearInput() {
             this.inputVal = '';
         },
@@ -65,33 +55,28 @@ export default {
         },
         // ******
         async getCityInfo() {
-            await this.$axios("/api/posts/cities")
-                .then((res) => {
-                    // console.log(res);
-                    this.cityInfo = res.data;
-                    this.keys = Object.keys(res.data);
-                    // remove hot cities
-                    this.keys.pop();
-                    this.keys.sort();
-                    this.$nextTick(() => {
-                        this.$refs.roll.initScroll();
+            try {
+                const res = await this.$axios("/api/posts/cities")
+                this.cityInfo = res.data;
+                this.keys = Object.keys(res.data);
+                // remove hot cities
+                this.keys.pop();
+                this.keys.sort();
+                this.$nextTick(() => {
+                    this.$refs.roll.initScroll();
+                })
+
+                this.$store.dispatch('resetAllCities');
+
+                this.keys.forEach(key => {
+                    this.cityInfo[key].forEach(city => {
+                        this.$store.dispatch('getAllCities', city)
                     })
+                });
+            } catch {
+                Toast('获取城市列表失败，请重试')
+            }
 
-                    this.$store.dispatch('resetAllCities');
-
-                    this.keys.forEach(key => {
-                        this.cityInfo[key].forEach(city => {
-                            this.$store.dispatch('getAllCities', city)
-                        })
-                    });
-                    // this.$store.dispatch('flatAllCities')
-
-                    // console.log(this.$store.getters.doneAllCities)
-
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
         },
         searchCity() {
             if (!this.inputVal) {
@@ -145,6 +130,7 @@ section {
     position: relataie; */
     height: 100%;
 }
+
 .current {
     background: #fff;
     padding: 8px 16px;
@@ -160,6 +146,7 @@ section {
     height: 100%;
     overflow: scroll;
 }
+
 .search_list li {
     padding: 10px;
     border-bottom: 1px solid #eee;

@@ -98,8 +98,8 @@ export default {
 <style scoped>
 .shop-intro {
     width: 100%;
-    height: 20vh;
-    max-height: 190px;
+    height: 40vw;
+    max-height: 180px;
     box-sizing: border-box;
     margin-bottom: 4px;
 }

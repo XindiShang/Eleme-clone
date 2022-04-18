@@ -156,6 +156,10 @@ export default {
 
 
     },
+    // beforeRouteEnter(to, from) {
+    //     console.log(localStorage.getItem('eleme_login'))
+    //     console.log(to, from)
+    // }
 }
 
 </script>

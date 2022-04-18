@@ -1,23 +1,13 @@
 <template>
   <div class="text_group">
     <div class="input_group" :class="{ 'is-invalid': errorMsg }">
-      <input
-        :type="inputType"
-        :value="modelValue"
-        :placeholder="inputPlaceholder"
-        @input="emitInputValue"
-        :name="inputName"
-      />
+      <input :type="inputType" :value="modelValue" :placeholder="inputPlaceholder" @input="emitInputValue"
+        :name="inputName" />
       <div id="clearBtn" v-if="hasClearBtn" @click="emitclearBtn">
         <p>x</p>
       </div>
-      <button
-        v-if="inputBtnText"
-        class="inputBtn"
-        :class="{ 'available': isAvailable }"
-        :disabled="isDisabled"
-        @click="setBtnEvent"
-      >{{ inputBtnText }}</button>
+      <button v-if="inputBtnText" class="inputBtn" :class="{ 'available': isAvailable }" :disabled="isDisabled"
+        @click="setBtnEvent">{{ inputBtnText }}</button>
     </div>
 
     <div v-if="errorMsg" class="invalid-feedback">{{ errorMsg }}</div>
@@ -68,6 +58,7 @@ export default {
 .text_group {
   margin-top: 20px;
 }
+
 .input_group {
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -79,15 +70,18 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+
 .input_group input {
   height: 100%;
   width: 60%;
   border: none;
 }
+
 .input_group input:enabled {
   border: none;
   outline: none;
 }
+
 .inputBtn {
   border: 1px solid #ccc;
   border-radius: 20px;
@@ -96,13 +90,16 @@ export default {
   font-size: 12px;
   height: 100%;
 }
+
 .inputBtn[disabled] {
   border: 1px solid #ccc;
   color: #aaa;
 }
+
 .is-invalid {
   border: 1px solid red;
 }
+
 .invalid-feedback {
   color: red;
   padding-top: 5px;

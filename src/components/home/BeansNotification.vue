@@ -1,6 +1,6 @@
 <template>
-    <div class="beans">
-        <div class="notification">
+    <div class="beans-notification">
+        <div class="beans-container">
             <div class="left">
                 <van-tag size="medium" color="#fbc02d">赚豆</van-tag>
                 <div class="text">
@@ -26,13 +26,12 @@ export default {
 </script>
 
 <style scoped>
-.beans {
+.beans-notification {
     margin: 2px 14px 6px 14px;
-    /* width: 100%; */
     box-sizing: border-box;
 }
 
-.notification {
+.beans-container {
     display: flex;
     justify-content: space-between;
     align-items: center;

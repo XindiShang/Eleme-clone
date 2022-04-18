@@ -6,9 +6,9 @@
     <div :class="{ 'border-none': isEnd }" class="form-input-container ">
       <slot name="default" v-if="isCustomized"></slot>
       <div v-else class="input-slot-container">
-        <div :class="{ 'full-length': isFullLength, 'half-length': isHalfLength }"  class="input-field">
-          <input :class="{'half-length': isHalfLength}" :type="inputType" :id="inputId"
-            :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" :placeholder="placeholder">
+        <div :class="{ 'full-length': isFullLength, 'half-length': isHalfLength }" class="input-field">
+          <input @blur="hideIcon" :class="{ 'half-length': isHalfLength }" :type="inputType" :id="inputId"
+            :value="modelValue" @input="emitInput" :placeholder="placeholder">
           <div v-show="modelValue" @click="emitClear" class="input-field-right">
             <span class="material-icons delete-icon">cancel</span>
           </div>
@@ -43,19 +43,19 @@ export default {
     isHalfLength: Boolean,
     modelValue: {
       default: String,
-    }
+    },
   },
   emits: ['clearVal', 'update:modelValue', 'expand'],
   methods: {
-    emitInput() {
-      this.$emit('inputChange', this.inputVal);
+    emitInput(event) {
+      this.$emit('update:modelValue', event.target.value)
     },
     emitClear() {
       this.$emit('clearVal');
     },
-    emitExpand(){
+    emitExpand() {
       this.$emit('expand');
-    }
+    },
   },
 
 }

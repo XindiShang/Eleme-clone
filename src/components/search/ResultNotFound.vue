@@ -29,7 +29,9 @@ export default {
     top: 50%;
     left: 50%;
     width: 100%;
+    user-select: none;
     transform: translate(-50%, -50%);
+    user-select: none;
 }
 
 .not-found-img {

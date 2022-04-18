@@ -10,8 +10,8 @@
 
           <div class="card">
             <!-- address  -->
-            <form-cell v-model="address.val" @clear-val="clearInput('地址')" @expand="addNewAddress" label="地址" input-id="address"
-              :has-arrow="true" placeholder="选择收货地址" :is-full-length="true">
+            <form-cell v-model="address.val" @clear-val="clearInput('地址')" @expand="addNewAddress" label="地址"
+              input-id="address" :has-arrow="true" placeholder="选择收货地址" :is-full-length="true">
             </form-cell>
 
             <!-- address specific  -->
@@ -85,7 +85,7 @@ export default {
     return {
       tags: ['家', '公司', '学校'],
       address: {
-        val: '',
+        val: this.$route.params.chosenAddress ? this.$route.params.chosenAddress : '',
         isValid: true,
         msg: ''
       },
@@ -103,24 +103,37 @@ export default {
       },
       gender: '',
       formIsValid: true,
-      map: null
+      map: null,
+      title: ''
     }
   },
   computed: {
     headerTitle() {
-      return '新增收货地址'
+      this.getTitle();
+      return this.title;
     },
     tagSelected(tag) {
       return this.selectedTag === tag;
     },
   },
   methods: {
-
+    getTitle() {
+      if (this.$route.name === 'userNewAddress') {
+        this.title = '新增收货地址';
+      } else {
+        this.title = '编辑收货地址';
+      }
+    },
     switchPageBack() {
-      this.$router.back();
+      this.$router.push({ name: 'userAddress', params: { userId: this.$route.params.userId } });
     },
     selectTag(tag) {
-      this.selectedTag = tag;
+      if (this.selectedTag === tag) {
+        this.selectedTag = ''
+      } else {
+        this.selectedTag = tag;
+
+      }
     },
     clearInput(label) {
       if (label === '地址') {
@@ -152,7 +165,11 @@ export default {
         gender: this.gender
       }
 
-      this.$store.dispatch('getNewAddress', formData);
+      if (this.$route.name === 'userEditAddress') {
+        this.$store.dispatch('getUpdatedAddress', formData)
+      } else {
+        this.$store.dispatch('getNewAddress', formData);
+      }
       this.$router.push({ name: 'userAddress', params: { userId: this.$route.params.userId } })
     },
     validateForm() {
@@ -202,6 +219,8 @@ export default {
           timeout: 10000,          //超过10秒后停止定位，默认：5s
           buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
           zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+          showButton: false,
+          // noIpLocate: 2
         });
 
         that.map.addControl(geolocation);
@@ -220,7 +239,6 @@ export default {
         str.push('定位类别：' + data.location_type);
         console.log(data)
 
-
       }
       //解析定位错误信息
       function onError(data) {
@@ -232,9 +250,19 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.name === 'userEditAddress') {
+      const addresses = this.$store.getters.addresses;
+      const target = addresses.find(el => el.addressId === this.$route.params.addressId)
+
+      this.address.val = target.address;
+      this.addressSpecific = target.addressSpecific;
+      this.selectedTag = target.tag;
+      this.recipientName.val = target.recipientName;
+      this.gender = target.gender;
+      this.phone.val = target.phone;
+    }
     this.initMap();
   },
-
 }
 </script>
 

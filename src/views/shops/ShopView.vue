@@ -1,39 +1,41 @@
 <template>
     <section class="shop" ref="shop">
-        <!-- header part  -->
-        <shop-header v-if="!isDetails" :early="early" :mid="mid" :late="late" :final="final"></shop-header>
-        <van-image v-if="!isDetails" class="shop-bg-image" lazy-load fit="cover" :src="shopBackground" />
+        <div v-if="!isLoading" class="shop-wrapper">
+            <!-- header part  -->
+            <shop-header v-if="!isDetails" :early="early" :mid="mid" :late="late" :final="final"></shop-header>
+            <van-image v-if="!isDetails" class="shop-bg-image" lazy-load fit="cover" :src="shopBackground" />
 
-        <div class="lift-area">
-            <shop-intro @show-discount="toggleDiscountShow" @show-info="toggleInfoShow" v-if="!isLoading && !isDetails"
-                :shop="shopInfo" class="shop-info"></shop-intro>
-            <!-- navbar  -->
-            <shop-nav v-if="!isLoading && !isDetails" class="shop-nav" />
+            <div v-if="!isDetails"  class="lift-area">
+                <shop-intro @show-discount="toggleDiscountShow" @show-info="toggleInfoShow"
+                    :shop="shopInfo" class="shop-info"></shop-intro>
+                <!-- navbar  -->
+                <shop-nav class="shop-nav" />
+            </div>
+
+
+            <!-- header popups -->
+            <div v-if="!isDetails" class="">
+                <discount-popup :shop="shopInfo" :discountIsShown="discountIsShown" @close-popup="toggleDiscountShow">
+                </discount-popup>
+
+                <shop-info-popup :shop="shopInfo" :infoIsShown="infoIsShown" @close-popup="toggleInfoShow">
+                </shop-info-popup>
+            </div>
+
+
+            <!-- nav content: 1. menu 2. reviews 3. seller info  -->
+            <router-view @share="hideCart" class="shop-body" v-slot="{ Component }">
+                <transition name="slide">
+                    <component :is="Component" />
+                </transition>
+            </router-view>
+
+            <!-- shopping cart for menu and reviews section  -->
+            <keep-alive>
+                <shop-cart v-if="showCart && !shareIsOn"></shop-cart>
+            </keep-alive>
         </div>
 
-
-        <!-- header popups -->
-        <div v-if="!isLoading && !isDetails" class="">
-            <discount-popup :shop="shopInfo" :discountIsShown="discountIsShown" @close-popup="toggleDiscountShow">
-            </discount-popup>
-
-            <shop-info-popup :shop="shopInfo" :infoIsShown="infoIsShown" @close-popup="toggleInfoShow">
-            </shop-info-popup>
-        </div>
-
-
-
-        <!-- nav content: 1. menu 2. reviews 3. seller info  -->
-        <router-view @share="hideCart" v-if="!isLoading" class="shop-body" v-slot="{ Component }">
-            <transition name="slide">
-                <component :is="Component" />
-            </transition>
-        </router-view>
-
-        <!-- shopping cart for menu and reviews section  -->
-        <keep-alive>
-            <shop-cart v-if="!isLoading && showCart && !shareIsOn"></shop-cart>
-        </keep-alive>
 
     </section>
 </template>
@@ -45,6 +47,7 @@ import DiscountPopup from '../../components/shop/DiscountPopup.vue';
 import ShopInfoPopup from '../../components/shop/ShopInfoPopup.vue';
 import ShopNav from '@/components/shop/ShopNav.vue';
 import ShopCart from '@/components/shop/ShopCart.vue';
+import { Toast } from 'vant';
 
 export default {
     components: {
@@ -102,26 +105,16 @@ export default {
                 this.shopBackground = res.data.rst.scheme;
                 this.shopRst = res.data.rst;
 
-                console.log(res.data);
+                // console.log(res.data);
 
                 this.$store.dispatch('getSelectedShop', res.data);
 
-            } catch (e) {
-                console.log(e);
+            } catch {
+                Toast('获取商家信息失败，请重试');
             }
 
             this.isLoading = false;
 
-
-            //         .then(res => {
-            //     console.log(res.data);
-            //     this.shopInfo = res.data;
-            //     this.shopBackground = res.data.rst.scheme;
-            //     this.shopRst = res.data.rst;
-            //     this.isLoading = false;
-
-            //     this.$store.dispatch('getSelectedShop', res.data);
-            // })
         },
         toggleDiscountShow() {
             this.discountIsShown = !this.discountIsShown;
@@ -181,13 +174,18 @@ export default {
     transform: translate(-100%, 0);
 }
 
-
 .shop {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     overflow: scroll;
     box-sizing: border-box;
     background-color: #fafafa;
+}
+
+.shop-wrapper {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .shop-bg-image {
@@ -204,23 +202,11 @@ export default {
     bottom: 6%;
 }
 
-.shop-info {
-    /* position: relative;
-    bottom: 6%; */
-}
-
-.shop-nav {
-    /* position: relative;
-    bottom: 6%; */
-    width: 100%;
-}
-
 .shop-body {
     position: relative;
     bottom: 6%;
     height: 100%;
     display: initial;
     overflow: scroll;
-    /* background-color: pink; */
 }
 </style>

@@ -26,10 +26,9 @@ export default {
   },
   methods: {
     async fetchReviews() {
-      await this.$axios("/api/profile/comments").then(res => {
-        this.reviews = res.data;
-        this.comments = this.reviews.comments;
-      });
+      const res = await this.$axios("/api/profile/comments");
+      this.reviews = res.data;
+      this.comments = this.reviews.comments;
     },
     filterComments(payload) {
       if (payload == 1) {

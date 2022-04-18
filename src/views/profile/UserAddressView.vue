@@ -16,7 +16,6 @@
 <script>
 import BaseUtilHeader from "@/components/BaseUtilHeader.vue";
 import AddressItem from "@/components/profile/AddressItem.vue";
-// import { Dialog } from 'vant';
 
 export default {
   components: {
@@ -34,10 +33,10 @@ export default {
   },
   methods: {
     switchPageBack() {
-      this.$router.back();
+      this.$router.push({name: 'matchedProfile', params: {userId: this.$route.params.userId}});
     },
     addNewAddress() {
-      this.$router.push({ name: 'userNewAddress' });
+      this.$router.push({ name: 'userNewAddress',params: {userId: this.$route.params.userId} });
     }
   },
 }
@@ -60,7 +59,7 @@ export default {
   position: absolute;
   top: 44px;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 44px);
   background-color: #fff;
   display: flex;
   flex-direction: column;

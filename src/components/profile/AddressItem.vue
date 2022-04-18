@@ -4,16 +4,19 @@
       <div class="address-main">
         <div class="address-title">
           <van-tag v-if="address.tag" class="mr-1" color="#e5f7fd" text-color="#5cc8f7">{{ address.tag }}</van-tag>
-          <span class="mr-1">{{ address.address }}</span>
-          <span v-if="address.addressSpecific">{{ address.addressSpecific }}</span>
+          <span class="mr-1 address-name">{{ address.address }}
+            <span v-if="address.addressSpecific">{{ address.addressSpecific }}</span>
+
+          </span>
         </div>
         <div class="address-description">
-          <span>{{ address.recipientName }}</span>
-          <span v-if="address.gender" class="gender mr-1">({{ formatGender(address.gender) }})</span>
+          <span class="mr-1">{{ address.recipientName }}
+            <span v-if="address.gender" class="gender">({{ formatGender(address.gender) }})</span>
+          </span>
           <span class="phone">{{ address.phone }}</span>
         </div>
       </div>
-      <div class="address-edit">
+      <div @click="editAddress" class="address-edit">
         <span class="edit-icon material-icons-outlined">
           edit
         </span>
@@ -51,9 +54,9 @@ export default {
           return new Promise((resolve) => {
             Dialog.confirm({
               title: '删除地址',
-                message: '确定删除该收货地址吗？',
-                confirmButtonColor: '#42abfe',
-                confirmButtonText: '删除',
+              message: '确定删除该收货地址吗？',
+              confirmButtonColor: '#42abfe',
+              confirmButtonText: '删除',
             }).then(res => {
               this.$store.dispatch('callDeleteAddress')
               resolve(res)
@@ -64,8 +67,9 @@ export default {
 
       }
     },
-
-
+    editAddress() {
+      this.$router.push({ name: 'userEditAddress', params: { userId: this.$route.params.userId, addressId: this.address.addressId } });
+    }
   },
 
 }
@@ -85,15 +89,27 @@ export default {
   border-bottom: 1px solid #f1f1f1;
 }
 
-.address-main {}
+.address-main {
+  width: 90%;
+}
 
 .address-title {
+  width: 80%;
   display: flex;
   align-items: center;
   font-size: .9rem;
   font-weight: bold;
   line-height: .9rem;
   margin-bottom: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.address-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .address-description {

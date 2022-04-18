@@ -1,7 +1,7 @@
 <template>
   <!-- search bar  -->
   <div class="search-bar">
-    <div @click="switchCityPage">
+    <div class="city-container" @click="switchCityPage">
       <span class="city">{{ city }}</span>
       <span class="material-icons-outlined down-arrow-icon">expand_more</span>
     </div>
@@ -24,15 +24,10 @@ export default {
   },
   methods: {
     switchLocatePage() {
-       console.log(this.$route)
-      this.$router.push({ name: 'locate', query: { redirect: this.$route.name === 'userConfirmAddress'?  'userConfirmAddress' : '' } })
-      // this.$router.push('/locate');
+      this.$router.push({ name: 'locate', query: { redirect: this.$route.name === 'userConfirmAddress' ? 'userNewAddress' : '' } })
     },
     switchCityPage() {
-     
-
       this.$router.push('/city');
-
     }
   },
 }
@@ -52,12 +47,15 @@ export default {
   padding: 0px;
 }
 
-.city {
-  margin-left: 10px;
+.city-container {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: calc(12%);
+}
+
+.city {
+  margin-left: 10px;
+  width: 12%;
   font-size: 12px;
   color: rgb(73, 72, 72);
 }

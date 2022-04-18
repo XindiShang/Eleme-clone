@@ -391,7 +391,7 @@ export default {
 .price-top {
     line-height: 0.9;
     font-size: 2vh;
-    margin-bottom: 2%;
+    margin-bottom: 2px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

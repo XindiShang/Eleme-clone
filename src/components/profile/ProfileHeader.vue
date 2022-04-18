@@ -55,12 +55,6 @@ export default {
       this.$router.replace('/profile')
     }
   },
-  mounted() {
-    console.log(this.$store.getters.userId)
-    console.log(this.$store.getters.phone)
-  }
-
-
 }
 </script>
 

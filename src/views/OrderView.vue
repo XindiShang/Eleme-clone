@@ -1,6 +1,15 @@
 <template>
-  <div class="index">
+  <div class="order-view">
     <h1>订单</h1>
-    
   </div>
 </template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style scoped>
+
+</style>

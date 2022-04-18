@@ -4,7 +4,7 @@
             <!-- left  -->
             <div class="logo_container">
                 <!-- <van-badge :content="cartNum" color="#f73e00"> -->
-                    <van-image class="logo-img" fit="cover" radius="5" lazy-load :src="shop.image_path" alt />
+                <van-image class="logo-img" fit="cover" radius="5" lazy-load :src="shop.image_path" alt />
                 <!-- </van-badge> -->
                 <div v-if="cartNum" class="count-container">
                     <span class="count-num">{{ cartNum }}</span>

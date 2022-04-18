@@ -91,7 +91,6 @@ export default {
   props: ['comments'],
   data() {
     return {
-      // comments: this.reviews.comments,
       show: false,
       isUseful: false,
     }

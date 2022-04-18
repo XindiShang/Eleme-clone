@@ -1,5 +1,4 @@
 <template>
-    <!-- <section class="sidebar-container"> -->
     <div class="sidebar-wrapper">
         <ul>
             <li @click="emitSelectCategory(i)" :class="{ 'current': i === currentIdx }" class="bar-item"
@@ -15,7 +14,6 @@
             </li>
         </ul>
     </div>
-    <!-- </section> -->
 </template>
 
 <script>
@@ -58,13 +56,6 @@ export default {
 </script>
 
 <style scoped>
-/* .sidebar-container {
-    box-sizing: border-box;
-    height: 100%;
-    background-color: pink;
-    display: flex;
-} */
-
 .current {
     background-color: white;
     font-weight: bold;
@@ -74,18 +65,15 @@ export default {
 .sidebar-wrapper {
     overflow-y: auto;
     height: 100%;
-    /* bottom cart set to fixed  */
-    /* height: calc(100% - 12.8vw); */
     background-color: #f1f1f1;
     padding-bottom: 7vh;
     width: 20%;
     min-width: 80px;
     max-width: 180px;
-    /* overflow: scroll; */
+    overflow: scroll;
 }
 
 .bar-item {
-    /* padding: 4vw 8px 4vw 16px; */
     padding: 22% 0;
     font-size: 1vh;
     color: #666;
@@ -93,7 +81,6 @@ export default {
     width: 100%;
     position: relative;
     max-height: 80px;
-
 }
 
 .text-container {

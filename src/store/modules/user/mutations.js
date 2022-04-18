@@ -9,5 +9,9 @@ export default {
   },
   addNewAddress(state, payload) {
     state.addresses.push(payload);
-  }
+  },
+  updateAddress(state, payload) {
+    let idx = state.addresses.findIndex(el => el.addressId === payload.addressId);
+    state.addresses.splice(idx, 1, payload)
+  },
 }

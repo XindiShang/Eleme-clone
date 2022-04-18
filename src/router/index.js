@@ -76,7 +76,7 @@ const routes = [
     component: UserAddressConfirmView,
   },
   {
-    path: '/profile/:userId/address/edit',
+    path: '/profile/:userId/address/:addressId/edit',
     name: 'userEditAddress',
     props: true,
     component: UserAddressManageView,
@@ -121,6 +121,12 @@ const routes = [
         component: MenuView,
       },
       {
+        path: 'menu/:foodId',
+        name: 'foodDetails',
+        component: FoodDetailsView,
+        props: true
+      },
+      {
         path: 'reviews',
         name: 'reviews',
         component: CommentView
@@ -132,12 +138,7 @@ const routes = [
       },
     ]
   },
-  {
-    path: '/shop/menu/:foodId',
-    name: 'foodDetails',
-    component: FoodDetailsView,
-    props: true
-  },
+
 
 ]
 

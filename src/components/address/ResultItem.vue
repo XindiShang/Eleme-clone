@@ -47,9 +47,8 @@ export default {
         },
         setNewLocation() {
             this.doCount = false;
-            // console.log(this.$route)
             this.changeAddress();
-            this.$router.push(this.$route.query.redirect ? { name: this.$route.query.redirect, params: { userId: 'a-fake-id-333' } } : { name: 'shop' });
+            this.$router.replace(this.$route.query.redirect ? { name: this.$route.query.redirect, params: { userId: 'a-fake-id-333', chosenAddress: this.result.name + ' ' + this.result.address } } : { name: 'home' });
 
         },
         changeAddress() {
@@ -80,7 +79,7 @@ export default {
                                     }
                                     that.$store.dispatch('getAddress', payload);
                                     // that.$router.push('/home');
-                        
+
 
                                 }
                             })
@@ -90,14 +89,10 @@ export default {
                             var dis = AMap.GeometryUtil.distance(storedCoords, newCoords);
                             if (dis) {
                                 that.distance = (dis / 1000).toFixed(2);
-
                             } else {
                                 that.distance = null;
                             }
-
                         }
-
-
                     }
                 })
             })

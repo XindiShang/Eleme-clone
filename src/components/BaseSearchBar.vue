@@ -74,7 +74,7 @@ export default {
 .cancel-text {
     padding: 0px;
     margin-top: 14px;
-    font-size: 13px;
+    font-size: .86rem;
     line-height: 100%;
     text-decoration: none;
     color: #53c1fc;
@@ -104,7 +104,7 @@ export default {
 .search-icon {
     color: #757575;
     font-size: 16px;
-    margin: 2% 0 0 8%;
+    margin-left: 8%;
 }
 
 .search-bar input,

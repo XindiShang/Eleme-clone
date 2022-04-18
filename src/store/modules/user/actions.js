@@ -17,5 +17,8 @@ export default {
   },
   getNewAddress(context, payload) {
     context.commit('addNewAddress', payload);
-  }
+  },
+  getUpdatedAddress(context, payload) {
+    context.commit('updateAddress', payload);
+  },
 }

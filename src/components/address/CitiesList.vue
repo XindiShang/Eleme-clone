@@ -1,5 +1,5 @@
 <template>
-    <div class="citiesList" ref="scrollArea" v-if="cityInfo">
+    <div class="citiesList" ref="scrollArea">
         <div class="scroll_wrap">
             <div class="hot_wrap selectTargets">
                 <div class="title">历史访问城市</div>
@@ -92,13 +92,15 @@ export default {
             const selects = this.$refs.scrollArea.querySelectorAll('.selectTargets');
             let target = selects[idx];
             this.scroll.scrollToElement(target, 250);
-
         }
     },
     mounted() {
-        if (this.scroll) {
-            this.scroll.refresh();
-        }
+        // if (this.scroll) {
+        //     this.scroll.refresh();
+        // }
+        this.$nextTick(() => {
+            this.initScroll();
+        })
     }
 
 }
@@ -152,10 +154,5 @@ export default {
     line-height: 1.4;
     text-align: center;
     padding: 0 5px;
-    /* word-wrap: break-word; */
-    /* width: 12%; */
-}
-.area_keys ul {
-    /* width: 12%; */
 }
 </style>

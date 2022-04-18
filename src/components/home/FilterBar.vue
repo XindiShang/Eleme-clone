@@ -39,8 +39,8 @@
                     </div>
                 </div>
                 <div class="screen-btn-container">
-                    <span :class="{ 'btn-clear-available': editStatus, 'btn-disabled': !editStatus }" class="screen-btn-clear"
-                        @click="clearScreen">清空</span>
+                    <span :class="{ 'btn-clear-available': editStatus, 'btn-disabled': !editStatus }"
+                        class="screen-btn-clear" @click="clearScreen">清空</span>
                     <span class="screen-btn-ok" @click="setScreen">查看商家</span>
                 </div>
             </div>
@@ -84,7 +84,6 @@ export default {
                     if (this.openFilter) {
                         this.openFilter = false;
                         this.$emit('searchFixed', false)
-
                     } else {
                         this.openFilter = true;
                         this.$emit('searchFixed', true)
@@ -94,13 +93,10 @@ export default {
                 case 1:
                     this.$emit('get-condition', this.filterData.navTab[1].condition)
                     this.hideFilter();
-
                     break;
                 case 2:
                     this.$emit('get-condition', this.filterData.navTab[2].condition)
                     this.hideFilter();
-
-
                     break;
                 case 3:
                     if (this.openScreen) {
@@ -115,7 +111,6 @@ export default {
                     break;
                 default:
                     this.hideFilter();
-
                     break;
             }
         },
@@ -172,11 +167,11 @@ export default {
             }
             let mpiStr = "";
             this.filterData.screenBy.forEach(screen => {
-                screen.data.forEach((item, idx) => {
+                screen.data.forEach(item => {
                     if (item.select) {
                         //single
                         if (screen.id !== "MPI") {
-                            console.log(idx)
+                            // console.log(item)
                             screenData[screen.id] = item.code
                         } else {
                             //multi
@@ -186,12 +181,8 @@ export default {
                     }
                 })
             })
-            console.log(screenData);
             this.hideFilter();
             this.$emit('lift')
-
-
-
         }
     },
 

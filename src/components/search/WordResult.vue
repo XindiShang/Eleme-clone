@@ -2,7 +2,6 @@
     <div class="word-item mb-4">
         <div class="word-icon-container mr-2">
             <span class="word-icon material-icons-outlined">search</span>
-
         </div>
 
 
@@ -10,7 +9,7 @@
             <div class="top-row">
                 <span @click="emitWordClick" v-if="noResult" class="mr-1 no-result-text">
                     查找
-                    <span class="no-result-keyword">“{{ word }}”</span>
+                    <span class="no-result-keyword">“{{ keyword }}”</span>
                 </span>
                 <span @click="emitWordClick" v-else ref="wordName" class="mr-1">{{ word }}</span>
             </div>
@@ -24,6 +23,9 @@ export default {
     inject: ['inputVal'],
     emits: ['wordClick'],
     computed: {
+        keyword(){
+            return this.word.trim();
+        }
 
     },
     methods: {
