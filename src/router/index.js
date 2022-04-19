@@ -1,23 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-const IndexView = () => import('../views/IndexView.vue');
-const LoginView = () => import('../views/LoginView.vue');
-const HomeView = () => import('../views/HomeView.vue');
-const SocialView = () => import('../views/SocialView.vue');
-const OrderView = () => import('../views/OrderView.vue');
-const ProfileView = () => import('../views/profile/ProfileView.vue');
-const AddressView = () => import('../views/location/AddressView.vue');
-const LocateView = () => import('../views/location/LocateView.vue');
-const CityView = () => import('../views/location/CityView.vue');
-const SearchView = () => import('../views/SearchView.vue');
-const ShopView = () => import('../views/shops/ShopView.vue');
-const MenuView = () => import('../views/shops/MenuView.vue');
-const CommentView = () => import('../views/shops/CommentView.vue');
-const SellerView = () => import('../views/shops/SellerView.vue');
-const FoodDetailsView = () => import('../views/shops/FoodDetailsView.vue');
-const UserAddressView = () => import('../views/profile/UserAddressView.vue');
-const UserAddressManageView = () => import('../views/profile/UserAddressManageView.vue');
-const UserAddressConfirmView = () => import('../views/profile/UserAddressConfirmView.vue');
+const IndexView = () => import('../pages/IndexView.vue');
+const LoginView = () => import('../pages/LoginView.vue');
+const HomeView = () => import('../pages/HomeView.vue');
+const SocialView = () => import('../pages/SocialView.vue');
+const AllOrders = () => import('../pages/AllOrders.vue');
+const UserProfile = () => import('../pages/profile/UserProfile.vue');
+
+  // *** location ***
+const AddressSelect = () => import('../pages/location/AddressSelect.vue');
+const AddressSearch = () => import('../pages/location/AddressSearch.vue');
+const AllCities = () => import('../pages/location/AllCities.vue');
+const SearchShops = () => import('../pages/SearchShops.vue');
+
+// *** shop ***
+const TheShop = () => import('../pages/shops/TheShop.vue');
+const ShopMenu = () => import('../pages/shops/ShopMenu.vue');
+const AllReviews = () => import('../pages/shops/AllReviews.vue');
+const ShopDetails = () => import('../pages/shops/ShopDetails.vue');
+const FoodDetails = () => import('../pages/shops/FoodDetails.vue');
+
+// *** order ***
+const ShopCheckout = () => import('../pages/orders/ShopCheckout.vue');
+
+
+// *** user address ***
+const AllAddresses = () => import('../pages/profile/AllAddresses.vue');
+const ManageAddress = () => import('../pages/profile/ManageAddress.vue');
+const ConfirmAddress = () => import('../pages/profile/ConfirmAddress.vue');
 
 const routes = [
   {
@@ -40,18 +50,18 @@ const routes = [
         path: 'order',
         name: 'order',
         // login required
-        component: OrderView
+        component: AllOrders
       },
       {
         path: 'profile',
         name: 'profile',
-        component: ProfileView,
+        component: UserProfile,
       },
       {
         path: 'profile/:userId',
         name: 'matchedProfile',
         props: true,
-        component: ProfileView,
+        component: UserProfile,
       },
     ]
   },
@@ -60,42 +70,42 @@ const routes = [
     path: '/profile/:userId/address',
     name: 'userAddress',
     props: true,
-    component: UserAddressView,
+    component: AllAddresses,
   },
-  // new route
   {
     path: '/profile/:userId/address/new',
     name: 'userNewAddress',
     props: true,
-    component: UserAddressManageView,
+    component: ManageAddress,
   },
   {
     path: '/profile/:userId/address/confirm',
     name: 'userConfirmAddress',
     props: true,
-    component: UserAddressConfirmView,
+    component: ConfirmAddress,
   },
   {
     path: '/profile/:userId/address/:addressId/edit',
     name: 'userEditAddress',
     props: true,
-    component: UserAddressManageView,
+    component: ManageAddress,
   },
+  // *** location ***
   {
     path: '/address',
     name: 'address',
-    component: AddressView,
+    component: AddressSelect,
 
   },
   {
     path: '/locate',
     name: 'locate',
-    component: LocateView,
+    component: AddressSearch,
   },
   {
     path: '/city',
     name: 'city',
-    component: CityView,
+    component: AllCities,
   },
 
   {
@@ -106,37 +116,43 @@ const routes = [
   {
     path: '/search',
     name: 'search',
-    component: SearchView
+    component: SearchShops
   },
   {
     // consider adding a conditional check if db is completed
     path: '/shop/:shopId',
     name: 'shop',
     redirect: { name: 'menu' },
-    component: ShopView,
+    component: TheShop,
     children: [
       {
         path: 'menu',
         name: 'menu',
-        component: MenuView,
+        component: ShopMenu,
       },
       {
         path: 'menu/:foodId',
         name: 'foodDetails',
-        component: FoodDetailsView,
+        component: FoodDetails,
         props: true
       },
       {
         path: 'reviews',
         name: 'reviews',
-        component: CommentView
+        component: AllReviews
       },
       {
         path: 'seller',
         name: 'seller',
-        component: SellerView
+        component: ShopDetails
       },
     ]
+  },
+  {
+    path: '/shop/:shopId/checkout',
+    name: 'shopCheckout',
+    props: true,
+    component: ShopCheckout,
   },
 
 

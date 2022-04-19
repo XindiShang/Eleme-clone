@@ -1,5 +1,4 @@
 <template>
-    <!-- <p @click="getgo">heihei</p> -->
     <div class="result" @click="setNewLocation">
         <div class="result-top">
             <h4>{{ name }}</h4>

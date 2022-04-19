@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import BaseUtilHeader from "@/components/BaseUtilHeader.vue";
+import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
 import AddressSearchBar from '../../components/address/AddressSearchBar.vue';
 import NearbyItem from '../../components/address/NearbyItem.vue';
 import { Toast } from 'vant';

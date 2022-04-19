@@ -53,7 +53,8 @@ export default {
     bgColorClass() {
       return {
         'bg-blue': this.bgColor === 'blue',
-        'bg-white': this.bgColor === 'white'
+        'bg-white': this.bgColor === 'white',
+        'bg-light-blue': this.bgColor === 'lightBlue'
       }
     }
   },
@@ -76,6 +77,10 @@ export default {
   color: #333;
 }
 
+.bg-light-blue {
+  background: #47b6fd;
+  color: #fff;
+}
 
 .util-header-content {
   display: flex;
@@ -86,7 +91,6 @@ export default {
 }
 
 .util-header-container {
-  /* color: #fff; */
   width: 33.333%;
 }
 

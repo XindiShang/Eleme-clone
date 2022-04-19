@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import BaseUtilHeader from "@/components/BaseUtilHeader.vue";
+import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
 import FormCell from "@/components/profile/FormCell.vue";
 import { Toast } from 'vant';
 import AMap from 'AMap' // 引入高德地图

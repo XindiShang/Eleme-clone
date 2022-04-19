@@ -5,7 +5,7 @@
 
     <div class="address-list">
       <div v-for="(address, i) in addresses" :key="i" class="cell-wrapper">
-        <address-item :address="address" />
+        <address-cell :address="address" />
       </div>
 
     </div>
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import BaseUtilHeader from "@/components/BaseUtilHeader.vue";
-import AddressItem from "@/components/profile/AddressItem.vue";
+import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
+import AddressCell from "@/components/profile/AddressCell.vue";
 
 export default {
   components: {
     BaseUtilHeader,
-    AddressItem
+    AddressCell
   },
   computed: {
     addresses() {

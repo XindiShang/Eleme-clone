@@ -1,78 +1,42 @@
 <template>
-  <van-swipe-cell :before-close="beforeClose" class="address-item">
-    <div class="address-content">
-      <div class="address-main">
-        <div class="address-title">
-          <van-tag v-if="address.tag" class="mr-1" color="#e5f7fd" text-color="#5cc8f7">{{ address.tag }}</van-tag>
-          <span class="mr-1 address-name">{{ address.address }}
-            <span v-if="address.addressSpecific">{{ address.addressSpecific }}</span>
-
-          </span>
-        </div>
-        <div class="address-description">
-          <span class="mr-1">{{ address.recipientName }}
-            <span v-if="address.gender" class="gender">({{ formatGender(address.gender) }})</span>
-          </span>
-          <span class="phone">{{ address.phone }}</span>
-        </div>
-      </div>
-      <div @click="editAddress" class="address-edit">
-        <span class="edit-icon material-icons-outlined">
-          edit
-        </span>
-      </div>
+  <div class="address-item">
+    <div class="address-title">
+      <van-tag
+        v-if="address.tag"
+        class="mr-1"
+        color="#e5f7fd"
+        text-color="#5cc8f7"
+        >{{ address.tag }}</van-tag
+      >
+      <span :class="{ 'name-large': nameLarge }" class="mr-1 address-name"
+        >{{ address.address }}
+        <span v-if="address.addressSpecific">{{
+          address.addressSpecific
+        }}</span>
+      </span>
     </div>
-
-
-    <template #right>
-      <van-button class="delete-btn" square type="danger" text="删除" />
-    </template>
-  </van-swipe-cell>
-
+    <div class="address-description">
+      <span class="mr-1"
+        >{{ address.recipientName }}
+        <span v-if="address.gender" class="gender"
+          >({{ formatGender(address.gender) }})</span
+        >
+      </span>
+      <span class="phone">{{ address.phone }}</span>
+    </div>
+  </div>
 </template>
 
 <script>
-import { Dialog } from 'vant';
-
 export default {
-  props: ['address'],
+  props: ["address", "nameLarge"],
   computed: {
     formatGender() {
-      return gender => gender === 'female' ? '女士' : '先生'
+      return (gender) => (gender === "female" ? "女士" : "先生");
     },
-
   },
-  methods: {
-    beforeClose({ position }) {
-      // const that = this;
-      switch (position) {
-        case 'left':
-        case 'cell':
-        case 'outside':
-          return true;
-        case 'right':
-          return new Promise((resolve) => {
-            Dialog.confirm({
-              title: '删除地址',
-              message: '确定删除该收货地址吗？',
-              confirmButtonColor: '#42abfe',
-              confirmButtonText: '删除',
-            }).then(res => {
-              this.$store.dispatch('callDeleteAddress')
-              resolve(res)
-            }).catch(e =>
-              resolve(e)
-            );
-          });
-
-      }
-    },
-    editAddress() {
-      this.$router.push({ name: 'userEditAddress', params: { userId: this.$route.params.userId, addressId: this.address.addressId } });
-    }
-  },
-
-}
+  methods: {},
+};
 </script>
 
 <style scoped>
@@ -80,53 +44,34 @@ export default {
   width: 100%;
 }
 
-.address-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 30px;
-  padding: 12px 12px 12px 0;
-  border-bottom: 1px solid #f1f1f1;
-}
-
-.address-main {
-  width: 90%;
-}
-
 .address-title {
   width: 80%;
   display: flex;
   align-items: center;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  line-height: .9rem;
+  line-height: 0.9rem;
   margin-bottom: 6px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  /* height: 100px; */
 }
 
 .address-name {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  line-height: 1;
+}
+
+.name-large {
+  font-size: 1.2rem;
 }
 
 .address-description {
-  font-size: .85rem;
+  font-size: 0.85rem;
   color: #999999;
-}
-
-.address-edit {
-  color: #999999;
-}
-
-.edit-icon {
-  font-size: 1.4rem;
-}
-
-.delete-btn {
-  height: 100%;
 }
 
 .mr-1 {

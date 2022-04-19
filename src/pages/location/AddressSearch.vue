@@ -30,7 +30,7 @@
 
 
         <div class="search-results up">
-            <result-item v-for="item in results" :key="item.id" :result="item"></result-item>
+            <address-search-result v-for="item in results" :key="item.id" :result="item"></address-search-result>
             <div v-if="showMsg" class="no-result">
                 <h3>找不到地址？</h3>
                 <p>请尝试只输入小区，写字楼或学校名，</p>
@@ -42,12 +42,12 @@
 
 <script>
 import debounce from 'lodash.debounce';
-import ResultItem from '../../components/address/ResultItem.vue';
-import BaseUtilHeader from '@/components/BaseUtilHeader.vue';
+import AddressSearchResult from '../../components/address/AddressSearchResult.vue';
+import BaseUtilHeader from '@/components/UI/BaseUtilHeader.vue';
 
 export default {
     components: {
-        ResultItem,
+        AddressSearchResult,
         BaseUtilHeader
     },
     data() {

@@ -1,17 +1,25 @@
 <template>
   <div class="tab-bar">
-    <router-link class="tab-item" v-for="(tab, i) in tabs" :key="i" :to="tab.path" exact-active-class="is-selected">
-
+    <router-link
+      class="tab-item"
+      v-for="(tab, i) in tabs"
+      :key="i"
+      :to="tab.path"
+      exact-active-class="is-selected"
+    >
       <div class="tab-set">
         <div class="tab-item-icon">
-          <img id="home-logo" v-if="tab.useImg" src="../assets/homeLogo.svg" alt="eleme logo here" />
+          <img
+            id="home-logo"
+            v-if="tab.useImg"
+            :src="require('@/assets/homeLogo.svg')"
+            alt="eleme logo here"
+          />
           <span v-else class="material-icons">{{ tab.icon }}</span>
         </div>
 
         <div class="tab-item-label">{{ tab.label }}</div>
       </div>
-
-
     </router-link>
   </div>
 </template>
@@ -20,8 +28,8 @@
 export default {
   props: {
     tabs: Array,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

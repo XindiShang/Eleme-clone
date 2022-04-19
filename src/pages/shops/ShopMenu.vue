@@ -4,7 +4,11 @@
 
     <section class="main">
       <!-- left side bar  -->
-      <menu-side-bar @select-category="setCategory" :currentIdx="currentIndex" ref="sideBar"></menu-side-bar>
+      <menu-side-bar
+        @select-category="setCategory"
+        :currentIdx="currentIndex"
+        ref="sideBar"
+      ></menu-side-bar>
       <!-- right menu body  -->
       <menu-body ref="menuBody"></menu-body>
     </section>
@@ -12,11 +16,10 @@
 </template>
 
 <script>
-
-import ShopRecommendation from '@/components/shop/ShopRecommendation.vue';
-import MenuSideBar from '@/components/menu/MenuSideBar.vue';
-import MenuBody from '@/components/menu/MenuBody.vue';
-import BScroll from '@better-scroll/core'
+import ShopRecommendation from "@/components/shop/ShopRecommendation.vue";
+import MenuSideBar from "@/components/menu/MenuSideBar.vue";
+import MenuBody from "@/components/menu/MenuBody.vue";
+import BScroll from "@better-scroll/core";
 
 export default {
   components: {
@@ -30,28 +33,28 @@ export default {
       heightList: [],
       scrollY: 0,
       current: 0,
-    }
+    };
   },
   computed: {
     shopInfo() {
-      return this.$store.getters.doneSelectedShop
+      return this.$store.getters.doneSelectedShop;
     },
     currentIndex() {
       return this.current;
-    }
+    },
   },
   methods: {
     initScroll() {
-      this.leftScroll = new BScroll('.sidebar-wrapper', {
+      this.leftScroll = new BScroll(".sidebar-wrapper", {
         click: true,
       });
     },
     setCategory(payloadIdx) {
-      let categoryList = document.querySelectorAll('.menu-body-item')
+      let categoryList = document.querySelectorAll(".menu-body-item");
       let target = categoryList[payloadIdx];
       target.scrollIntoView();
 
-      const bodyScroller = document.querySelector('.menu-body-wrapper');
+      const bodyScroller = document.querySelector(".menu-body-wrapper");
       this.scrollY = bodyScroller.scrollTop;
 
       // console.log('body scroller height is ' + bodyScroller.scrollTop)
@@ -60,7 +63,7 @@ export default {
       this.setCategoryIndex();
     },
     getListHeight() {
-      let categoryList = document.querySelectorAll('.menu-body-item')
+      let categoryList = document.querySelectorAll(".menu-body-item");
       let height = 0;
       this.heightList.push(height);
 
@@ -88,41 +91,38 @@ export default {
         }
       }
       // console.log(this.heightList)
-
-    }
+    },
   },
 
   mounted() {
     this.$nextTick(() => {
       this.initScroll();
-    })
+    });
     if (this.leftScroll) {
       this.leftScroll.refresh();
     }
     this.getListHeight();
     const that = this;
-    const bodyScroller = document.querySelector('.menu-body-wrapper');
+    const bodyScroller = document.querySelector(".menu-body-wrapper");
 
     bodyScroller.onscroll = function () {
       that.scrollY = bodyScroller.scrollTop;
       // console.log('set from scroll')
       that.setCategoryIndex();
-    }
-
+    };
   },
   watch: {
     shopInfo() {
-      console.log(this.shopInfo)
-    }
-  }
-
-}
+      console.log(this.shopInfo);
+    },
+  },
+};
 </script>
 
 <style scoped>
 .slide-leave-active,
 .slide-enter-active {
-  transition: .4s;
+  transition: 0.4s;
 }
 .slide-enter {
   transform: translate(-100%, 0);

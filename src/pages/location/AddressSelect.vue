@@ -18,7 +18,7 @@
 <script>
 import AddressSearchBar from '../../components/address/AddressSearchBar.vue';
 import CurrentLocation from '../../components/address/CurrentLocation.vue';
-import BaseUtilHeader from '@/components/BaseUtilHeader.vue';
+import BaseUtilHeader from '@/components/UI/BaseUtilHeader.vue';
 
 export default {
     components: {
