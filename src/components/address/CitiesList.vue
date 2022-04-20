@@ -54,6 +54,7 @@ export default {
         cityInfo: Object,
         keys: Array,
     },
+    emits: ['selectCity'],
     data() {
         return {
             scroll: null,
@@ -81,7 +82,8 @@ export default {
     methods: {
         setCity(e) {
             this.$store.dispatch('getCity', e.target.innerText);
-            this.$router.back();
+            this.$emit('selectCity');
+            // this.$router.back();
         },
         initScroll() {
             this.scroll = new BScroll(this.$refs.scrollArea, {
@@ -95,9 +97,6 @@ export default {
         }
     },
     mounted() {
-        // if (this.scroll) {
-        //     this.scroll.refresh();
-        // }
         this.$nextTick(() => {
             this.initScroll();
         })

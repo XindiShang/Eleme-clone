@@ -1,30 +1,55 @@
 <template>
-  <div class="user-address-manage-view">
-    <base-util-header class="header-fixed" bgColor="white" @go-back="switchPageBack" :headerTitle="headerTitle" />
+  <div v-if="!isChoosing" class="user-address-manage-view">
+    <base-util-header
+      class="header-fixed"
+      bgColor="white"
+      @go-back="close"
+      :headerTitle="headerTitle"
+    />
 
     <div class="address-manage-body">
       <div id="mapContainer"></div>
 
       <div class="address-manage-form-wrapper">
         <form @submit.prevent="submitForm" class="address-manage-form">
-
           <div class="card">
             <!-- address  -->
-            <form-cell v-model="address.val" @clear-val="clearInput('地址')" @expand="addNewAddress" label="地址"
-              input-id="address" :has-arrow="true" placeholder="选择收货地址" :is-full-length="true">
+            <form-cell
+              v-model="address.val"
+              @clear-val="clearInput('地址')"
+              @expand="chooseAddress"
+              label="地址"
+              input-id="address"
+              :has-arrow="true"
+              placeholder="选择收货地址"
+              :is-full-length="true"
+            >
             </form-cell>
 
             <!-- address specific  -->
-            <form-cell v-model="addressSpecific" @clear-val="clearInput('门牌号')" label="门牌号" input-id="addressSpecific"
-              placeholder="填写详细地址，例：1层101" :is-full-length="true">
+            <form-cell
+              v-model="addressSpecific"
+              @clear-val="clearInput('门牌号')"
+              label="门牌号"
+              input-id="addressSpecific"
+              placeholder="填写详细地址，例：1层101"
+              :is-full-length="true"
+            >
             </form-cell>
 
             <!-- tag -->
             <form-cell label="标签" :is-customized="true" :is-end="true">
               <template #default>
                 <div class="tags-container">
-                  <van-tag @click="selectTag(tag)" :class="{ 'tag-selected': this.selectedTag === tag }"
-                    class="base-tag" :plain="!tagSelected" v-for="(tag, i) in tags" :key="i" size="medium">{{ tag }}
+                  <van-tag
+                    @click="selectTag(tag)"
+                    :class="{ 'tag-selected': this.selectedTag === tag }"
+                    class="base-tag"
+                    :plain="!tagSelected"
+                    v-for="(tag, i) in tags"
+                    :key="i"
+                    size="medium"
+                    >{{ tag }}
                   </van-tag>
                 </div>
               </template>
@@ -33,79 +58,110 @@
 
           <div class="card">
             <!-- recipient  -->
-            <form-cell v-model="recipientName.val" @clear-val="clearInput('收货人')" label="收货人" input-id="recipientName"
-              :is-half-length="true" placeholder="姓名">
+            <form-cell
+              v-model="recipientName.val"
+              @clear-val="clearInput('收货人')"
+              label="收货人"
+              input-id="recipientName"
+              :is-half-length="true"
+              placeholder="姓名"
+            >
               <template #rightSlot>
                 <div class="gender-selector">
                   <div class="selector-item">
-                    <input class="radio-btn" type="radio" name="gender" v-model="gender" value="male" id="male">
+                    <input
+                      class="radio-btn"
+                      type="radio"
+                      name="gender"
+                      v-model="gender"
+                      value="male"
+                      id="male"
+                    />
                     <label class="radio-label" for="male">先生</label>
                   </div>
 
                   <div class="selector-item">
-                    <input class="radio-btn" type="radio" name="gender" v-model="gender" value="female" id="female">
+                    <input
+                      class="radio-btn"
+                      type="radio"
+                      name="gender"
+                      v-model="gender"
+                      value="female"
+                      id="female"
+                    />
                     <label class="radio-label" for="female">女士</label>
                   </div>
                 </div>
               </template>
             </form-cell>
 
-
             <!-- phone number  -->
-            <form-cell v-model="phone.val" @clear-val="clearInput('手机号')" label="手机号" input-id="phone"
-              input-type="number" placeholder="收货人手机号码" :is-full-length="true" :is-end="true">
+            <form-cell
+              v-model="phone.val"
+              @clear-val="clearInput('手机号')"
+              label="手机号"
+              input-id="phone"
+              input-type="number"
+              placeholder="收货人手机号码"
+              :is-full-length="true"
+              :is-end="true"
+            >
             </form-cell>
 
             <!-- submit  -->
             <button class="submit-btn" type="submit">保存</button>
           </div>
-
         </form>
-
       </div>
     </div>
-
-
   </div>
 
+  <confirm-address v-else @confirm="confirmAddress" />
 </template>
 
 <script>
 import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
 import FormCell from "@/components/profile/FormCell.vue";
-import { Toast } from 'vant';
-import AMap from 'AMap' // 引入高德地图
+import { Toast } from "vant";
+import AMap from "AMap";
+import ConfirmAddress from "@/pages/profile/ConfirmAddress.vue";
 
 export default {
   components: {
     BaseUtilHeader,
-    FormCell
+    FormCell,
+    ConfirmAddress,
   },
+  props: ["selectedAddress"],
+  emits: ["closeAdd", "editAddress"],
   data() {
     return {
-      tags: ['家', '公司', '学校'],
+      tags: ["家", "公司", "学校"],
       address: {
-        val: this.$route.params.chosenAddress ? this.$route.params.chosenAddress : '',
+        val: this.selectedAddress ? this.selectedAddress.address : "",
         isValid: true,
-        msg: ''
+        msg: "",
       },
-      addressSpecific: '',
-      selectedTag: '',
+      addressSpecific: this.selectedAddress
+        ? this.selectedAddress.addressSpecific
+        : "",
+      selectedTag: this.selectedAddress ? this.selectedAddress.tag : "",
       recipientName: {
-        val: '',
+        val: this.selectedAddress ? this.selectedAddress.recipientName : "",
         isValid: true,
-        msg: ''
+        msg: "",
       },
       phone: {
-        val: '',
+        val: this.selectedAddress ? this.selectedAddress.phone : "",
         isValid: true,
-        msg: ''
+        msg: "",
       },
-      gender: '',
+      gender: this.selectedAddress ? this.selectedAddress.gender : "",
       formIsValid: true,
       map: null,
-      title: ''
-    }
+      title: "",
+      isChoosing: false,
+    };
   },
   computed: {
     headerTitle() {
@@ -117,33 +173,39 @@ export default {
     },
   },
   methods: {
-    getTitle() {
-      if (this.$route.name === 'userNewAddress') {
-        this.title = '新增收货地址';
-      } else {
-        this.title = '编辑收货地址';
+    confirmAddress(payload) {
+      this.isChoosing = false;
+      if (payload) {
+        this.address.val = payload.name;
+        this.addressSpecific = payload.address;
       }
     },
-    switchPageBack() {
-      this.$router.push({ name: 'userAddress', params: { userId: this.$route.params.userId } });
+    getTitle() {
+      if (!this.selectedAddress) {
+        this.title = "新增收货地址";
+      } else {
+        this.title = "编辑收货地址";
+      }
+    },
+    close() {
+      this.$emit("closeAdd");
     },
     selectTag(tag) {
       if (this.selectedTag === tag) {
-        this.selectedTag = ''
+        this.selectedTag = "";
       } else {
         this.selectedTag = tag;
-
       }
     },
     clearInput(label) {
-      if (label === '地址') {
-        this.address.val = '';
-      } else if (label === '门牌号') {
-        this.addressSpecific = '';
-      } else if (label === '收货人') {
-        this.recipientName.val = '';
-      } else if (label === '手机号') {
-        this.phone.val = '';
+      if (label === "地址") {
+        this.address.val = "";
+      } else if (label === "门牌号") {
+        this.addressSpecific = "";
+      } else if (label === "收货人") {
+        this.recipientName.val = "";
+      } else if (label === "手机号") {
+        this.phone.val = "";
       } else {
         return;
       }
@@ -162,97 +224,97 @@ export default {
         address: this.address.val,
         addressSpecific: this.addressSpecific,
         tag: this.selectedTag,
-        gender: this.gender
-      }
+        gender: this.gender,
+      };
 
-      if (this.$route.name === 'userEditAddress') {
-        this.$store.dispatch('getUpdatedAddress', formData)
+      if (this.selectedAddress) {
+        this.$store.dispatch("getUpdatedAddress", formData);
       } else {
-        this.$store.dispatch('getNewAddress', formData);
+        this.$store.dispatch("getNewAddress", formData);
       }
-      this.$router.push({ name: 'userAddress', params: { userId: this.$route.params.userId } })
+      this.close();
     },
     validateForm() {
       this.formIsValid = true;
-      if (this.recipientName.val === '') {
+      if (this.recipientName.val === "") {
         this.recipientName.isValid = false;
-        this.recipientName.msg = '请填写收货人';
-        Toast(this.recipientName.msg)
+        this.recipientName.msg = "请填写收货人";
+        Toast(this.recipientName.msg);
         this.formIsValid = false;
       }
-      if (this.address.val === '') {
+      if (this.address.val === "") {
         this.address.isValid = false;
-        this.address.msg = '请填写收货地址'
-        Toast(this.address.msg)
+        this.address.msg = "请填写收货地址";
+        Toast(this.address.msg);
         this.formIsValid = false;
       }
       this.validatePhone();
     },
     validatePhone() {
-      if (this.phone.val === '') {
+      if (this.phone.val === "") {
         this.phone.isValid = false;
-        this.phone.msg = '请填写联系电话'
-        Toast(this.phone.msg)
+        this.phone.msg = "请填写联系电话";
+        Toast(this.phone.msg);
         this.formIsValid = false;
       } else {
-        if (!(/^1[345678]\d{9}$/.test(this.phone.val))) {
+        if (!/^1[345678]\d{9}$/.test(this.phone.val)) {
           this.phone.isValid = false;
-          this.phone.msg = '请填写合法的手机号'
-          Toast(this.phone.msg)
+          this.phone.msg = "请填写合法的手机号";
+          Toast(this.phone.msg);
           this.formIsValid = false;
         }
-
       }
     },
     initMap() {
-      this.map = new AMap.Map('mapContainer', {
+      this.map = new AMap.Map("mapContainer", {
         resizeEnable: true, //是否监控地图容器尺寸变化
         zoom: 11, //初始地图级别
-        mapStyle: 'amap://styles/2de08eeb11b2025dc74ddede43708d08',
-      })
+        mapStyle: "amap://styles/2de08eeb11b2025dc74ddede43708d08",
+      });
 
       const that = this;
 
-      AMap.plugin('AMap.Geolocation', function () {
+      AMap.plugin("AMap.Geolocation", function () {
         var geolocation = new AMap.Geolocation({
-          enableHighAccuracy: true,//是否使用高精度定位，默认:true
-          timeout: 10000,          //超过10秒后停止定位，默认：5s
-          buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-          zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+          enableHighAccuracy: true, //是否使用高精度定位，默认:true
+          timeout: 10000, //超过10秒后停止定位，默认：5s
+          buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+          zoomToAccuracy: true, //定位成功后是否自动调整地图视野到定位点
           showButton: false,
           // noIpLocate: 2
         });
 
         that.map.addControl(geolocation);
         geolocation.getCurrentPosition(function (status, result) {
-          if (status == 'complete') {
-            onComplete(result)
+          if (status == "complete") {
+            onComplete(result);
           } else {
-            onError(result)
+            onError(result);
           }
         });
       });
       //解析定位结果
       function onComplete(data) {
         var str = [];
-        str.push('定位结果：' + data.position);
-        str.push('定位类别：' + data.location_type);
-        console.log(data)
-
+        str.push("定位结果：" + data.position);
+        str.push("定位类别：" + data.location_type);
+        console.log(data);
       }
       //解析定位错误信息
       function onError(data) {
-        console.log(data.message)
+        console.log(data.message);
       }
     },
-    addNewAddress() {
-      this.$router.push({ name: 'userConfirmAddress' });
-    }
+    chooseAddress() {
+      this.isChoosing = true;
+    },
   },
   mounted() {
-    if (this.$route.name === 'userEditAddress') {
+    if (this.$route.name === "userEditAddress") {
       const addresses = this.$store.getters.addresses;
-      const target = addresses.find(el => el.addressId === this.$route.params.addressId)
+      const target = addresses.find(
+        (el) => el.addressId === this.$route.params.addressId
+      );
 
       this.address.val = target.address;
       this.addressSpecific = target.addressSpecific;
@@ -263,7 +325,7 @@ export default {
     }
     this.initMap();
   },
-}
+};
 </script>
 
 <style scoped>
@@ -297,7 +359,6 @@ export default {
   /* z-index: 10000; */
   top: 100px;
   width: 100%;
-
 }
 
 .card {
@@ -353,7 +414,7 @@ export default {
   line-height: 1.1rem;
 }
 
-.radio-btn+.radio-label:before {
+.radio-btn + .radio-label:before {
   content: "";
   background: #fff;
   border-radius: 100%;
@@ -370,29 +431,29 @@ export default {
   transition: all 250ms ease;
 }
 
-.radio-btn:checked+.radio-label:before {
+.radio-btn:checked + .radio-label:before {
   background-color: #47b6fd;
   box-shadow: inset 0 0 0 3px #f4f4f4;
 }
 
-.radio-btn:focus+.radio-label:before {
+.radio-btn:focus + .radio-label:before {
   outline: none;
   border-color: #47b6fd;
 }
 
-.radio-btn:disabled+.radio-label:before {
+.radio-btn:disabled + .radio-label:before {
   box-shadow: inset 0 0 0 4px #f4f4f4;
   border-color: #b4b4b4;
   background: #b4b4b4;
 }
 
-.radio-btn+.radio-label:empty:before {
+.radio-btn + .radio-label:empty:before {
   margin-right: 0;
 }
 
 .submit-btn {
   font-weight: bold;
-  font-size: .9rem;
+  font-size: 0.9rem;
   height: 34px;
   margin-top: 40px;
   display: block;

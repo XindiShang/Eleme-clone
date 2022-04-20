@@ -4,7 +4,7 @@
         <div class="location-bar">
             <div class="location">
                 <span :class="logoClass">{{ logo }}</span>
-                <span @click="switchPage" class="location-text">{{ result }}</span>
+                <span @click="doneLocate" class="location-text">{{ result }}</span>
             </div>
             <a href class="relocate" @click="relocate">重新定位</a>
         </div> 
@@ -20,6 +20,7 @@ export default {
             default: false,
         }
     },
+    emits: ['locateFinished'],
     data() {
         return {
             latResult: null,
@@ -50,13 +51,14 @@ export default {
         }
     },
     methods: {
-        switchPage() {
-            if (this.isCity) {
-                this.$router.back();
-            } else {
-                this.$router.push('/home');
+        doneLocate() {
+            this.$emit('locateFinished')
+            // if (this.isCity) {
+            //     this.$router.back();
+            // } else {
+            //     this.$router.push('/home');
 
-            }
+            // }
         },
         relocate() {
             const that = this;

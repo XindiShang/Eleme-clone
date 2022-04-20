@@ -1,14 +1,33 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
 import {
-    Toast, Button, Tag, Sticky, Image as VanImage,
-    Lazyload, Badge, PullRefresh, List, Swipe, SwipeItem,
-    Popup, NoticeBar, Tab, Tabs, Overlay, ShareSheet, Rate, ImagePreview,
-    ActionSheet, Popover, SwipeCell  
-} from 'vant';
-import router from './router'
-import store from './store'
-import axios from 'axios';
+  Toast,
+  Button,
+  Tag,
+  Sticky,
+  Image as VanImage,
+  Lazyload,
+  Badge,
+  PullRefresh,
+  List,
+  Swipe,
+  SwipeItem,
+  Popup,
+  NoticeBar,
+  Tab,
+  Tabs,
+  Overlay,
+  ShareSheet,
+  Rate,
+  ImagePreview,
+  ActionSheet,
+  Popover,
+  SwipeCell,
+  AddressList,
+} from "vant";
+import router from "./router";
+import store from "./store";
+import axios from "axios";
 
 // const print = console.log.bind(console);
 
@@ -36,34 +55,37 @@ app.use(ImagePreview);
 app.use(ActionSheet);
 app.use(Popover);
 app.use(SwipeCell);
+app.use(AddressList);
 
-
-
-
-axios.interceptors.request.use(config => {
+axios.interceptors.request.use(
+  (config) => {
     // console.log(config)
-    if (!config.url.includes('restaurants')) {
-        Toast.loading({
-            message: '加载中',
-            forbidClick: true,
-        });
+    if (!config.url.includes("restaurants")) {
+      Toast.loading({
+        message: "加载中",
+        forbidClick: true,
+      });
     }
     return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
 
-}, err => {
-    return Promise.reject(err)
-})
-
-axios.interceptors.response.use(res => {
+axios.interceptors.response.use(
+  (res) => {
     Toast.clear();
     return res;
-}, err => {
-    return Promise.reject(err)
-})
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
 
 app.config.globalProperties.$axios = axios;
 app.config.unwrapInjectedRef = true;
 
 app.use(store);
 app.use(router);
-app.mount('#app')
+app.mount("#app");

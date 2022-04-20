@@ -1,79 +1,117 @@
 <template>
-  <div class="user-address-confirm-view">
-    <base-util-header class="header-fixed" bgColor="white" @go-back="switchPageBack" :headerTitle="headerTitle" />
+  <div v-if="!cityIsOpen && !searchOn" class="user-address-confirm-view">
+    <base-util-header
+      class="header-fixed"
+      bgColor="white"
+      @go-back="switchPageBack"
+      :headerTitle="headerTitle"
+    />
 
     <div class="address-confirm-body">
-      <address-search-bar class="search-bar" />
+      <address-search-bar
+        @choose-city="chooseCity"
+        @search-address="searchAddress"
+        class="search-bar"
+      />
 
       <div id="mapContainer"></div>
 
-
-
       <div class="card">
         <div v-if="nearby" class="nearby-list">
-          <nearby-item v-for="(place, i) in nearby" :key="i" :item="place" :isChosen="i === 0" />
+          <nearby-item
+            @set-address="setAddress"
+            v-for="(place, i) in nearby"
+            :key="i"
+            :item="place"
+            :isChosen="i === 0"
+          />
         </div>
       </div>
-
-
-
     </div>
-
-
   </div>
 
+  <all-cities
+    v-else-if="cityIsOpen && !searchOn"
+    @set-search="closeCity"
+    @set-city="closeCity"
+    @cancel-city="closeCity"
+    @cancel-locate="closeCity"
+  />
+
+  <address-search v-else @search-off="closeSearch" />
 </template>
 
 <script>
 import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
-import AddressSearchBar from '../../components/address/AddressSearchBar.vue';
-import NearbyItem from '../../components/address/NearbyItem.vue';
-import { Toast } from 'vant';
-import AMap from 'AMap'
+import AddressSearchBar from "../../components/address/AddressSearchBar.vue";
+import NearbyItem from "../../components/address/NearbyItem.vue";
+import { Toast } from "vant";
+import AMap from "AMap";
+import AllCities from "@/pages/location/AllCities.vue";
+import AddressSearch from "@/pages/location/AddressSearch.vue";
 
 export default {
   components: {
     BaseUtilHeader,
     AddressSearchBar,
-    NearbyItem
+    NearbyItem,
+    AllCities,
+    AddressSearch,
   },
+  emits: ["confirm"],
   data() {
     return {
       map: null,
       nearby: null,
-    }
+      cityIsOpen: false,
+      searchOn: false,
+    };
   },
   computed: {
     headerTitle() {
-      return '确认收货地址'
+      return "确认收货地址";
     },
   },
   methods: {
-    
+    chooseCity() {
+      this.cityIsOpen = true;
+    },
+    closeCity() {
+      this.cityIsOpen = false;
+    },
+    searchAddress() {
+      this.searchOn = true;
+    },
+    closeSearch() {
+      this.searchOn = false;
+    },
+    setAddress(payload) {
+      this.$emit("confirm", payload);
+    },
     switchPageBack() {
-      this.$router.back();
+      this.$emit("confirm");
     },
 
     clearInput(label) {
-      if (label === '地址') {
-        this.address.val = '';
-      } else if (label === '门牌号') {
-        this.addressSpecific = '';
-      } else if (label === '收货人') {
-        this.recipientName.val = '';
-      } else if (label === '手机号') {
-        this.phone.val = '';
+      if (label === "地址") {
+        this.address.val = "";
+      } else if (label === "门牌号") {
+        this.addressSpecific = "";
+      } else if (label === "收货人") {
+        this.recipientName.val = "";
+      } else if (label === "手机号") {
+        this.phone.val = "";
       } else {
         return;
       }
     },
 
     initMap() {
-      this.map = new AMap.Map('mapContainer', {
+      this.map = new AMap.Map("mapContainer", {
         resizeEnable: true, //是否监控地图容器尺寸变化
         zoom: 11, //初始地图级别
-        mapStyle: 'amap://styles/2de08eeb11b2025dc74ddede43708d08',
-      })
+        mapStyle: "amap://styles/2de08eeb11b2025dc74ddede43708d08",
+      });
 
       const that = this;
 
@@ -104,7 +142,6 @@ export default {
       //   str.push('定位类别：' + data.location_type);
       //   console.log(data)
 
-
       // }
       // //解析定位错误信息
       // function onError(data) {
@@ -113,36 +150,34 @@ export default {
 
       const store = that.$store.getters;
 
-
       AMap.service(["AMap.PlaceSearch"], function () {
         //构造地点查询类
         var placeSearch = new AMap.PlaceSearch({
-          type: '餐饮服务', // 兴趣点类别
+          type: "餐饮服务", // 兴趣点类别
           pageSize: 10, // 单页显示结果条数
           pageIndex: 1, // 页码
           city: store.doneCity, // 兴趣点城市
 
-          // citylimit: true, 
+          // citylimit: true,
 
           // map: that.map, // 展现结果的地图实例
           // autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
         });
 
-        console.log(store.doneLngLat)
-        console.log(store.doneCity)
-
+        console.log(store.doneLngLat);
+        console.log(store.doneCity);
 
         var cpoint = [store.doneLngLat[1], store.doneLngLat[0]]; //中心点坐标
-        placeSearch.searchNearBy('', cpoint, 200, function (status, result) {
-          if (status == 'complete') {
-            console.log(result)
+        placeSearch.searchNearBy("", cpoint, 200, function (status, result) {
+          if (status == "complete") {
+            console.log(result);
             that.nearby = result.poiList.pois;
           } else {
-            Toast('获取周边地址失败，请手动输入地址')
+            Toast("获取周边地址失败，请手动输入地址");
           }
         });
       });
-    }
+    },
     // addNewAddress() {
     //   this.$router.push({ name: 'userAddAddress' });
     // }
@@ -150,8 +185,7 @@ export default {
   mounted() {
     this.initMap();
   },
-
-}
+};
 </script>
 
 <style scoped>

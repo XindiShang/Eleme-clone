@@ -12,12 +12,14 @@
 
     <section v-if="!showSearchResults">
       <current-location
+      @locateFinished="doneLocate"
         size="24px"
         class="current"
         :isCity="true"
       ></current-location>
       <cities-list
         v-if="cityInfo"
+        @select-city="selectCity"
         ref="roll"
         class="cities"
         :cityInfo="cityInfo"
@@ -27,7 +29,7 @@
 
     <div class="search_list" v-else>
       <ul>
-        <li @click="setCity" v-for="(item, i) in finalSearchResults" :key="i">
+        <li @click="doneSearch" v-for="(item, i) in finalSearchResults" :key="i">
           {{ item.name }}
         </li>
       </ul>
@@ -47,6 +49,7 @@ export default {
     CurrentLocation,
     CitiesList,
   },
+  emits: ['setSearch', 'setCity', 'cancelCity', 'cancelLocate'],
   data() {
     return {
       placeholderPassed: "输入城市名或拼音",
@@ -69,7 +72,7 @@ export default {
       this.inputVal = "";
     },
     cancel() {
-      this.$router.back();
+      this.$emit('cancelCity')
     },
     // ******
     async getCityInfo() {
@@ -104,10 +107,16 @@ export default {
         );
       }
     },
-    setCity(e) {
+    doneSearch(e) {
       this.$store.dispatch("getCity", e.target.innerText);
-      this.$router.back();
+      this.$emit('setSearch');
     },
+    selectCity(){
+      this.$emit('setCity')
+    },
+    doneLocate(){
+      this.$emit('cancelLocate');
+    }
   },
   watch: {
     inputVal() {
@@ -122,8 +131,8 @@ export default {
 
 <style scoped>
 .city {
-  height: 100%;
-  /* width: 100; */
+  height: 100vh;
+  width: 100%;
   background-color: #eaeaea;
   overflow: auto;
   box-sizing: border-box;

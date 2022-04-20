@@ -1,14 +1,14 @@
 <template>
   <!-- search bar  -->
   <div class="search-bar">
-    <div class="city-container" @click="switchCityPage">
+    <div class="city-container" @click="emitChooseCity">
       <span class="city">{{ city }}</span>
       <span class="material-icons-outlined down-arrow-icon">expand_more</span>
     </div>
 
     <div class="divider"></div>
     <span class="material-icons-outlined search-icon">search</span>
-    <p @click="switchLocatePage">请输入你的收货地址</p>
+    <p @click="emitSearchAddress">请输入你的收货地址</p>
   </div>
 
 </template>
@@ -17,17 +17,18 @@
 
 
 export default {
+  emits: ['chooseCity', 'searchAddress'],
   computed: {
     city() {
       return this.$store.getters.doneCity || '定位中';
     }
   },
   methods: {
-    switchLocatePage() {
-      this.$router.push({ name: 'locate', query: { redirect: this.$route.name === 'userConfirmAddress' ? 'userNewAddress' : '' } })
+    emitSearchAddress() {
+      this.$emit('searchAddress')
     },
-    switchCityPage() {
-      this.$router.push('/city');
+    emitChooseCity() {
+      this.$emit('chooseCity')
     }
   },
 }

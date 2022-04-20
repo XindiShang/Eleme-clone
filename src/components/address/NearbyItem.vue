@@ -1,5 +1,5 @@
 <template>
-  <div @click="setAddress" class="nearby-item">
+  <div @click="select" class="nearby-item">
     <div class="icon-container">
       <span v-if="isChosen" class="is-chosen nearby-icon material-icons-outlined">
         gps_fixed
@@ -23,9 +23,11 @@
 <script>
 export default {
   props: ['item', 'isChosen'],
+  emits: ['setAddress'],
   methods: {
-    setAddress() {
-      this.$router.replace({ name: 'userNewAddress', params: { chosenAddress: this.item.name + '' + this.item.address } })
+    select() {
+      this.$emit('setAddress', this.item);
+      // this.$router.replace({ name: 'userNewAddress', params: { chosenAddress: this.item.name + '' + this.item.address } })
     },
   },
 

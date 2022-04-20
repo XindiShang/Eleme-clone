@@ -1,45 +1,66 @@
 <template>
-  <div class="user-address">
-    <base-util-header class="header-fixed" @go-back="switchPageBack" @right-click="addNewAddress" header-title="收货地址"
-      right-text="新增地址" bgColor="blue" />
+  <div v-if="!isAdd" class="user-address">
+    <base-util-header
+      class="header-fixed"
+      @go-back="switchPageBack"
+      @right-click="addNewAddress"
+      header-title="收货地址"
+      right-text="新增地址"
+      bgColor="blue"
+    />
 
     <div class="address-list">
       <div v-for="(address, i) in addresses" :key="i" class="cell-wrapper">
-        <address-cell :address="address" />
+        <address-cell  @edit-address="editAddress(address)" :address="address" />
       </div>
-
     </div>
   </div>
 
+  <manage-address v-else @close-add="isAdd = false" :selectedAddress="selectedAddress" />
 </template>
 
 <script>
 import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
 import AddressCell from "@/components/profile/AddressCell.vue";
+import ManageAddress from "@/pages/profile/ManageAddress.vue";
 
 export default {
   components: {
     BaseUtilHeader,
-    AddressCell
+    AddressCell,
+    ManageAddress,
+  },
+  data() {
+    return {
+      isAdd: false,
+      selectedAddress: null
+    };
   },
   computed: {
     addresses() {
       return this.$store.getters.addresses;
     },
     formatGender() {
-      return gender => gender === 'female' ? '女士' : '先生'
+      return (gender) => (gender === "female" ? "女士" : "先生");
     },
-
   },
   methods: {
     switchPageBack() {
-      this.$router.push({name: 'matchedProfile', params: {userId: this.$route.params.userId}});
+      this.$router.back()
     },
     addNewAddress() {
-      this.$router.push({ name: 'userNewAddress',params: {userId: this.$route.params.userId} });
+      this.selectedAddress = null;
+      this.isAdd = true;
+    },
+    editAddress(addr){
+      this.isAdd = true;
+      this.selectedAddress = addr;
     }
   },
-}
+  mounted() {
+    // console.log(this.$route);
+  },
+};
 </script>
 
 <style scoped>

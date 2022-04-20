@@ -14,6 +14,7 @@
 
 export default {
     props: ['result'],
+    emits: ['setSearchResult'],
     data() {
         return {
             latResult: null,
@@ -47,7 +48,8 @@ export default {
         setNewLocation() {
             this.doCount = false;
             this.changeAddress();
-            this.$router.replace(this.$route.query.redirect ? { name: this.$route.query.redirect, params: { userId: 'a-fake-id-333', chosenAddress: this.result.name + ' ' + this.result.address } } : { name: 'home' });
+            this.$emit('setSearchResult');
+            // this.$router.replace(this.$route.query.redirect ? { name: this.$route.query.redirect, params: { userId: 'a-fake-id-333', chosenAddress: this.result.name + ' ' + this.result.address } } : { name: 'home' });
 
         },
         changeAddress() {

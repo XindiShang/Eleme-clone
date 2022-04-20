@@ -1,8 +1,13 @@
 <template>
   <div class="address-card">
     <div class="address-container">
-      <address-item :address="selectedAddress" :name-large="true" />
-      <div class="expand-container">
+      <address-item
+        :is-empty="addressIsEmpty"
+        title="请选择收货地址"
+        :address="selectedAddress"
+        :name-large="true"
+      />
+      <div @click="emitAddressChoose" class="expand-container">
         <span class="expand-icon material-icons-outlined"> chevron_right </span>
       </div>
     </div>
@@ -26,10 +31,24 @@ export default {
     AddressItem,
     ExpandCell,
   },
+  emits: ["chooseAddress"],
   data() {
     return {
       selectedAddress: this.$store.getters.addresses[0],
     };
+  },
+  computed: {
+    allAddresses() {
+      return this.$store.getters.addresses;
+    },
+    addressIsEmpty() {
+      return this.allAddresses.length === 0;
+    },
+  },
+  methods: {
+    emitAddressChoose() {
+      this.$emit("chooseAddress");
+    },
   },
 };
 </script>

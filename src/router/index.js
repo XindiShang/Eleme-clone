@@ -25,8 +25,8 @@ const ShopCheckout = () => import("../pages/orders/ShopCheckout.vue");
 
 // *** user address ***
 const AllAddresses = () => import("../pages/profile/AllAddresses.vue");
-const ManageAddress = () => import("../pages/profile/ManageAddress.vue");
-const ConfirmAddress = () => import("../pages/profile/ConfirmAddress.vue");
+// const ManageAddress = () => import("../pages/profile/ManageAddress.vue");
+// const ConfirmAddress = () => import("../pages/profile/ConfirmAddress.vue");
 
 const routes = [
   {
@@ -71,24 +71,24 @@ const routes = [
     props: true,
     component: AllAddresses,
   },
-  {
-    path: "/profile/:userId/address/new",
-    name: "userNewAddress",
-    props: true,
-    component: ManageAddress,
-  },
-  {
-    path: "/profile/:userId/address/confirm",
-    name: "userConfirmAddress",
-    props: true,
-    component: ConfirmAddress,
-  },
-  {
-    path: "/profile/:userId/address/:addressId/edit",
-    name: "userEditAddress",
-    props: true,
-    component: ManageAddress,
-  },
+  // {
+  //   path: "/profile/:userId/address/new",
+  //   name: "userNewAddress",
+  //   props: true,
+  //   component: ManageAddress,
+  // },
+  // {
+  //   path: "/profile/:userId/address/confirm",
+  //   name: "userConfirmAddress",
+  //   props: true,
+  //   component: ConfirmAddress,
+  // },
+  // {
+  //   path: "/profile/:userId/address/:addressId/edit",
+  //   name: "userEditAddress",
+  //   props: true,
+  //   component: ManageAddress,
+  // },
   // *** location ***
   {
     path: "/address",

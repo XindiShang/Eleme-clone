@@ -1,5 +1,5 @@
 <template>
-  <div class="address-item">
+  <div v-if="!isEmpty" class="address-item">
     <div class="address-title">
       <van-tag
         v-if="address.tag"
@@ -10,7 +10,7 @@
       >
       <span :class="{ 'name-large': nameLarge }" class="mr-1 address-name"
         >{{ address.address }}
-        <span v-if="address.addressSpecific">{{
+        <span class="address-specific" v-if="address.addressSpecific">{{
           address.addressSpecific
         }}</span>
       </span>
@@ -25,11 +25,18 @@
       <span class="phone">{{ address.phone }}</span>
     </div>
   </div>
+  <div v-else class="address-item">
+    <div class="address-title">
+      <span class="name-large address-name">
+        {{ title }}
+      </span>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ["address", "nameLarge"],
+  props: ["address", "nameLarge", "isEmpty", "title"],
   computed: {
     formatGender() {
       return (gender) => (gender === "female" ? "女士" : "先生");
@@ -55,11 +62,17 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  /* height: 100px; */
 }
 
 .address-name {
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1;
+}
+
+.address-specific {
+   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   line-height: 1;
