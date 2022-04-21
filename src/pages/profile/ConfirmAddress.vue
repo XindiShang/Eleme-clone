@@ -82,8 +82,9 @@ export default {
     searchAddress() {
       this.searchOn = true;
     },
-    closeSearch() {
+    closeSearch(payload) {
       this.searchOn = false;
+      this.$emit("confirm", payload);
     },
     setAddress(payload) {
       this.$emit("confirm", payload);
@@ -211,6 +212,7 @@ export default {
   top: 44px;
   width: 100%;
   height: calc(100% - 44px);
+  overflow: hidden;
 }
 
 .search-bar {

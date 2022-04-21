@@ -3,15 +3,14 @@
     <div class="available-container">
       <div v-for="(item, i) in addresses" :key="i" class="available-item">
         <address-cell
-          @select-address="selectAddress"
-          @edit-address="editAddress"
+          @select-address="selectAddress(item)"
+          @edit-address="editAddress(item)"
           class="address-cell"
           :has-radio="true"
           :address="item"
+          :selected-id="selectedId"
         ></address-cell>
       </div>
-
-     
     </div>
     <!-- TODO: show unavailable addresses based on distance -->
     <!-- <div class="unavailable-container"></div> -->
@@ -20,33 +19,43 @@
 
 <script>
 import AddressCell from "@/components/profile/AddressCell.vue";
+
 export default {
   components: {
     AddressCell,
   },
+  props: ['selectedId'],
+  emits: ['edit', 'select'],
   data() {
     return {
-      addresses: this.$store.getters.addresses,
+      // addresses: this.$store.getters.addresses,
     };
   },
-  computed: {},
-  methods: {
-    selectAddress(payload) {
-      console.log(payload);
+  computed: {
+    addresses() {
+      return this.$store.getters.addresses;
     },
+  },
+  methods: {
+    selectAddress(address) {
+      this.$emit('select', address)
+    },
+    editAddress(address){
+      this.$emit('edit', address);
+    }
   },
 };
 </script>
 
 <style scoped>
 .address-list {
+  height: 80vh;
   width: 100%;
   padding: 12px 0;
   z-index: 0;
   position: relative;
   top: 30px;
   margin-bottom: 30px;
-
 }
 
 .available-container {

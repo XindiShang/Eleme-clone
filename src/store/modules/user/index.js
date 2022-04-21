@@ -23,7 +23,7 @@ export default {
               addressId: '2',
               recipientName: '吃货',
               gender: 'female',
-              phone: '138999988888',
+              phone: '13899998888',
               address: '蔚蓝商务港F座',
               addressSpecific: '36楼3609',
               tag: '公司'

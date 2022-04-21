@@ -310,19 +310,19 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.name === "userEditAddress") {
-      const addresses = this.$store.getters.addresses;
-      const target = addresses.find(
-        (el) => el.addressId === this.$route.params.addressId
-      );
+    // if (this.$route.name === "userEditAddress") {
+    //   const addresses = this.$store.getters.addresses;
+    //   const target = addresses.find(
+    //     (el) => el.addressId === this.$route.params.addressId
+    //   );
 
-      this.address.val = target.address;
-      this.addressSpecific = target.addressSpecific;
-      this.selectedTag = target.tag;
-      this.recipientName.val = target.recipientName;
-      this.gender = target.gender;
-      this.phone.val = target.phone;
-    }
+    //   this.address.val = target.address;
+    //   this.addressSpecific = target.addressSpecific;
+    //   this.selectedTag = target.tag;
+    //   this.recipientName.val = target.recipientName;
+    //   this.gender = target.gender;
+    //   this.phone.val = target.phone;
+    // }
     this.initMap();
   },
 };

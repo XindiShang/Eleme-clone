@@ -38,7 +38,7 @@
 
     <div class="search-results up">
       <address-search-result
-        @set-search-result="setSearchResult"
+        @set-search-result="setSearchResult(item)"
         v-for="item in results"
         :key="item.id"
         :result="item"
@@ -102,11 +102,10 @@ export default {
     closeCity() {
       this.cityIsOpen = false;
     },
-    setSearchResult() {
-      this.$emit("searchOff");
+    setSearchResult(item) {
+      this.$emit("searchOff", item);
     },
     switchBack() {
-      console.log("working");
       this.$emit("searchOff");
     },
     switchCityPage() {

@@ -194,7 +194,7 @@ export default {
 }
 
 .address-bar-left {
-  width: 40%;
+  width: 60%;
   font-size: 18px;
   cursor: pointer;
 

@@ -1,21 +1,23 @@
 <template>
-  <div class="checkout">
+  <div v-if="!isAdd" class="checkout">
     <base-util-header
       bg-color="lightBlue"
       header-title="确认订单"
       @go-back="back"
     />
     <div class="check-out-body">
-      <div class="notice">
+      <div class="address-card-wrapper">
         <van-notice-bar
           class="notice-bar"
           left-icon="volume-o"
-          :scrollable="false"
+          mode="closeable"
           text="温馨提示：请适量点餐、避免浪费"
         />
-      </div>
-      <div class="address-card-wrapper">
-        <address-card @choose-address="show = true" />
+        <address-card
+          @choose-address="openAddressPop"
+          :confirmed-address="confirmedAddress"
+          :address-is-empty="addressIsEmpty"
+        />
       </div>
 
       <van-popup
@@ -26,12 +28,18 @@
       >
         <div class="list-title">
           <h3 class="title">选择收货地址</h3>
-          <span @click="show = false" class="close-icon material-icons-outlined"
+          <span
+            @click="closeAddressPop"
+            class="close-icon material-icons-outlined"
             >close</span
           >
         </div>
 
-        <address-list />
+        <address-list
+          @edit="editAddress"
+          @select="selectAddress"
+          :selected-id="selectedId"
+        />
 
         <div class="action-container">
           <a @click="addAddress" class="add-address-btn">新增收货地址</a>
@@ -39,50 +47,92 @@
       </van-popup>
     </div>
   </div>
+
+  <manage-address
+    v-else
+    @close-add="closeManage"
+    :selectedAddress="selectedAddress"
+  />
 </template>
 
 <script>
 import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
 import AddressCard from "@/components/orders/AddressCard.vue";
 import AddressList from "@/components/orders/AddressList.vue";
-
+import ManageAddress from "@/pages/profile/ManageAddress.vue";
 
 export default {
   components: {
     BaseUtilHeader,
     AddressCard,
     AddressList,
+    ManageAddress,
   },
   data() {
     return {
-      show: true,
-      chosenAddressId: 1,
-      list: this.$store.getters.addresses,
+      show: false,
+      isAdd: false,
+      selectedAddress: null,
+      confirmedAddress: null,
     };
   },
+  computed: {
+    addresses() {
+      return this.$store.getters.addresses;
+    },
+    selectedId() {
+      return this.confirmedAddress ? this.confirmedAddress.addressId : null;
+    },
+    addressIsEmpty() {
+      return this.$store.getters.addresses.length === 0;
+    },
+  },
   mounted() {
-    console.log(this.$route);
+    this.getAddress();
   },
   methods: {
+    getAddress() {
+      this.confirmedAddress = this.addressIsEmpty
+        ? null
+        : this.$store.getters.addresses[0];
+    },
+    openAddressPop() {
+      this.show = true;
+    },
+    closeAddressPop() {
+      this.show = false;
+    },
+    openManage() {
+      this.isAdd = true;
+    },
+    closeManage() {
+      this.isAdd = false;
+    },
     back() {
       this.$router.back();
     },
     addAddress() {
-      this.$router.push({name: 'userNewAddress', params: {userId: 'a-fake-id-333'}, query: {redirect: 'shopCheckout'}})
-    }
+      this.selectedAddress = null;
+      this.openManage();
+    },
+    editAddress(addr) {
+      this.selectedAddress = addr;
+      this.openManage();
+    },
+    selectAddress(addr) {
+      this.confirmedAddress = addr;
+      this.closeAddressPop();
+    },
   },
 };
 </script>
 
 <style scoped>
-.notice {
-  width: 100%;
-  padding: 8px 12px;
-  background-color: #47b6fd;
-}
+
 .notice-bar {
   border-radius: 6px;
   height: 30px;
+  margin-bottom: 8px;
 }
 
 .address-card-wrapper {

@@ -27,15 +27,9 @@
     @cancel-locate="closeCity"
   />
 
-  <address-search
-    v-else-if="searchOn"
-    @search-off="closeSearch"
-  />
+  <address-search v-else-if="searchOn" @search-off="closeSearch" />
 
-  <manage-address
-    v-else
-    @close-add="isAdd = false"
-  />
+  <manage-address v-else @close-add="isAdd = false" />
 </template>
 
 <script>
@@ -75,7 +69,7 @@ export default {
   },
   methods: {
     switchHomePage() {
-      this.$router.push("/home");
+      this.$router.push({ name: "home" });
     },
     chooseCity() {
       this.cityIsOpen = true;
@@ -88,6 +82,7 @@ export default {
     },
     closeSearch() {
       this.searchOn = false;
+      this.$router.push({ name: "home" });
     },
     addNewAddress() {
       this.isAdd = true;

@@ -1,16 +1,17 @@
 <template>
   <van-swipe-cell :before-close="beforeClose" class="address-item">
     <div :class="{ 'margin-none': hasRadio }" class="address-content">
-      <div v-if="hasRadio" @click="emitAddressId" class="select-container">
+      <div v-if="hasRadio" @click="select" class="select-container">
         <input
           class="radio-btn"
           type="radio"
           name="addressId"
           v-model="id"
           :value="id"
+          :checked="id === selectedId"
         />
       </div>
-      <div class="address-main">
+      <div @click="select" class="address-main">
         <address-item :address="address" />
       </div>
       <div @click="edit" class="address-edit">
@@ -32,12 +33,12 @@ export default {
   components: {
     AddressItem,
   },
-  props: ["address", "hasRadio"],
-  emits: ['selectAddress', 'editAddress'],
+  props: ["address", "hasRadio", "selectedId"],
+  emits: ["selectAddress", "editAddress"],
   data() {
     return {
       id: this.address.addressId,
-    }
+    };
   },
   computed: {
     formatGender() {
@@ -69,18 +70,13 @@ export default {
       }
     },
     edit() {
-      // this.$router.push({
-      //   name: "userEditAddress",
-      //   params: {
-      //     userId: this.$route.params.userId,
-      //     addressId: this.address.addressId,
-      //   },
-      // });
-      this.$emit('editAddress');
+      this.$emit("editAddress");
     },
-    emitAddressId(){
-      this.$emit('selectAddress', this.id)
-    }
+    select() {
+      if (this.hasRadio) {
+        this.$emit("selectAddress");
+      }
+    },
   },
 };
 </script>

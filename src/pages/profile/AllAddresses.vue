@@ -29,6 +29,7 @@ export default {
     BaseUtilHeader,
     AddressCell,
     ManageAddress,
+    
   },
   data() {
     return {
