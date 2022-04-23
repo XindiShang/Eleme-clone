@@ -4,10 +4,10 @@
       <h3>{{ title }}</h3>
     </div>
     <div class="action-container">
-      <h3>
+      <h3 :class="actionClasses">
         {{ action }}
       </h3>
-      <div class="expand-container">
+      <div v-if="isExpandable" class="expand-container">
         <span class="expand-icon material-icons-outlined"> chevron_right </span>
       </div>
     </div>
@@ -16,7 +16,29 @@
 
 <script>
 export default {
-  props: ["title", "action"],
+  props: {
+    title: {
+      type: String,
+    },
+    action: {
+      type: String,
+    },
+    actionColor: {
+      type: String,
+    },
+    isExpandable: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  computed: {
+    actionClasses() {
+      return {
+        "text--grey": this.actionColor === "grey",
+        "text--black": this.actionColor === "black",
+      };
+    },
+  },
 };
 </script>
 
@@ -25,7 +47,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.86rem;
+  font-size: 0.8rem;
 }
 
 .action-container {
@@ -37,8 +59,18 @@ export default {
 
 h3 {
   font-weight: bold;
-
 }
+
+.text--grey {
+  color: #999999;
+  font-weight: normal;
+}
+
+.text--black {
+  color: #333;
+  font-weight: normal;
+}
+
 .expand-container {
   display: flex;
   justify-content: center;
@@ -47,6 +79,7 @@ h3 {
 
 .expand-icon {
   color: #c6c6c6;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  margin-right: -6px;
 }
 </style>

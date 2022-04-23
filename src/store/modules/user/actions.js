@@ -1,24 +1,24 @@
 export default {
-  getUser(context, payload) {
-    context.commit('setUser', {
+  getUser({ commit }, payload) {
+    commit("setUser", {
       userId: payload.userId,
       phone: payload.phone,
-    })
+    });
   },
-  callLogout(context) {
-    localStorage.removeItem('eleme_login');
-    context.commit('setUser', {
+  callLogout({ commit }) {
+    localStorage.removeItem("eleme_login");
+    commit("setUser", {
       userId: null,
       phone: null,
-    })
+    });
   },
-  callDeleteAddress(context, addressId) {
-    context.commit('deleteAddress', addressId);
+  callDeleteAddress({ commit }, addressId) {
+    commit("deleteAddress", addressId);
   },
-  getNewAddress(context, payload) {
-    context.commit('addNewAddress', payload);
+  getNewAddress({ commit }, payload) {
+    commit("addNewAddress", payload);
   },
-  getUpdatedAddress(context, payload) {
-    context.commit('updateAddress', payload);
+  getUpdatedAddress({ commit }, payload) {
+    commit("updateAddress", payload);
   },
-}
+};

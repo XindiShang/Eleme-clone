@@ -11,7 +11,7 @@ const UserProfile = () => import("../pages/profile/UserProfile.vue");
 const AddressSelect = () => import("../pages/location/AddressSelect.vue");
 // const AddressSearch = () => import("../pages/location/AddressSearch.vue");
 // const AllCities = () => import("../pages/location/AllCities.vue");
-// const SearchShops = () => import("../pages/SearchShops.vue");
+const SearchShops = () => import("../pages/SearchShops.vue");
 
 // *** shop ***
 const TheShop = () => import("../pages/shops/TheShop.vue");
@@ -105,12 +105,12 @@ const routes = [
   //   name: "city",
   //   component: AllCities,
   // },
-  // // *** shop search ***
-  // {
-  //   path: "/search",
-  //   name: "search",
-  //   component: SearchShops,
-  // },
+  // *** shop search ***
+  {
+    path: "/search",
+    name: "search",
+    component: SearchShops,
+  },
   {
     // consider adding a conditional check if db is completed
     path: "/shop/:shopId",

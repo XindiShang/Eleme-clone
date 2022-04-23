@@ -226,4 +226,8 @@ export default {
   height: 50%;
   overflow: auto;
 }
+
+.nearby-list {
+  /* height: 100%; */
+}
 </style>

@@ -63,8 +63,8 @@
 export default {
   data() {
     return {
-      itemCount: 0
-    }
+      itemCount: 0,
+    };
   },
   computed: {
     recommendations() {
@@ -73,9 +73,9 @@ export default {
     shopId() {
       return this.$store.getters.doneSelectedShop.rst.id;
     },
-    count(){
-      return foodItem => this.getCount(foodItem)
-    }
+    count() {
+      return (foodItem) => this.getCount(foodItem);
+    },
   },
   methods: {
     getCount(foodItem) {
@@ -89,7 +89,9 @@ export default {
         if (!cart) {
           return 0;
         } else {
-          let foundItem = cart.items.find(item=>item.id === foodItem.item_id);
+          let foundItem = cart.items.find(
+            (item) => item.id === foodItem.item_id
+          );
           if (foundItem) {
             return foundItem.count;
           } else {
@@ -99,8 +101,20 @@ export default {
       }
     },
     increase(foodItem) {
-      let count = this.getCount(foodItem)
-      count++
+      let count = this.getCount(foodItem);
+      count++;
+
+      const carts = this.$store.getters.doneCarts;
+      if (carts.length === 0) {
+        this.initializeCart();
+      }
+
+      const cart = this.$store.getters.doneCarts.find(
+        (cart) => cart.id === this.shopId
+      );
+      if (!cart) {
+        this.initializeCart();
+      }
 
       const cartItem = {
         id: foodItem.item_id,
@@ -109,11 +123,11 @@ export default {
         price: foodItem.activity.fixed_price,
         img: foodItem.image_path,
       };
+
       const payload = {
         shopId: this.shopId,
-        cartItem
-      }
-      console.log(payload)
+        cartItem,
+      };
 
       this.$store.dispatch("getCartItem", payload);
     },
@@ -122,6 +136,36 @@ export default {
         name: "foodDetails",
         params: { foodId: item.item_id, foodItem: JSON.stringify(item) },
       });
+    },
+    initializeCart() {
+      const cartInfo = {
+        shopId: this.shopId,
+        price: {
+          oldPrice: 0,
+          finalPrice: 0,
+        },
+        delivery: {
+          oldDelivery: 0,
+          finalDelivery: 0,
+        },
+        coupon: {
+          discountIsApplied: false,
+          discountBar: 0,
+          discountApplied: 0,
+          discountLeft: 0,
+          discounts: [
+            {
+              bar: 69,
+              discount: 10,
+            },
+            {
+              bar: 89,
+              discount: 25,
+            },
+          ],
+        },
+      };
+      this.$store.dispatch("getCart", cartInfo);
     },
   },
 };

@@ -1,28 +1,28 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     open: true,
-    host: 'localhost',
+    host: "localhost",
     port: 8080,
     https: false,
     proxy: {
-      '/api': {
-        target: 'https://ele-interface.herokuapp.com/api/',
+      "/api": {
+        target: "https://ele-interface.herokuapp.com/api/",
         ws: true,
         changOrigin: true,
         pathRewrite: {
-          '^/api': ''
-        }
-      }
+          "^/api": "",
+        },
+      },
     },
-    
+
     // before: app => {}
   },
   configureWebpack: {
     externals: {
-      'AMap': 'AMap', // 高德地图配置
+      AMap: "AMap", // 高德地图配置
       // 'AMapUI': 'AMapUI'
-    }
-},
-})
+    },
+  }
+});

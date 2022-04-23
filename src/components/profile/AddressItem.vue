@@ -72,14 +72,14 @@ export default {
 }
 
 .address-specific {
-   overflow: hidden;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   line-height: 1;
 }
 
 .name-large {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .address-description {

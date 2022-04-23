@@ -145,19 +145,6 @@ export default {
       this.isLoading = true;
       try {
         const res = await this.$axios("/api/profile/batch_shop");
-        // res.data.recommend.forEach((recommend) => {
-        //   recommend.items.forEach((item) => {
-        //     item.count = 0;
-        //   });
-        // });
-        // res.data.menu.forEach((category) => {
-        //   category.foods.forEach((foodItem) => {
-        //     if (foodItem.activity.fixed_price < 0) {
-        //       foodItem.activity.fixed_price *= -1;
-        //     }
-        //     foodItem.count = 0;
-        //   });
-        // });
         // db single shop id and shop list shop id doesn't match
         res.data.rst.id = "E13877065492319327992";
         this.shopInfo = res.data;

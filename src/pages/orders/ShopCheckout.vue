@@ -1,11 +1,12 @@
 <template>
   <div v-if="!isAdd" class="checkout">
     <base-util-header
+      class="header--fixed"
       bg-color="lightBlue"
       header-title="确认订单"
       @go-back="back"
     />
-    <div class="check-out-body">
+    <div class="check-out__body">
       <div class="address-card-wrapper">
         <van-notice-bar
           class="notice-bar"
@@ -17,7 +18,40 @@
           @choose-address="openAddressPop"
           :confirmed-address="confirmedAddress"
           :address-is-empty="addressIsEmpty"
+          :estimate="formattedTime"
         />
+      </div>
+
+      <div class="general-card-wrapper">
+        <product-card :cart="cart" :shop="shopInfo" />
+      </div>
+
+      <div class="general-card-wrapper">
+        <info-card />
+      </div>
+
+      <div class="check-out__submit-field">
+        <div class="submit-field__main">
+          <div class="submit-field__text">
+            <p>
+              合计：<span class="text--red"
+                >￥<span class="text--extra-large">{{
+                  cart.price.finalPrice
+                }}</span></span
+              >
+            </p>
+            <p
+              v-if="cart.coupon.discountIsApplied"
+              class="right-align text--red"
+            >
+              已优惠￥{{ cart.coupon.discountApplied }}
+            </p>
+          </div>
+
+          <div class="submit-field__action">
+            <a class="submit-btn btn-blue">提交订单</a>
+          </div>
+        </div>
       </div>
 
       <van-popup
@@ -58,6 +92,8 @@
 <script>
 import BaseUtilHeader from "@/components/UI/BaseUtilHeader.vue";
 import AddressCard from "@/components/orders/AddressCard.vue";
+import ProductCard from "@/components/orders/ProductCard.vue";
+import InfoCard from "@/components/orders/InfoCard.vue";
 import AddressList from "@/components/orders/AddressList.vue";
 import ManageAddress from "@/pages/profile/ManageAddress.vue";
 
@@ -67,6 +103,8 @@ export default {
     AddressCard,
     AddressList,
     ManageAddress,
+    ProductCard,
+    InfoCard,
   },
   data() {
     return {
@@ -74,6 +112,7 @@ export default {
       isAdd: false,
       selectedAddress: null,
       confirmedAddress: null,
+      estimatedDeliveryTime: null,
     };
   },
   computed: {
@@ -86,9 +125,27 @@ export default {
     addressIsEmpty() {
       return this.$store.getters.addresses.length === 0;
     },
+    shopInfo() {
+      return this.$store.getters.doneSelectedShop;
+    },
+    formattedTime() {
+      this.getDeliveryTime();
+      return (
+        this.estimatedDeliveryTime.getHours() +
+        ":" +
+        String(this.estimatedDeliveryTime.getMinutes()).padStart(2, "0")
+      );
+    },
+    cart() {
+      // this.$route.params.shopId
+      let cart = this.$store.getters.doneCarts.find(
+        (cart) => cart.id === this.shopInfo.rst.id
+      );
+      return cart;
+    },
   },
   mounted() {
-    this.getAddress();
+    console.log(this.cart);
   },
   methods: {
     getAddress() {
@@ -123,11 +180,35 @@ export default {
       this.confirmedAddress = addr;
       this.closeAddressPop();
     },
+    getDeliveryTime() {
+      let duration = this.shopInfo.rst ? this.shopInfo.rst.order_lead_time : 44;
+      let estimate = new Date(new Date().getTime() + duration * 60000);
+      this.estimatedDeliveryTime = estimate;
+    },
   },
 };
 </script>
 
 <style scoped>
+.checkout {
+  background-color: #f6f6f6;
+  height: 100%;
+}
+
+.header--fixed {
+  position: fixed;
+  top: 0;
+  z-index: 3;
+}
+
+.check-out__body {
+  position: relative;
+  top: 44px;
+  padding-bottom: 7vh;
+  overflow: auto;
+  height: 100%;
+  background-color: #f6f6f6;
+}
 
 .notice-bar {
   border-radius: 6px;
@@ -138,7 +219,13 @@ export default {
 .address-card-wrapper {
   width: 100%;
   padding: 8px 12px;
-  background: linear-gradient(to bottom, #47b6fd, #86d5f6, #e8f1f69a);
+  background: linear-gradient(
+    to bottom,
+    #47b6fd,
+    #86d5f6,
+    #86d4f685,
+    #f6f6f600
+  );
 }
 
 .list-title {
@@ -180,6 +267,61 @@ export default {
   border: 1px solid #47b6fd;
   padding: 4px;
   display: block;
+  font-size: 1rem;
+  border-radius: 30px;
+}
+
+.general-card-wrapper {
+  width: 100%;
+  padding: 0 12px 8px;
+}
+
+.check-out__submit-field {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  height: 7vh;
+  padding: 6px;
+}
+
+.submit-field__main {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.submit-field__text {
+  display: inline-block;
+  margin-right: 6px;
+  height: 100%;
+  font-size: 0.8rem;
+}
+
+.right-align {
+  float: right;
+}
+
+.submit-field__action {
+  display: inline;
+  position: relative;
+}
+
+.text--red {
+  color: #fe4f2e;
+}
+
+.text--extra-large {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.submit-btn {
+  text-align: center;
+  background-color: #47b6fd;
+  color: #fff;
+  padding: 10px 16px;
   font-size: 1rem;
   border-radius: 30px;
 }

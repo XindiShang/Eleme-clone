@@ -13,11 +13,11 @@
     </div>
 
     <div class="delivery-time">
-      <expand-cell title="立即送出" action="大约22:30送到" />
+      <expand-cell title="立即送出" :action="timeAction" />
     </div>
 
     <div class="payment-method">
-      <expand-cell title="支付方式" action="支付宝" />
+      <expand-cell title="支付方式" action="微信支付" />
     </div>
   </div>
 </template>
@@ -31,13 +31,16 @@ export default {
     AddressItem,
     ExpandCell,
   },
-  props: ["confirmedAddress", "addressIsEmpty"],
+  props: ["confirmedAddress", "addressIsEmpty", "estimate"],
   emits: ["chooseAddress"],
   computed: {
     address() {
       return this.confirmedAddress
         ? this.confirmedAddress
         : this.$store.getters.addresses[0];
+    },
+    timeAction(){
+      return `大约${this.estimate}送到`
     }
   },
   methods: {
@@ -54,6 +57,8 @@ export default {
   background-color: #fff;
   border-radius: 6px;
   padding: 16px 12px;
+  border: 0.133333vw solid rgba(0, 0, 0, 0.08);
+
 }
 
 .address-container {
@@ -73,7 +78,9 @@ export default {
 }
 
 .expand-icon {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  margin-right: -6px;
+
 }
 
 .delivery-time {

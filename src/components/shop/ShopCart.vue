@@ -38,7 +38,7 @@
                   <span class="price-bold">{{ finalPrice }}</span>
                 </span>
                 <span v-if="discountIsApplied" class="price-old"
-                  >￥{{ currentPrice }}</span
+                  >￥{{ oldPrice }}</span
                 >
               </p>
 
@@ -55,7 +55,7 @@
         <div class="right-container">
           <a
             @click="checkout"
-            :class="{ 'btn-active': !isEmpty && currentPrice >= minFee }"
+            :class="{ 'btn-active': !isEmpty && oldPrice >= minFee }"
             class="btn"
           >
             <span>{{ btnText }}</span>
@@ -228,7 +228,7 @@ export default {
         return this.cart.items.length === 0 ? true : false;
       }
     },
-    currentPrice() {
+    oldPrice() {
       if (this.isEmpty) {
         return 0;
       }
@@ -237,20 +237,22 @@ export default {
         price += item.count * item.price;
       }
       return this.formatNum(price);
+
     },
     finalPrice() {
       if (this.isEmpty) return 0;
       if (this.discountIsApplied) {
-        return this.formatNum(this.currentPrice - this.discountApplied);
+        return this.formatNum(this.oldPrice - this.discountApplied);
       } else {
-        return this.currentPrice;
+        return this.oldPrice;
       }
+
     },
     btnText() {
       if (this.isEmpty) {
         return `￥${this.minFee}起送`;
-      } else if (this.currentPrice < this.minFee) {
-        return `差￥${this.formatNum(this.minFee - this.currentPrice)}起送`;
+      } else if (this.oldPrice < this.minFee) {
+        return `差￥${this.formatNum(this.minFee - this.oldPrice)}起送`;
       } else {
         return "去结算";
       }
@@ -273,14 +275,14 @@ export default {
     },
     calculateDiscount() {
       this.setBar();
-      if (this.currentPrice !== 0 && this.currentPrice < this.discountBar) {
+      if (this.oldPrice !== 0 && this.oldPrice < this.discountBar) {
         if (this.timesPassed > 0) {
           this.discountIsApplied = true;
           return this.discounts[this.timesPassed - 1].discount;
         }
         this.discountIsApplied = false;
-        return this.formatNum(this.discountBar - this.currentPrice);
-      } else if (this.currentPrice === 0) {
+        return this.formatNum(this.discountBar - this.oldPrice);
+      } else if (this.oldPrice === 0) {
         this.discountIsApplied = false;
         return 0;
       } else {
@@ -291,15 +293,15 @@ export default {
     setBar() {
       this.timesPassed = 0;
       const lastIdx = this.discounts.length - 1;
-      if (this.currentPrice > this.discounts[lastIdx].bar) {
+      if (this.oldPrice > this.discounts[lastIdx].bar) {
         this.discountBar = this.discounts[lastIdx].bar;
         this.discountApplied = this.discounts[lastIdx].discount;
       } else {
         for (let el of this.discounts) {
-          if (this.currentPrice > el.bar) {
+          if (this.oldPrice > el.bar) {
             this.timesPassed++;
           }
-          if (this.currentPrice <= el.bar) {
+          if (this.oldPrice <= el.bar) {
             this.discountBar = el.bar;
             this.discountApplied = el.discount;
             return;
@@ -325,14 +327,33 @@ export default {
       this.show = false;
       this.$router.push({ name: "foodDetails", params: { foodId: item.id } });
     },
+    beforeCheckout(){
+      const cartInfo = {
+        shopId: this.shopId,
+        price: {
+          oldPrice: this.oldPrice,
+          finalPrice: this.finalPrice,
+        },
+        delivery: {
+          oldDelivery: this.oldDelivery,
+          finalDelivery: this.delivery,
+        },
+        coupon: {
+          discountIsApplied: this.discountIsApplied,
+          discountBar: this.discountBar,
+          discountApplied: this.discountApplied,
+          discountLeft: this.discountLeft,
+          discounts: this.discounts
+        },
+      };
+      this.$store.dispatch("getCart", cartInfo);
+    },
     checkout() {
+      this.beforeCheckout();
       this.$router.push({
         name: "shopCheckout",
         params: {
           shopId: this.$route.params.shopId,
-          finalPrice: this.finalPrice,
-          discountApplied: this.discountApplied,
-          discountIsApplied: this.discountIsApplied,
         },
       });
     },
@@ -341,6 +362,7 @@ export default {
     cart: {
       handler() {
         if (this.isEmpty) {
+          this.$store.dispatch("resetCart", this.shopId)
           this.show = false;
         }
         console.log(this.cart);

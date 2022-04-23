@@ -1,40 +1,37 @@
 export default {
   setCartItem(state, payload) {
-    // all shop's cart are empty
-    if (state.carts.length === 0) {
-      const newCart = {
-        id: payload.shopId,
-        items: [],
-      };
-      newCart.items.push(payload.cartItem);
-      state.carts.push(newCart);
-    }
-    // find one shop's cart 
+    // find one shop's cart
     let cart = state.carts.find((cart) => cart.id === payload.shopId);
     // found
-    if (cart) {
-      const foundIdx = cart.items.findIndex(
-        (item) => item.id === payload.cartItem.id
-      );
-      // if item exists
-      if (foundIdx !== -1) {
-        if (payload.cartItem.count === 0) {
-          cart.items.splice(foundIdx, 1);
-        } else {
-          cart.items[foundIdx].count = payload.cartItem.count;
-        }
+    const foundIdx = cart.items.findIndex(
+      (item) => item.id === payload.cartItem.id
+    );
+    // if item exists
+    if (foundIdx !== -1) {
+      if (payload.cartItem.count === 0) {
+        cart.items.splice(foundIdx, 1);
       } else {
-        // if item does NOT exist
-        cart.items.push(payload.cartItem);
+        cart.items[foundIdx].count = payload.cartItem.count;
       }
     } else {
-      // cart not found
-      const newCart = {
-        id: payload.shopId,
+      // if item does NOT exist
+      cart.items.push(payload.cartItem);
+    }
+  },
+  setCart(state, cartInfo) {
+    const cart = state.carts.find((cart) => cart.id === cartInfo.shopId);
+    if (cart) {
+      cart.price = cartInfo.price;
+      cart.delivery = cartInfo.delivery;
+      cart.coupon = cartInfo.coupon;
+    } else {
+      state.carts.push({
+        id: cartInfo.shopId,
+        price: cartInfo.price,
+        delivery: cartInfo.delivery,
+        coupon: cartInfo.coupon,
         items: [],
-      };
-      newCart.items.push(payload.cartItem);
-      state.carts.push(newCart);
+      });
     }
   },
   clearCart(state, shopId) {

@@ -1,8 +1,11 @@
 export default {
-  getCartItem(context, payload) {
-    context.commit("setCartItem", payload);
+  getCartItem({ commit }, payload) {
+    commit("setCartItem", payload);
   },
-  resetCart(context, shopId) {
-    context.commit("clearCart", shopId);
+  resetCart({ commit }, shopId) {
+    commit("clearCart", shopId);
   },
+  getCart({ commit }, cartInfo) {
+    commit('setCart', cartInfo)
+  }
 };

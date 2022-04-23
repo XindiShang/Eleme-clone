@@ -5,7 +5,7 @@ import getters from './getters';
 export default {
     state() {
         return {
-          carts: [],
+            carts: [],
     }},
     mutations,
     actions,

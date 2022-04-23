@@ -77,6 +77,18 @@ export default {
         cartItem.img = this.item.image_path;
       }
 
+      const carts = this.$store.getters.doneCarts;
+      if (carts.length === 0) {
+        this.initializeCart();
+      }
+
+      const cart = this.$store.getters.doneCarts.find(
+        (cart) => cart.id === this.shopId
+      );
+      if (!cart) {
+        this.initializeCart();
+      }
+
       const payload = {
         shopId: this.shopId,
         cartItem,
@@ -99,6 +111,36 @@ export default {
         );
         return foundItem ? foundItem.count : 0;
       }
+    },
+    initializeCart() {
+      const cartInfo = {
+        shopId: this.shopId,
+        price: {
+          oldPrice: 0,
+          finalPrice: 0,
+        },
+        delivery: {
+          oldDelivery: 0,
+          finalDelivery: 0,
+        },
+        coupon: {
+          discountIsApplied: false,
+          discountBar: 0,
+          discountApplied: 0,
+          discountLeft: 0,
+          discounts: [
+            {
+              bar: 69,
+              discount: 10,
+            },
+            {
+              bar: 89,
+              discount: 25,
+            },
+          ],
+        },
+      };
+      this.$store.dispatch("getCart", cartInfo);
     },
   },
 };
