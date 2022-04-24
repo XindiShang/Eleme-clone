@@ -1,8 +1,8 @@
 export default {
-  addToOrders({commit}, payload) {
-    commit('setOrders', payload);
+  setOrders(state, payload) {
+    state.orders.push(payload);
   },
-  getOrder({ commit }, payload) {
-    commit('setOrder', payload);
+  setOrder(state, payload) {
+    state.order = payload;
   }
 }

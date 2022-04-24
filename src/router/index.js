@@ -147,6 +147,7 @@ const routes = [
     name: "shopCheckout",
     props: true,
     component: ShopCheckout,
+    meta: { transition: 'slide' },
   },
   {
     path: "/login",

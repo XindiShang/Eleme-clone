@@ -1,5 +1,9 @@
 <template>
-  <router-view />
+  <router-view v-slot="{ Component, route }">
+    <transition :name="route.meta.transition || 'fade'">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script>
@@ -8,7 +12,7 @@ export default {
     return {
       latResult: null,
       lngResult: null,
-    }
+    };
   },
   methods: {
     getLocation() {
@@ -17,34 +21,36 @@ export default {
 
       // convert to formatted address, cuz browser doesn't allow http get location
       const geocoderWrapper = function () {
-        AMap.plugin('AMap.Geocoder', function () {
+        AMap.plugin("AMap.Geocoder", function () {
           var geocoder = new AMap.Geocoder({
             // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
             // city: '010'
-          })
+          });
 
-          var lnglat = [that.lngResult, that.latResult]
+          var lnglat = [that.lngResult, that.latResult];
 
           geocoder.getAddress(lnglat, function (status, result) {
-            if (status === 'complete' && result.info === 'OK') {
+            if (status === "complete" && result.info === "OK") {
               // result为对应的地理位置详细信息
               // console.log('converted')
               const payload = {
-                city: result.regeocode.addressComponent['city'] || result.regeocode.addressComponent['province'],
-                province: result.regeocode.addressComponent['province'],
+                city:
+                  result.regeocode.addressComponent["city"] ||
+                  result.regeocode.addressComponent["province"],
+                province: result.regeocode.addressComponent["province"],
                 address: result.regeocode.formattedAddress,
                 lat: that.lngResult,
                 lng: that.latResult,
-              }
+              };
               // console.log(payload);
               that.address = result.regeocode.formattedAddress;
-              that.$store.dispatch('getAddress', payload)
+              that.$store.dispatch("getAddress", payload);
             }
-          })
-        })
-      }
+          });
+        });
+      };
 
-      AMap.plugin('AMap.Geolocation', function () {
+      AMap.plugin("AMap.Geolocation", function () {
         var geolocation = new AMap.Geolocation({
           // 是否使用高精度定位，默认：true
           enableHighAccuracy: true,
@@ -56,13 +62,13 @@ export default {
           // zoomToAccuracy: true,
           // //  定位按钮的排放位置,  RB表示右下
           // position: 'RB'
-        })
+        });
 
         geolocation.getCurrentPosition(function (status, result) {
-          if (status == 'complete') {
-            onComplete(result)
+          if (status == "complete") {
+            onComplete(result);
           } else {
-            onError(result)
+            onError(result);
           }
         });
 
@@ -70,23 +76,22 @@ export default {
           // data是具体的定位信息
           that.latResult = data.position.lat || null;
           that.lngResult = data.position.lng || null;
-          geocoderWrapper()
+          geocoderWrapper();
         }
 
         function onError() {
           // 定位出错
-          that.address = '定位失败'
+          that.address = "定位失败";
         }
-      })
-
+      });
 
       /* eslint-disable */
-    }
+    },
   },
   created() {
     this.getLocation();
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -96,8 +101,18 @@ export default {
   font-size: 14px;
   background: white;
   box-sizing: border-box;
-  
-  
 }
 
+.slide-leave-active,
+.slide-enter-active {
+  transition: 0.5s ease;
+}
+
+.slide-enter-from {
+  transform: translate(100%, 0);
+}
+
+.slide-leave-to {
+  transform: translate(-100%, 0);
+}
 </style>

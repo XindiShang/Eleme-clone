@@ -15,8 +15,8 @@
               :src="item.img"
               lazy-load
             ></van-image>
-            <div class="list__item--description">
-              <p class="mb-1">{{ item.name }}</p>
+            <div class="list__item--description text--ellipsis">
+              <p class="mb-1 text--ellipsis">{{ item.name }}</p>
               <p class="text--grey text--small">x {{ item.count }}</p>
             </div>
           </div>
@@ -172,6 +172,12 @@ export default {
   align-items: flex-start;
 }
 
+.list__item--info {
+  width: 80%;
+  display: flex;
+
+}
+
 .list__item--img {
   width: 16vw;
   max-width: 80px;
@@ -180,10 +186,17 @@ export default {
 }
 
 .list__item--description {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   vertical-align: top;
   font-size: 0.84rem;
   font-weight: bold;
+}
+
+.text--ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .text--grey {

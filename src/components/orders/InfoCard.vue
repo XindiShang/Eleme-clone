@@ -80,22 +80,31 @@
 <script>
 import ExpandCell from "./ExpandCell.vue";
 import OrderNotes from "./OrderNotes.vue";
+
 export default {
   components: {
     ExpandCell,
     OrderNotes,
   },
-  emits: ["noteOpen"],
+  props: {
+    pickerResultProp: {
+      type: Object,
+    },
+    isCheckedProp: {
+      type: Boolean,
+    },
+    savedNotesProp: {
+      type: String,
+    },
+  },
+  emits: ["notesSaved", "checkToggled"],
   data() {
     return {
       showPicker: false,
-      pickerResult: {
-        val: "",
-        idx: null,
-      },
+      pickerResult: this.pickerResultProp,
       columns: [
         "无需餐具",
-        "需要餐具，商家依据参量提供",
+        "需要餐具，商家依据餐量提供",
         "1份",
         "2份",
         "3份",
@@ -108,9 +117,9 @@ export default {
         "10份",
         "10份以上",
       ],
-      isChecked: false,
+      isChecked: this.isCheckedProp,
       showNote: false,
-      savedNotes: "",
+      savedNotes: this.savedNotesProp,
     };
   },
   computed: {
@@ -159,6 +168,7 @@ export default {
     },
     toggleCheck() {
       this.isChecked = !this.isChecked;
+      this.$emit('checkToggled', this.isChecked)
     },
     openPicker() {
       this.showPicker = true;
@@ -171,13 +181,13 @@ export default {
     },
     openNote() {
       this.showNote = true;
-      this.$emit("noteOpen");
     },
     closeNote() {
       this.showNote = false;
     },
     saveNote(notes) {
       this.savedNotes = notes;
+      this.$emit('notesSaved', this.savedNotes)
       this.closeNote();
     },
   },

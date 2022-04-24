@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isEmpty" class="address-item">
+  <div v-if="!isEmpty && address" class="address-item">
     <div class="address-title">
       <van-tag
         v-if="address.tag"

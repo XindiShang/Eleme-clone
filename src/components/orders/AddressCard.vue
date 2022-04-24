@@ -17,7 +17,7 @@
     </div>
 
     <div class="payment-method">
-      <expand-cell title="支付方式" action="微信支付" />
+      <expand-cell title="支付方式" :action="paymentAction" />
     </div>
   </div>
 </template>
@@ -31,17 +31,22 @@ export default {
     AddressItem,
     ExpandCell,
   },
-  props: ["confirmedAddress", "addressIsEmpty", "estimate"],
+  props: ["confirmedAddress", "addressIsEmpty", "estimate", "payment"],
   emits: ["chooseAddress"],
   computed: {
     address() {
-      return this.confirmedAddress
-        ? this.confirmedAddress
-        : this.$store.getters.addresses[0];
+      return this.confirmedAddress;
     },
-    timeAction(){
-      return `大约${this.estimate}送到`
-    }
+    timeAction() {
+      return `大约${this.estimate}送到`;
+    },
+    paymentAction() {
+      if (this.payment === "weChat") {
+        return "微信支付";
+      } else {
+        return "支付宝";
+      }
+    },
   },
   methods: {
     emitAddressChoose() {
@@ -58,7 +63,6 @@ export default {
   border-radius: 6px;
   padding: 16px 12px;
   border: 0.133333vw solid rgba(0, 0, 0, 0.08);
-
 }
 
 .address-container {
@@ -74,13 +78,11 @@ export default {
 
 .expand-container {
   color: #c6c6c6;
-
 }
 
 .expand-icon {
   font-size: 1.4rem;
   margin-right: -6px;
-
 }
 
 .delivery-time {

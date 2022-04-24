@@ -365,6 +365,7 @@ export default {
           this.$store.dispatch("resetCart", this.shopId)
           this.show = false;
         }
+        console.log('cart is now:')
         console.log(this.cart);
       },
       deep: true,

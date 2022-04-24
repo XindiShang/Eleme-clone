@@ -11,7 +11,7 @@ export default {
             time: null,
             payment: {
               paymentMethod: null,
-              amount: null
+              isPaid: null
             },
             delivery: {
               mode: null,
@@ -20,16 +20,9 @@ export default {
             shop: {
               id: null,
               name: null,
-              deliveryFee: null,
-              deliveryHasDiscount: null,
-              finalDeliveryFee: null,
             },
             user: {
               id: null,
-              name: null,
-              address: null,
-              gender: null,
-              tag: null
             },
             products: {
               price: null,
@@ -44,11 +37,7 @@ export default {
                 num: null
               },
               invoice: null,
-              note: {
-                current: null,
-                previous: [],
-                default: ['对骑手', '对商家','不要辣','少辣','多辣','饮料去冰','多给点番茄酱',]
-              }
+              notes: null
             }
           }
     }},
