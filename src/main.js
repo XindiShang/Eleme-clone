@@ -24,6 +24,9 @@ import {
   Popover,
   SwipeCell,
   AddressList,
+  Picker,
+  Field,
+  CellGroup,
 } from "vant";
 import router from "./router";
 import store from "./store";
@@ -56,6 +59,9 @@ app.use(ActionSheet);
 app.use(Popover);
 app.use(SwipeCell);
 app.use(AddressList);
+app.use(Picker);
+app.use(Field);
+app.use(CellGroup);
 
 axios.interceptors.request.use(
   (config) => {

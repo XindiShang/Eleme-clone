@@ -10,7 +10,7 @@
           <div class="list__item--info">
             <van-image
               class="list__item--img"
-              round
+              radius="5"
               fit="cover"
               :src="item.img"
               lazy-load
@@ -244,8 +244,8 @@ export default {
 
 .question-icon {
   font-size: 0.8rem;
-  vertical-align: middle;
-  line-height: 1;
+  vertical-align: top;
+  line-height: 2;
 }
 
 .footer-container {

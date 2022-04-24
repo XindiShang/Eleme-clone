@@ -1,10 +1,10 @@
 <template>
   <div class="expand-cell">
     <div class="title-container">
-      <h3>{{ title }}</h3>
+      <h3 class="text--bold">{{ title }}</h3>
     </div>
     <div class="action-container">
-      <h3 :class="actionClasses">
+      <h3 class="text--bold action__text" :class="actionClasses">
         {{ action }}
       </h3>
       <div v-if="isExpandable" class="expand-container">
@@ -55,10 +55,19 @@ export default {
   justify-content: flex-end;
   align-items: center;
   color: #5abdfd;
+  width: 80%;
+  white-space: initial;
+  word-wrap: break-word;
 }
 
-h3 {
+.text--bold {
   font-weight: bold;
+}
+
+.action__text {
+  max-width: 90%;
+  word-wrap: break-word;
+  white-space: initial;
 }
 
 .text--grey {

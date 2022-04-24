@@ -1,92 +1,96 @@
 <template>
-  <div v-if="!isAdd" class="checkout">
-    <base-util-header
-      class="header--fixed"
-      bg-color="lightBlue"
-      header-title="确认订单"
-      @go-back="back"
-    />
-    <div class="check-out__body">
-      <div class="address-card-wrapper">
-        <van-notice-bar
-          class="notice-bar"
-          left-icon="volume-o"
-          mode="closeable"
-          text="温馨提示：请适量点餐、避免浪费"
-        />
-        <address-card
-          @choose-address="openAddressPop"
-          :confirmed-address="confirmedAddress"
-          :address-is-empty="addressIsEmpty"
-          :estimate="formattedTime"
-        />
-      </div>
+  <div class="check-out__wrapper">
+    <div v-if="!isAdd" class="checkout">
+      <base-util-header
+        class="header--fixed"
+        bg-color="lightBlue"
+        header-title="确认订单"
+        @go-back="back"
+      />
+      <div class="check-out__body">
+        <div class="address-card-wrapper">
+          <van-notice-bar
+            class="notice-bar"
+            left-icon="volume-o"
+            mode="closeable"
+            text="温馨提示：请适量点餐、避免浪费"
+          />
+          <address-card
+            @choose-address="openAddressPop"
+            :confirmed-address="confirmedAddress"
+            :address-is-empty="addressIsEmpty"
+            :estimate="formattedTime"
+          />
+        </div>
 
-      <div class="general-card-wrapper">
-        <product-card :cart="cart" :shop="shopInfo" />
-      </div>
+        <!-- // delete vif  -->
+        <div v-if="cart" class="general-card-wrapper">
+          <product-card :cart="cart" :shop="shopInfo" />
+        </div>
 
-      <div class="general-card-wrapper">
-        <info-card />
-      </div>
+        <div class="general-card-wrapper">
+          <info-card @note-open="hideCheckout === true" />
+        </div>
 
-      <div class="check-out__submit-field">
-        <div class="submit-field__main">
-          <div class="submit-field__text">
-            <p>
-              合计：<span class="text--red"
-                >￥<span class="text--extra-large">{{
-                  cart.price.finalPrice
-                }}</span></span
+        <!-- // delete vif  -->
+        <div v-if="cart" class="check-out__submit-field">
+          <div class="submit-field__main">
+            <div class="submit-field__text">
+              <p>
+                合计：<span class="text--red"
+                  >￥<span class="text--extra-large">{{
+                    cart.price.finalPrice
+                  }}</span></span
+                >
+              </p>
+              <p
+                v-if="cart.coupon.discountIsApplied"
+                class="right-align text--red"
               >
-            </p>
-            <p
-              v-if="cart.coupon.discountIsApplied"
-              class="right-align text--red"
+                已优惠￥{{ cart.coupon.discountApplied }}
+              </p>
+            </div>
+
+            <div @click="submitOrder" class="submit-field__action">
+              <a class="submit-btn btn-blue">提交订单</a>
+            </div>
+          </div>
+        </div>
+
+        <van-popup
+          v-model:show="show"
+          round
+          position="bottom"
+          class="address-pop"
+        >
+          <div class="list-title">
+            <h3 class="title">选择收货地址</h3>
+            <span
+              @click="closeAddressPop"
+              class="close-icon material-icons-outlined"
+              >close</span
             >
-              已优惠￥{{ cart.coupon.discountApplied }}
-            </p>
           </div>
 
-          <div class="submit-field__action">
-            <a class="submit-btn btn-blue">提交订单</a>
+          <address-list
+            @edit="editAddress"
+            @select="selectAddress"
+            :selected-id="selectedId"
+          />
+
+          <div class="action-container">
+            <a @click="addAddress" class="add-address-btn">新增收货地址</a>
           </div>
-        </div>
+        </van-popup>
       </div>
-
-      <van-popup
-        v-model:show="show"
-        round
-        position="bottom"
-        class="address-pop"
-      >
-        <div class="list-title">
-          <h3 class="title">选择收货地址</h3>
-          <span
-            @click="closeAddressPop"
-            class="close-icon material-icons-outlined"
-            >close</span
-          >
-        </div>
-
-        <address-list
-          @edit="editAddress"
-          @select="selectAddress"
-          :selected-id="selectedId"
-        />
-
-        <div class="action-container">
-          <a @click="addAddress" class="add-address-btn">新增收货地址</a>
-        </div>
-      </van-popup>
     </div>
-  </div>
 
-  <manage-address
-    v-else
-    @close-add="closeManage"
-    :selectedAddress="selectedAddress"
-  />
+    <manage-address
+      v-if="isAdd"
+      @close-add="closeManage"
+      :selectedAddress="selectedAddress"
+    />
+  </div>
 </template>
 
 <script>
@@ -113,6 +117,7 @@ export default {
       selectedAddress: null,
       confirmedAddress: null,
       estimatedDeliveryTime: null,
+      hideCheckout: false,
     };
   },
   computed: {
@@ -185,6 +190,9 @@ export default {
       let estimate = new Date(new Date().getTime() + duration * 60000);
       this.estimatedDeliveryTime = estimate;
     },
+    submitOrder(){
+      
+    }
   },
 };
 </script>
@@ -192,7 +200,7 @@ export default {
 <style scoped>
 .checkout {
   background-color: #f6f6f6;
-  height: 100%;
+  height: 100vh;
 }
 
 .header--fixed {
