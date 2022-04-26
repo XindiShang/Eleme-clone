@@ -15,7 +15,8 @@ export default {
             },
             delivery: {
               mode: null,
-              estimatedDeliveredTime: null
+              estimatedDeliveredTime: null,
+              isDefault: null,
             },
             shop: {
               id: null,

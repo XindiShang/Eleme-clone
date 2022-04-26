@@ -61,6 +61,8 @@
       </div>
     </div>
 
+    <hr class="product-card__divider" />
+
     <div class="product-card__footer">
       <div class="footer--description">
         优惠说明
@@ -83,11 +85,20 @@
         >
       </div>
     </div>
+
+    <div v-if="showInfo" class="product-card__extra">
+      <expand-cell v-for="(item, i) in orderInfo" :key="i" :title="item.title" :action="item.info" action-color="black" :is-expandable="false" :action-more="item.infoExtra" :has-new-line="item.hasNewLine" :title-is-bold="false" :has-margin="true" />
+    </div>
   </div>
 </template>
 
 <script>
+import ExpandCell from "@/components/orders/ExpandCell.vue";
+
 export default {
+  components: {
+    ExpandCell,
+  },
   props: {
     cart: {
       type: Object,
@@ -95,6 +106,12 @@ export default {
     shop: {
       type: Object,
     },
+    showInfo: {
+      type: Boolean,
+    },
+    orderInfo: {
+      type: Array
+    }
   },
   data() {
     return {
@@ -175,7 +192,6 @@ export default {
 .list__item--info {
   width: 80%;
   display: flex;
-
 }
 
 .list__item--img {
@@ -240,10 +256,15 @@ export default {
   position: absolute;
 }
 
+.product-card__divider {
+  height: 1px;
+  background-color: #efefef;
+  border: 0 none;
+}
+
 .product-card__footer {
   position: relative;
   line-height: 1.3rem;
-  border-top: 1px solid #efefef;
   padding-top: 8px;
 }
 

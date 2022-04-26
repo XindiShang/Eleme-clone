@@ -122,7 +122,7 @@ input:enabled {
 }
 
 .half-length {
-  width: 58%;
+  width: 52%;
 }
 
 .border-none {

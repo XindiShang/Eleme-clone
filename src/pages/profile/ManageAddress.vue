@@ -132,7 +132,7 @@ export default {
     FormCell,
     ConfirmAddress,
   },
-  props: ["selectedAddress"],
+  props: ["selectedAddress", "changeOrder"],
   emits: ["closeAdd", "editAddress"],
   data() {
     return {
@@ -227,10 +227,22 @@ export default {
         gender: this.gender,
       };
 
-      if (this.selectedAddress) {
-        this.$store.dispatch("getUpdatedAddress", formData);
+      if (this.changeOrder) {
+        const orders = this.$store.getters.doneOrders;
+        const order = orders.find(
+          (order) => order.id === this.$route.params.orderId
+        );
+        const updatedOrder = {
+          id: order.id,
+          address: formData,
+        };
+        this.$emit("editAddress", updatedOrder);
       } else {
-        this.$store.dispatch("getNewAddress", formData);
+        if (this.selectedAddress) {
+          this.$store.dispatch("getUpdatedAddress", formData);
+        } else {
+          this.$store.dispatch("getNewAddress", formData);
+        }
       }
       this.close();
     },

@@ -21,7 +21,7 @@ export default {
       tabsPassed: [
         { label: "首页", path: "/home", useImg: true },
         { label: "真香", icon: "egg", path: "/social" },
-        { label: "订单", icon: "list_alt", path: "/order" },
+        { label: "订单", icon: "list_alt", path: "/orders" },
         {
           label: "我的",
           icon: "insert_emoticon",

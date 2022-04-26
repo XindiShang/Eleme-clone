@@ -2,7 +2,7 @@ export default {
   addToOrders({commit}, payload) {
     commit('setOrders', payload);
   },
-  getOrder({ commit }, payload) {
-    commit('setOrder', payload);
+  getUpdatedOrder({ commit }, payload) {
+    commit('updateOrder', payload);
   }
 }

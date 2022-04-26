@@ -6,7 +6,7 @@
           <div class="nav-item-container">
             <router-link
               @click="activate('menu')"
-              :to="{ name: 'menu' }"
+              :to="{ name: 'menu', params: { shopId } }"
               class="nav-item"
             >
               <p class="nav-title">点餐</p>
@@ -21,7 +21,7 @@
           <div class="nav-item-container mr-2">
             <router-link
               @click="activate('reviews')"
-              :to="{ name: 'reviews' }"
+              :to="{ name: 'reviews', params: { shopId } }"
               class="nav-item"
             >
               <p class="nav-title">评价</p>
@@ -35,7 +35,7 @@
           <div class="nav-item-container">
             <router-link
               @click="activate('seller')"
-              :to="{ name: 'seller' }"
+              :to="{ name: 'seller', params: { shopId } }"
               class="nav-item"
             >
               <p class="nav-title">商家</p>
@@ -81,6 +81,9 @@ export default {
         underline: this.activeName === "seller",
         "base-line": this.activeName !== "seller",
       };
+    },
+    shopId() {
+      return this.$store.getters.doneSelectedShop.rst.id;
     },
   },
   methods: {

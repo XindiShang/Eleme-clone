@@ -22,7 +22,8 @@ const FoodDetails = () => import("../pages/shops/FoodDetails.vue");
 
 // *** order ***
 const ShopCheckout = () => import("../pages/orders/ShopCheckout.vue");
-
+const OrderOverview = () => import("../pages/orders/OrderOverview.vue");
+const OrderEdit = () => import("../pages/orders/OrderEdit.vue");
 // *** user address ***
 const AllAddresses = () => import("../pages/profile/AllAddresses.vue");
 // const ManageAddress = () => import("../pages/profile/ManageAddress.vue");
@@ -46,8 +47,8 @@ const routes = [
         component: SocialView,
       },
       {
-        path: "order",
-        name: "order",
+        path: "orders",
+        name: "orders",
         // login required
         component: AllOrders,
       },
@@ -147,6 +148,20 @@ const routes = [
     name: "shopCheckout",
     props: true,
     component: ShopCheckout,
+    meta: { transition: 'slide' },
+  },
+  {
+    path: "/order/:orderId",
+    name: "order",
+    props: true,
+    component: OrderOverview,
+    meta: { transition: 'slide' },
+  },
+  {
+    path: "/order/:orderId/edit",
+    name: "orderEdit",
+    props: true,
+    component: OrderEdit,
     meta: { transition: 'slide' },
   },
   {

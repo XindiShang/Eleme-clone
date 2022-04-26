@@ -27,6 +27,7 @@ import {
   Picker,
   Field,
   CellGroup,
+  CountDown 
 } from "vant";
 import router from "./router";
 import store from "./store";
@@ -62,6 +63,8 @@ app.use(AddressList);
 app.use(Picker);
 app.use(Field);
 app.use(CellGroup);
+app.use(CountDown);
+
 
 axios.interceptors.request.use(
   (config) => {

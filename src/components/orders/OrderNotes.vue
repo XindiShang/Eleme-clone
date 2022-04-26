@@ -56,7 +56,7 @@ export default {
   components: {
     BaseUtilHeader,
   },
-  props: ['note'],
+  props: ["note"],
   emits: ["closeNote", "completeNote"],
   data() {
     return {
@@ -98,7 +98,11 @@ export default {
       this.$emit("completeNote", this.notes);
     },
     addToNote(e) {
-      this.notes += e.target.innerText;
+      if (!this.notes) {
+        this.notes += e.target.innerText;
+      } else {
+        this.notes += `，${e.target.innerText}`;
+      }
     },
   },
 };
