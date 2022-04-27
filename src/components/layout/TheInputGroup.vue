@@ -1,27 +1,40 @@
 <template>
   <div class="text_group">
     <div class="input_group" :class="{ 'is-invalid': errorMsg }">
-      <input :type="inputType" :value="modelValue" :placeholder="inputPlaceholder" @input="emitInputValue"
-        :name="inputName" />
-      <div id="clearBtn" v-if="hasClearBtn" @click="emitclearBtn">
-        <p>x</p>
+      <input
+        @focus="showClear"
+        @blur="hideClear"
+        :type="inputType"
+        :value="modelValue"
+        :placeholder="inputPlaceholder"
+        @input="emitInputValue"
+        :name="inputName"
+      />
+      <div id="clearBtn" v-show="show" @click="emitClearBtn">
+        <span class="clear-icon material-icons">cancel</span>
       </div>
-      <button v-if="inputBtnText" class="inputBtn" :class="{ 'available': isAvailable }" :disabled="isDisabled"
-        @click="setBtnEvent">{{ inputBtnText }}</button>
+      <button
+        v-if="inputBtnText"
+        class="inputBtn"
+        :class="{ available: isAvailable }"
+        :disabled="isDisabled"
+        @click="setBtnEvent"
+      >
+        {{ inputBtnText }}
+      </button>
     </div>
 
     <div v-if="errorMsg" class="invalid-feedback">{{ errorMsg }}</div>
   </div>
 </template>
 
-
 <script>
 export default {
-  emits: ['update:modelValue', 'inputBtnClick', 'clearBtnClick'],
+  emits: ["update:modelValue", "inputBtnClick", "clearBtnClick"],
   props: {
     inputType: {
       type: String,
-      default: 'Text here'
+      default: "Text here",
     },
     modelValue: String,
     inputPlaceholder: String,
@@ -34,24 +47,27 @@ export default {
   },
   data() {
     return {
-
-    }
+      show: false,
+    };
   },
   methods: {
     emitInputValue(event) {
-      this.$emit('update:modelValue', event.target.value);
+      this.$emit("update:modelValue", event.target.value);
     },
     setBtnEvent() {
-      this.$emit('inputBtnClick');
+      this.$emit("inputBtnClick");
     },
-    emitclearBtn() {
-      this.$emit('clearBtnClick');
-
-    }
-
+    emitClearBtn() {
+      this.$emit("clearBtnClick");
+    },
+    showClear() {
+      this.show = true;
+    },
+    hideClear() {
+      this.show = false;
+    },
   },
-
-}
+};
 </script>
 
 <style scoped>
@@ -107,19 +123,15 @@ export default {
 
 #clearBtn {
   border-radius: 100%;
-  width: 16px;
-  height: 16px;
-  color: #fff;
-  background-color: #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 
-#clearBtn p {
-  font-size: 1px;
-  padding-bottom: 3px;
+.clear-icon {
+  color: #ccc;
+  font-size: 1rem;
 }
 
 .available {

@@ -4,6 +4,7 @@ import userModule from './modules/user/index.js';
 import cartModule from './modules/cart/index.js';
 import locationModule from './modules/location/index.js';
 import orderModule from './modules/order/index.js';
+import shopModule from './modules/shop/index.js';
 
 export default createStore({
   modules: {
@@ -11,7 +12,8 @@ export default createStore({
     user: userModule,
     cart: cartModule,
     location: locationModule,
-    order: orderModule
+    order: orderModule,
+    shop: shopModule
 },
   state: {
     // home page

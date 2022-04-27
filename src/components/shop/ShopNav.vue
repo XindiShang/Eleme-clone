@@ -83,7 +83,7 @@ export default {
       };
     },
     shopId() {
-      return this.$store.getters.doneSelectedShop.rst.id;
+      return this.$store.getters.shop.id;
     },
   },
   methods: {
@@ -107,7 +107,8 @@ export default {
   background: white;
   z-index: 10;
   padding: 6px 16px;
-  height: 4.2vh;
+  height: 36px;
+  /* height: 4.2vh; */
   margin-bottom: 4px;
 }
 

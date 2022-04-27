@@ -139,7 +139,7 @@ export default {
         }
       }
     },
-  }
+  },
 };
 </script>
 
@@ -243,7 +243,7 @@ export default {
   font-size: 1rem;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin-bottom: 2%;
+  margin-bottom: 8px;
 }
 
 .shop-name {
@@ -268,7 +268,7 @@ export default {
   overflow: hidden;
   justify-content: space-between;
   font-size: 0.8rem;
-  margin-bottom: 1.5%;
+  margin-bottom: 6px;
 }
 
 .rating {
@@ -284,7 +284,8 @@ export default {
   display: flex;
   justify-content: space-between;
   height: 1.1rem;
-  margin-bottom: 1.5%;
+  font-size: 0.8rem;
+  margin-bottom: 6px;
 }
 
 .delivery {
@@ -304,7 +305,8 @@ export default {
 
 .fourth-row {
   height: 1.3rem;
-  margin-bottom: 1.5%;
+  font-size: 0.78rem;
+  margin-bottom: 6px;
 }
 
 .comma {

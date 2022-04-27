@@ -65,7 +65,7 @@ export default {
 
 .tab-item-label {
   color: inherit;
-  font-size: 8px;
+  font-size: .8rem;
 }
 
 a {
@@ -88,5 +88,6 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 </style>

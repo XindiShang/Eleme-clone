@@ -3,27 +3,41 @@
     <div class="form-label-container">
       <label :for="inputId">{{ label }}</label>
     </div>
-    <div :class="{ 'border-none': isEnd }" class="form-input-container ">
+    <div :class="{ 'border-none': isEnd }" class="form-input-container">
       <slot name="default" v-if="isCustomized"></slot>
       <div v-else class="input-slot-container">
-        <div :class="{ 'full-length': isFullLength, 'half-length': isHalfLength }" class="input-field">
-          <input @blur="hideIcon" :class="{ 'half-length': isHalfLength }" :type="inputType" :id="inputId"
-            :value="modelValue" @input="emitInput" :placeholder="placeholder">
-          <div v-show="modelValue" @click="emitClear" class="input-field-right">
+        <div
+          :class="{ 'full-length': isFullLength, 'half-length': isHalfLength }"
+          class="input-field"
+        >
+          <input
+            @focus="showClear"
+            @blur="hideClear"
+            :class="{ 'half-length': isHalfLength }"
+            :type="inputType"
+            :id="inputId"
+            :value="modelValue"
+            @input="emitInput"
+            :placeholder="placeholder"
+          />
+          <div v-show="show" @click="emitClear" class="input-field-right">
             <span class="material-icons delete-icon">cancel</span>
           </div>
         </div>
 
         <div class="icon-container">
           <slot name="rightSlot"></slot>
-          <span v-if="hasArrow" @click="emitExpand" class="more-icon material-icons-outlined">
+          <span
+            v-if="hasArrow"
+            @click="emitExpand"
+            class="more-icon material-icons-outlined"
+          >
             chevron_right
           </span>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -33,7 +47,7 @@ export default {
     label: String,
     inputType: {
       type: String,
-      default: 'text'
+      default: "text",
     },
     isEnd: Boolean,
     isCustomized: Boolean,
@@ -45,20 +59,30 @@ export default {
       default: String,
     },
   },
-  emits: ['clearVal', 'update:modelValue', 'expand'],
+  emits: ["clearVal", "update:modelValue", "expand"],
+  data() {
+    return {
+      show: false,
+    };
+  },
   methods: {
     emitInput(event) {
-      this.$emit('update:modelValue', event.target.value)
+      this.$emit("update:modelValue", event.target.value);
     },
     emitClear() {
-      this.$emit('clearVal');
+      this.$emit("clearVal");
     },
     emitExpand() {
-      this.$emit('expand');
+      this.$emit("expand");
+    },
+    showClear() {
+      this.show = true;
+    },
+    hideClear() {
+      this.show = false;
     },
   },
-
-}
+};
 </script>
 
 <style scoped>
@@ -72,7 +96,7 @@ export default {
 
 .form-label-container {
   width: 18%;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: bold;
 }
 
@@ -105,7 +129,6 @@ input:enabled {
   outline: none;
 }
 
-
 .input-field {
   display: flex;
   justify-content: space-between;
@@ -114,7 +137,7 @@ input:enabled {
 
 .delete-icon {
   color: #9b9b9b;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .full-length {

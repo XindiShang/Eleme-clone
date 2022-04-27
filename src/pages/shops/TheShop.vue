@@ -26,6 +26,14 @@
         <!-- navbar  -->
         <shop-nav class="shop-nav" />
       </div>
+      <!-- nav content: 1. menu 2. reviews 3. seller info  -->
+      <router-view @share="hideCart" class="shop-body" v-slot="{ Component }">
+        <transition name="slide">
+          <keep-alive>
+            <component :is="Component" />
+          </keep-alive>
+        </transition>
+      </router-view>
 
       <!-- header popups -->
       <div v-if="!isDetails" class="">
@@ -43,15 +51,6 @@
         >
         </shop-info-popup>
       </div>
-
-      <!-- nav content: 1. menu 2. reviews 3. seller info  -->
-      <router-view @share="hideCart" class="shop-body" v-slot="{ Component }">
-        <transition name="slide">
-          <keep-alive>
-            <component :is="Component" />
-          </keep-alive>
-        </transition>
-      </router-view>
 
       <!-- shopping cart for menu and reviews section  -->
       <keep-alive>
@@ -106,7 +105,7 @@ export default {
       if (carts.length === 0) {
         return false;
       } else {
-        const cart = carts.find((cart) => cart.id === this.shopInfo.rst.id);
+        const cart = carts.find((cart) => cart.id === this.shopInfo.id);
         if (cart) {
           return true;
         } else {
@@ -143,18 +142,27 @@ export default {
   methods: {
     async getData() {
       this.isLoading = true;
+      // try {
+      //   const targetId = "E13877065492319327992";
+      //   await this.$store.dispatch('getShop', targetId)
+      //   const shop = this.$store.getters.shop;
+      //   this.shopInfo = shop;
+      //   this.shopBackground = shop.rst.scheme;
+      //   this.shopRst = shop.rst;
+      // } catch {
+      //   Toast("获取商家信息失败，请重试");
+      // }
+      const targetId = "E13877065492319327992";
       try {
-        const res = await this.$axios("/api/profile/batch_shop");
-        // db single shop id and shop list shop id doesn't match
-        res.data.rst.id = "E13877065492319327992";
-        this.shopInfo = res.data;
-        this.shopBackground = res.data.rst.scheme;
-        this.shopRst = res.data.rst;
-
-        // console.log(res.data);
-
-        this.$store.dispatch("getSelectedShop", res.data);
-      } catch {
+        const response = await this.$axios(
+          `https://eleme-clone-default-rtdb.asia-southeast1.firebasedatabase.app/shops/${targetId}.json`
+        );
+        const shop = await response.data;
+        console.log(shop);
+        this.shopInfo = shop;
+        this.shopBackground = shop.scheme;
+        this.$store.commit("setShop", shop);
+      } catch (e) {
         Toast("获取商家信息失败，请重试");
       }
 
@@ -218,8 +226,9 @@ export default {
 .shop-body {
   position: relative;
   bottom: 6%;
-  height: 100%;
-  display: initial;
-  overflow: scroll;
+  /* width: 100%;
+  height: 100%; */
+  /* display: initial;
+  overflow: scroll; */
 }
 </style>

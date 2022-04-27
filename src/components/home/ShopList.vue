@@ -10,7 +10,7 @@
         <shop-list-item
           v-for="(item, i) in shops"
           :key="i"
-          :shop="item.restaurant"
+          :shop="item"
         ></shop-list-item>
       </div>
     </van-list>
@@ -33,35 +33,34 @@ export default {
       loading: false,
       finished: false,
       refreshing: false,
+      shops: [],
     };
   },
   computed: {
-    shops() {
-      return this.$store.getters.doneAllShops;
-    },
+    //   shops() {
+    //     return this.$store.getters.allShops;
+    //   },
   },
   methods: {
     onLoad() {
       this.loadData();
     },
     async loadData() {
+
+      // 版本2.0
       if (this.refreshing) {
-        this.$store.dispatch("clearAllShops");
+        this.$store.commit("clearShops");
         this.refreshing = false;
         this.page = 0;
       }
-      this.page++;
-      // console.log(`current page: ${this.page}`);
+      this.page += 5;
       try {
-        const res = await this.$axios.post(
-          `/api/profile/restaurants/${this.page}/${this.size}`,
-          { condition: this.condition }
-        );
-        // console.log(`current condition is ${this.condition}`);
-        if (res.data.length > 0) {
-          res.data.forEach((item) => {
-            this.$store.dispatch("getSingleShop", item);
-          });
+        await this.$store.dispatch("loadShops", this.condition);
+        const shops = this.$store.getters.allShops;
+        console.log(shops)
+        const part = shops.slice(this.page - 5, this.page);
+        if (part.length > 0) {
+          part.forEach((shop) => this.shops.push(shop));
           this.loading = false;
         } else {
           this.finished = true;
@@ -69,27 +68,45 @@ export default {
       } catch {
         Toast("获取数据失败，请重试");
       }
-      // console.log(
-      //   `current store length: ${this.$store.getters.doneAllShops.length}`
-      // );
+
+
+      // try {
+      //   const res = await this.$axios.post(
+      //     `/api/profile/restaurants/${this.page}/${this.size}`,
+      //     { condition: this.condition }
+      //   );
+      //   // console.log(`current condition is ${this.condition}`);
+      //   if (res.data.length > 0) {
+      //     res.data.forEach((item) => {
+      //       this.$store.dispatch("getSingleShop", item);
+      //     });
+      //     this.loading = false;
+      //   } else {
+      //     this.finished = true;
+      //   }
+      // } catch {
+      //   Toast("获取数据失败，请重试");
+      // }
     },
     onRefresh() {
       this.finished = false;
       this.loading = true;
+      this.shops = [];
       this.onLoad();
     },
   },
   watch: {
     condition() {
       // console.log("condition has changed!");
-      this.$store.dispatch("clearAllShops");
+      console.log(this.condition)
+      this.$store.commit("clearShops");
       this.page = 0;
       this.onRefresh();
     },
   },
   mounted() {
-    this.$store.dispatch("clearAllShops");
-    this.loadData();
+    this.$store.commit("clearShops");
+    // this.loadData();
   },
 };
 </script>

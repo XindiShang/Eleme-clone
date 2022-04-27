@@ -12,7 +12,7 @@
 
     <section v-if="!showSearchResults">
       <current-location
-      @locateFinished="doneLocate"
+        @locateFinished="doneLocate"
         size="24px"
         class="current"
         :isCity="true"
@@ -29,7 +29,11 @@
 
     <div class="search_list" v-else>
       <ul>
-        <li @click="doneSearch" v-for="(item, i) in finalSearchResults" :key="i">
+        <li
+          @click="doneSearch"
+          v-for="(item, i) in finalSearchResults"
+          :key="i"
+        >
           {{ item.name }}
         </li>
       </ul>
@@ -49,7 +53,7 @@ export default {
     CurrentLocation,
     CitiesList,
   },
-  emits: ['setSearch', 'setCity', 'cancelCity', 'cancelLocate'],
+  emits: ["setSearch", "setCity", "cancelCity", "cancelLocate"],
   data() {
     return {
       placeholderPassed: "输入城市名或拼音",
@@ -72,13 +76,16 @@ export default {
       this.inputVal = "";
     },
     cancel() {
-      this.$emit('cancelCity')
+      this.$emit("cancelCity");
     },
     // ******
     async getCityInfo() {
       try {
-        const res = await this.$axios("/api/posts/cities");
+        const res = await this.$axios(
+          "https://eleme-clone-default-rtdb.asia-southeast1.firebasedatabase.app/cities.json"
+        );
         this.cityInfo = res.data;
+
         this.keys = Object.keys(res.data);
         // remove hot cities
         this.keys.pop();
@@ -109,14 +116,14 @@ export default {
     },
     doneSearch(e) {
       this.$store.dispatch("getCity", e.target.innerText);
-      this.$emit('setSearch');
+      this.$emit("setSearch");
     },
-    selectCity(){
-      this.$emit('setCity')
+    selectCity() {
+      this.$emit("setCity");
     },
-    doneLocate(){
-      this.$emit('cancelLocate');
-    }
+    doneLocate() {
+      this.$emit("cancelLocate");
+    },
   },
   watch: {
     inputVal() {

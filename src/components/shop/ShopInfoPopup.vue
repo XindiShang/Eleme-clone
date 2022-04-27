@@ -9,7 +9,7 @@
         
     >
         <header :class="headerClass" class="shop-info-header">
-            <h2 class="header-text">{{ shop.rst.name }}</h2>
+            <h2 class="header-text">{{ shop.name }}</h2>
             <span @click="closePopup" class="close-icon material-icons-outlined">close</span>
         </header>
         <div class="shop-info-body">
@@ -25,7 +25,7 @@
             </div>
             <div class="mb-2">
                 <h3 class="h3-title">公告</h3>
-                <p class="announcement">公告：{{ shop.rst.promotion_info }}</p>
+                <p class="announcement">公告：{{ shop.promotion_info }}</p>
             </div>
         </div>
     </van-popup>
@@ -53,7 +53,7 @@ export default {
             return '#757471';
         },
         services() {
-            return this.shop.rst.supports;
+            return this.shop.supports;
         },
         headerClass(){
             return {

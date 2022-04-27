@@ -7,7 +7,7 @@
                         <h3>{{ ad.title }}</h3>
                         <p>{{ ad.des }}</p>
                     </div>
-                    <img :src="require(`@/assets/${ad.title}大.png`)" alt />
+                    <van-image class="grid-img" :src="require(`@/assets/${ad.title}大.png`)" lazy-load />
                 </td>
             </tr>
         </table>
@@ -81,7 +81,7 @@ p {
     line-height: 1.2;
 }
 
-table img {
+.grid-img{
     width: 40px;
     height: 40px;
 }

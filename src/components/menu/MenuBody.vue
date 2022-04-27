@@ -76,10 +76,10 @@ export default {
   },
   computed: {
     menuItems() {
-      return this.$store.getters.doneSelectedShop.menu;
+      return this.$store.getters.shop.foods.menu;
     },
     shopId() {
-      return this.$store.getters.doneSelectedShop.rst.id;
+      return this.$store.getters.shop.id;
     },
     formatPrice(price) {
       if (price < 0) {
@@ -218,7 +218,7 @@ export default {
 }
 
 .des-main {
-  font-size: 1vh;
+  font-size: .76rem;
   color: #999;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -229,7 +229,7 @@ export default {
 
 .des-footer {
   color: #999;
-  font-size: 1vh;
+  font-size: .76rem;
   line-height: 1;
   min-height: 1em;
   overflow: hidden;

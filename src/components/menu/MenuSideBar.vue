@@ -35,10 +35,10 @@ export default {
 
   computed: {
     menuItems() {
-      return this.$store.getters.doneSelectedShop.menu;
+      return this.$store.getters.shop.foods.menu;
     },
     shopId() {
-      return this.$store.getters.doneSelectedShop.rst.id;
+      return this.$store.getters.shop.id;
     },
   },
   methods: {
@@ -89,8 +89,8 @@ export default {
 }
 
 .bar-item {
-  padding: 22% 0;
-  font-size: 1vh;
+  padding: 18px 0;
+  font-size: .8rem;
   color: #666;
   line-height: 1.2;
   width: 100%;
@@ -130,7 +130,7 @@ export default {
 }
 
 .count-num {
-  font-size: 0.1rem;
+  font-size: 0.74rem;
   color: white;
   line-height: 0.9;
 }

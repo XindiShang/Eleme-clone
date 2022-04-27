@@ -22,12 +22,14 @@
           <div class="input-field-left">
             <span class="material-icons-outlined search-icon">search</span>
             <input
+              @focus="showClear"
+              @blur="hideClear"
               v-model="inputVal"
               type="text"
               placeholder="请输入你的收货地址"
             />
           </div>
-          <div v-show="inputVal" @click="clearInput" class="input-field-right">
+          <div v-show="show" @click="clearInput" class="input-field-right">
             <span class="material-icons delete-icon">cancel</span>
           </div>
         </div>
@@ -78,6 +80,7 @@ export default {
       inputVal: "",
       results: [],
       cityIsOpen: false,
+      show: false,
     };
   },
   computed: {
@@ -110,6 +113,12 @@ export default {
     },
     switchCityPage() {
       this.$router.push("/city");
+    },
+    showClear() {
+      this.show = true;
+    },
+    hideClear() {
+      this.show = false;
     },
     debouncedSearch: debounce(function () {
       /* eslint-disable */

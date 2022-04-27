@@ -5,13 +5,15 @@
         <div class="input-field-left">
           <span class="material-icons-outlined search-icon">search</span>
           <input
+            @focus="showClear"
+            @blur="hideClear"
             type="text"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             :placeholder="placeholder"
           />
         </div>
-        <div v-show="modelValue" @click="emitClear" class="input-field-right">
+        <div v-show="show" @click="emitClear" class="input-field-right">
           <span class="material-icons delete-icon">cancel</span>
         </div>
       </div>
@@ -26,7 +28,7 @@ export default {
   emits: ["cancelSearch", "clearVal", "update:modelValue"],
   data() {
     return {
-      // inputVal: '',
+      show: false,
     };
   },
   methods: {
@@ -38,6 +40,12 @@ export default {
     },
     emitInput() {
       this.$emit("inputChange", this.inputVal);
+    },
+    showClear() {
+      this.show = true;
+    },
+    hideClear() {
+      this.show = false;
     },
   },
   watch: {

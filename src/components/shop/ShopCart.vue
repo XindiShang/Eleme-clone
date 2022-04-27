@@ -74,7 +74,7 @@
               满{{ discountBar }}减{{ discountApplied }}元，还差{{
                 discountLeft
               }}元
-              <a class="anchor-pure" href=""
+              <a class="anchor-pure"
                 >去凑单<span class="calc-icon material-icons-outlined">
                   chevron_right
                 </span></a
@@ -189,16 +189,16 @@ export default {
   },
   computed: {
     minFee() {
-      return this.shopInfo.rst.float_minimum_order_amount;
+      return this.shopInfo.float_minimum_order_amount;
     },
     discountLeft() {
       return this.calculateDiscount();
     },
     shopInfo() {
-      return this.$store.getters.doneSelectedShop;
+      return this.$store.getters.shop;
     },
     shopId() {
-      return this.$store.getters.doneSelectedShop.rst.id;
+      return this.$store.getters.shop.id;
     },
     cart() {
       const carts = this.$store.getters.doneCarts;
@@ -258,10 +258,10 @@ export default {
       }
     },
     delivery() {
-      return this.$store.getters.doneSelectedShop.rst.delivery_fee_discount;
+      return this.$store.getters.shop.delivery_fee_discount;
     },
     oldDelivery() {
-      return this.$store.getters.doneSelectedShop.rst.float_delivery_fee;
+      return this.$store.getters.shop.float_delivery_fee;
     },
     // discountsShown() {
     //     let discounts = this.shop.rst.activities[0].tips;
@@ -418,7 +418,7 @@ export default {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.94);
   height: 7vh;
-  z-index: 2;
+  z-index: 5;
 }
 
 .cart-wrapper {
@@ -427,6 +427,9 @@ export default {
   padding: 2px 12px;
   height: 100%;
   width: 100%;
+  /* position: fixed;
+  left: 0;
+  bottom: 0; */
 }
 
 .left-container {
@@ -538,7 +541,7 @@ export default {
 }
 
 .cart-count-num {
-  font-size: 1vh;
+  font-size: .76rem;
   color: white;
   line-height: 0.9;
   margin: auto;

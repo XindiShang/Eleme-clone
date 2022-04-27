@@ -107,7 +107,7 @@ export default {
   },
   computed: {
     item() {
-      const menu = this.$store.getters.doneSelectedShop.menu;
+      const menu = this.$store.getters.shop.foods.menu;
       if (this.$route.params.foodItem) {
         return JSON.parse(this.$route.params.foodItem)
       } else {
@@ -158,7 +158,7 @@ export default {
 <style scoped>
 .item-details {
   background-color: #f6f6f6;
-  height: 93vh !important;
+  height: 93% !important;
   width: 100%;
   position: absolute !important;
   top: 0;
@@ -208,7 +208,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 2vh;
 }
 
 .card-title {
@@ -218,7 +217,7 @@ export default {
 
 .card-subtitle {
   color: #999;
-  font-size: 1vh;
+  font-size: .8rem;
   line-height: 1;
   min-height: 1em;
 }
@@ -265,7 +264,7 @@ export default {
   padding: 1vh 1.3vh;
   margin-right: 8px;
   border-radius: 4px;
-  font-size: 1vh;
+  font-size: .8rem;
 
 }
 
@@ -278,7 +277,7 @@ export default {
 .review-skim {
   display: flex;
   align-items: center;
-  font-size: 2vh;
+  font-size: .9rem;
   padding: 8px 24px;
 }
 
@@ -289,19 +288,19 @@ export default {
 
 .uncheck {
   color: #999;
-  font-size: 2.6vh;
+  font-size: 1rem;
 
 }
 
 .checked {
   color: #00b6fd;
-  font-size: 2.6vh;
+  font-size: 1rem;
 
 }
 
 .skim-text {
-  font-size: 1vh;
-  line-height: 2.6vh;
+  font-size: .8rem;
+  line-height: 1rem;
 }
 
 .mr-1 {

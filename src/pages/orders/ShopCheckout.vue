@@ -151,7 +151,7 @@ export default {
       return this.$store.getters.addresses.length === 0;
     },
     shopInfo() {
-      return this.$store.getters.doneSelectedShop;
+      return this.$store.getters.shop;
     },
     formattedTime() {
       this.getDeliveryTime();
@@ -164,12 +164,12 @@ export default {
     cart() {
       // this.$route.params.shopId
       let cart = this.$store.getters.doneCarts.find(
-        (cart) => cart.id === this.shopInfo.rst.id
+        (cart) => cart.id === this.shopInfo.id
       );
       return cart;
     },
     duration() {
-      return this.shopInfo.rst ? this.shopInfo.rst.order_lead_time : 44;
+      return this.shopInfo ? this.shopInfo.order_lead_time : 44;
     },
   },
   mounted() {
@@ -246,15 +246,15 @@ export default {
           paymentMethod: this.paymentMethod,
         },
         delivery: {
-          mode: this.shopInfo.rst.delivery_mode.text,
+          mode: this.shopInfo.delivery_mode.text,
           estimatedDeliveredTime: new Date(
             timeStamp.getTime() + this.duration * 60000
           ),
           isDefault: true
         },
         shop: {
-          id: this.shopInfo.rst.id,
-          name: this.shopInfo.rst.name,
+          id: this.shopInfo.id,
+          name: this.shopInfo.name,
         },
         user: {
           id: this.$store.getters.userId,

@@ -6,16 +6,16 @@ module.exports = defineConfig({
     host: "localhost",
     port: 8080,
     https: false,
-    proxy: {
-      "/api": {
-        target: "https://ele-interface.herokuapp.com/api/",
-        ws: true,
-        changOrigin: true,
-        pathRewrite: {
-          "^/api": "",
-        },
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "https://ele-interface.herokuapp.com/api/",
+    //     ws: true,
+    //     changOrigin: true,
+    //     pathRewrite: {
+    //       "^/api": "",
+    //     },
+    //   },
+    // },
 
     // before: app => {}
   },

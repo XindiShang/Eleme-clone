@@ -27,13 +27,14 @@ import {
   Picker,
   Field,
   CellGroup,
-  CountDown 
+  CountDown,
 } from "vant";
 import router from "./router";
 import store from "./store";
 import axios from "axios";
 
-// const print = console.log.bind(console);
+// axios.defaults.baseURL = 'https://ele-interface.herokuapp.com/';
+
 
 const app = createApp(App);
 
@@ -64,7 +65,6 @@ app.use(Picker);
 app.use(Field);
 app.use(CellGroup);
 app.use(CountDown);
-
 
 axios.interceptors.request.use(
   (config) => {

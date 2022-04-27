@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     shopId() {
-      return this.$store.getters.doneSelectedShop.rst.id;
+      return this.$store.getters.shop.id;
     },
     count() {
       const carts = this.$store.getters.doneCarts;

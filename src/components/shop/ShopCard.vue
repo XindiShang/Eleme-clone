@@ -4,24 +4,24 @@
             <div class="card">
                 <div @click="emitShowInfo" class="card-title mb-2">
                     <div class="title-left">
-                        <h2 class="shop-title mb-2">{{ shop.rst.name }}</h2>
+                        <h2 class="shop-title mb-2">{{ shop.name }}</h2>
                         <div class="shop-details">
                             <van-tag v-if="isExclusive" class="mr-2 exclusive-tag" plain text-color="#38bdf2"
                                 color="#e8f7fc" size="medium">蓝骑士专送</van-tag>
-                            <p class="mr-2">约{{ shop.rst.order_lead_time }}分钟</p>
+                            <p class="mr-2">约{{ shop.order_lead_time }}分钟</p>
                             <p class="mr-2">·</p>
-                            <p>月售{{ shop.rst.recent_order_num }}</p>
+                            <p>月售{{ shop.recent_order_num }}</p>
                         </div>
                     </div>
 
                     <div class="title-right">
-                        <van-image class="shop-img" lazy-load fit="cover" :src="shop.rst.image_path" alt />
+                        <van-image class="shop-img" lazy-load fit="cover" :src="shop.image_path" alt />
                     </div>
                 </div>
 
                 <div @click="emitShowDiscount" class="card-body">
                     <div class="first-row mb-2">
-                        <p class="announcement">公告：{{ shop.rst.promotion_info }}</p>
+                        <p class="announcement">公告：{{ shop.promotion_info }}</p>
                     </div>
 
                     <div v-if="shop.redpack" class="second-row mb-2">
@@ -57,29 +57,29 @@ export default {
     emits: ['showDiscount', 'showInfo'],
     data() {
         return {
-            shopInfo: this.$store.getters.doneSelectedShop,
+            shopInfo: this.$store.getters.shop,
         }
     },
     computed: {
         isExclusive() {
-            return (this.shop.rst.delivery_mode && this.shop.rst.delivery_mode.text === "蜂鸟专送");
+            return (this.shop.delivery_mode && this.shop.delivery_mode.text === "蜂鸟专送");
         },
         hasDiscount() {
-            return this.shop.rst.activities;
+            return this.shop.activities;
         },
         discountsShown() {
-            let discounts = this.shop.rst.activities[0].tips;
+            let discounts = this.shop.activities[0].tips;
             discounts = discounts.split('，')
             return discounts;
         },
         discountNum() {
-            return this.shop.rst.activities.length;
+            return this.shop.activities.length;
         }
 
     },
     methods: {
         formatDiscount() {
-            let discounts = this.shop.rst.activities[0].tips;
+            let discounts = this.shop.activities[0].tips;
             discounts = discounts.split(',')
             console.log(discounts)
         },

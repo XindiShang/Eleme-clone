@@ -1,7 +1,7 @@
 <template>
   <div v-if="cart" class="product-card">
     <div class="product-card__title mb-2">
-      <p>{{ shop.rst.name }}</p>
+      <p>{{ shop.name }}</p>
     </div>
 
     <div class="product-card__main">

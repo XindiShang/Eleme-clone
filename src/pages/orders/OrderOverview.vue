@@ -72,12 +72,12 @@ export default {
     cart() {
       // this.$route.params.shopId
       let cart = this.$store.getters.doneCarts.find(
-        (cart) => cart.id === this.shopInfo.rst.id
+        (cart) => cart.id === this.shopInfo.id
       );
       return cart;
     },
     shopInfo() {
-      return this.$store.getters.doneSelectedShop;
+      return this.$store.getters.shop;
     },
     headerTitle() {
       let title;
@@ -155,10 +155,10 @@ export default {
   methods: {
     back() {
       if (this.isCancelled) {
-        this.$store.dispatch("resetCart", this.shopInfo.rst.id);
+        this.$store.dispatch("resetCart", this.shopInfo.id);
         this.$router.replace({
           name: "shop",
-          params: { shopId: this.shopInfo.rst.id },
+          params: { shopId: this.shopInfo.id },
         });
       } else {
         this.$router.back();

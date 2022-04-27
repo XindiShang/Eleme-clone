@@ -20,6 +20,10 @@ const AllReviews = () => import("../pages/shops/AllReviews.vue");
 const ShopDetails = () => import("../pages/shops/ShopDetails.vue");
 const FoodDetails = () => import("../pages/shops/FoodDetails.vue");
 
+// *** category ***
+const ShopCategory = () => import("../pages/ShopCategory.vue");
+
+
 // *** order ***
 const ShopCheckout = () => import("../pages/orders/ShopCheckout.vue");
 const OrderOverview = () => import("../pages/orders/OrderOverview.vue");
@@ -141,6 +145,14 @@ const routes = [
         component: ShopDetails,
       },
     ],
+  },
+  // *** shop categories *** 
+  {
+    path: "/categories",
+    name: "category",
+    // props: true,
+    component: ShopCategory,
+    meta: { transition: 'fade' },
   },
   // *** orders *** 
   {

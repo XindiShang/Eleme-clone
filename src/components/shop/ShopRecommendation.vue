@@ -68,10 +68,10 @@ export default {
   },
   computed: {
     recommendations() {
-      return this.$store.getters.doneSelectedShop.recommend;
+      return this.$store.getters.shop.foods.recommend;
     },
     shopId() {
-      return this.$store.getters.doneSelectedShop.rst.id;
+      return this.$store.getters.shop.id;
     },
     count() {
       return (foodItem) => this.getCount(foodItem);
@@ -220,8 +220,8 @@ export default {
 
 .des-subtitle {
   color: #999;
-  font-size: 1vh;
-  margin-bottom: 2%;
+  font-size: .76rem;
+  margin-bottom: 4px;
   min-height: 1em;
   display: flex;
   justify-content: flex-start;
@@ -234,7 +234,7 @@ export default {
 }
 
 .price {
-  font-size: 1vh;
+  font-size: .76rem;
   color: #fe4a32;
   width: 80%;
   white-space: nowrap;
@@ -243,7 +243,7 @@ export default {
 }
 
 .price-bold {
-  font-size: 2vh;
+  font-size: 1.1rem;
   font-weight: bold;
 }
 
@@ -279,7 +279,7 @@ export default {
 }
 
 .count-num {
-  font-size: 0.1rem;
+  font-size: 0.74rem;
   color: white;
 }
 

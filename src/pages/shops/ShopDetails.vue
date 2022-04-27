@@ -29,7 +29,7 @@
 
       <!-- shop qualifications check  -->
       <div class="safety-check mb-2">
-        <a class="anchor-pure" :href="shopInfo.qualification.link" target="blank">查看本店食品安全信息</a>
+        <a class="anchor-pure" :href="shopInfo.foods.rst.qualification.link" target="blank">查看本店食品安全信息</a>
       </div>
 
     </div>
@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     shopInfo() {
-      return this.$store.getters.doneSelectedShop.rst
+      return this.$store.getters.shop
     },
     openingHours() {
       return this.shopInfo.opening_hours[0].replace('/', '-')

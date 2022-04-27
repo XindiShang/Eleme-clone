@@ -64,10 +64,10 @@ export default {
     },
     computed: {
         redPacks() {
-            return this.shop.redpack;
+            return this.shop.foods.redpack;
         },
         discounts() {
-            return this.shop.rst.activities;
+            return this.shop.activities;
         },
         dueDate() {
             let today = new Date();

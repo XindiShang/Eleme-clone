@@ -31,7 +31,7 @@
     <div class="login_des">
       <button
         type="text"
-        class="agreementBtn"
+        class="agreement-btn"
         :class="{ agreed: isAgreed }"
         @click="agreeToTerms"
       >
@@ -48,6 +48,7 @@
 
 <script>
 import TheInputGroup from "../components/layout/TheInputGroup.vue";
+import { Toast } from "vant";
 
 export default {
   components: {
@@ -94,7 +95,7 @@ export default {
       //         this.codeErrorMsg = err.response.data.msg || '验证码错误，请重试'
       //     });
       console.log(this.tel, this.verificationCode);
-      if (parseInt(this.verificationCode) !== this.correctCode) {
+      if (parseInt(this.verificationCode) !== parseInt(this.correctCode)) {
         this.codeErrorMsg = "验证码错误，请重试";
       } else {
         localStorage.setItem("eleme_login", true);
@@ -126,9 +127,14 @@ export default {
         //     .then(res => {
         //         console.log(res);
         //     });
-        this.correctCode = Math.floor(Math.random() * 10000) + 1;
-        this.verificationCode = this.correctCode + "";
-        console.log(this.correctCode);
+        let randCode = "";
+        for (let i = 0; i < 4; i++) {
+          let n = Math.floor(Math.random() * 10);
+          randCode += n;
+        }
+        this.correctCode = randCode;
+        this.verificationCode = this.correctCode;
+        Toast(`验证码为：${this.verificationCode}`);
       }
     },
     validateTel() {
@@ -236,14 +242,12 @@ export default {
   background-color: #ccc;
 }
 
-.agreementBtn {
+.agreement-btn {
   border: 1px solid #ccc;
   border-radius: 100%;
   background-color: #fff;
   width: 17px;
   height: 17px;
-  text-align: center;
-  margin: auto;
   vertical-align: middle;
   display: inline;
   line-height: 18px;
@@ -251,8 +255,8 @@ export default {
   padding: 0;
 }
 
-.agreementBtn span {
-  font-size: 1px;
+.agreement-btn span {
+  font-size: 1rem;
   color: #fff;
 }
 

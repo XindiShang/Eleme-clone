@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     shopInfo() {
-      return this.$store.getters.doneSelectedShop;
+      return this.$store.getters.shop;
     },
     currentIndex() {
       return this.current;

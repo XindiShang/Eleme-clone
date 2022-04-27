@@ -13,7 +13,11 @@
       </div>
     </section>
 
-    <section ref="searchWrapper" class="search-wrapper" :class="{ 'sort-applied': isShown }">
+    <section
+      ref="searchWrapper"
+      class="search-wrapper"
+      :class="{ 'sort-applied': isShown }"
+    >
       <div class="search-bar">
         <div @click="switchSearchPage" class="search-bar-left">
           <span class="material-icons-outlined">qr_code_scanner</span>
@@ -30,7 +34,12 @@
       <icons-panel></icons-panel>
       <beans-notification></beans-notification>
       <grid-items></grid-items>
-      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" lazy-render>
+      <van-swipe
+        class="my-swipe"
+        :autoplay="3000"
+        indicator-color="white"
+        lazy-render
+      >
         <van-swipe-item v-for="(img, i) in swipeImgs" :key="i">
           <img :src="img" alt />
         </van-swipe-item>
@@ -39,7 +48,12 @@
 
     <!-- shop filter nav -->
     <van-sticky :offset-top="50">
-      <filter-bar @lift="scrollToShops" @get-condition="setCondition" :fixedOn="fixedOn" @searchFixed="showFilters">
+      <filter-bar
+        @lift="scrollToShops"
+        @get-condition="setCondition"
+        :fixedOn="fixedOn"
+        @searchFixed="showFilters"
+      >
       </filter-bar>
     </van-sticky>
 
@@ -49,12 +63,12 @@
 
 <script>
 // import BaseHeader from '../components/BaseHeader.vue';
-import { Swipe, SwipeItem } from 'vant';
-import IconsPanel from '../components/home/IconsPanel.vue';
-import GridItems from '../components/home/GridItems.vue';
-import BeansNotification from '../components/home/BeansNotification.vue';
-import FilterBar from '../components/home/FilterBar.vue';
-import ShopList from '../components/home/ShopList.vue';
+import { Swipe, SwipeItem } from "vant";
+import IconsPanel from "../components/home/IconsPanel.vue";
+import GridItems from "../components/home/GridItems.vue";
+import BeansNotification from "../components/home/BeansNotification.vue";
+import FilterBar from "../components/home/FilterBar.vue";
+import ShopList from "../components/home/ShopList.vue";
 
 export default {
   components: {
@@ -65,73 +79,58 @@ export default {
     BeansNotification,
     FilterBar,
     ShopList,
-
   },
   data() {
     return {
-      swipeImgs: [],
       isShown: false,
       fixedOn: false,
       scrollTop: 0,
       page: 1,
       size: 5,
-      initFinished: false,
       conditionPassed: null,
-
-    }
+    };
   },
   computed: {
     address() {
       if (!this.$store.getters.doneAddress) {
-        return '定位中...';
+        return "定位中...";
       }
       return this.$store.getters.doneAddress;
     },
     place() {
       if (!this.$store.getters.donePlace) {
-        return '定位中...';
+        return "定位中...";
       }
       return this.$store.getters.donePlace;
     },
-
-
+    swipeImgs() {
+      return this.$store.getters.banners;
+    },
   },
   methods: {
     switchAddressPage() {
-      this.$router.push('/address');
+      this.$router.push("/address");
     },
     switchSearchPage() {
-      this.$router.push('/search')
+      this.$router.push("/search");
     },
-    async getData() {
-      const bannerRes = await this.$axios("/api/profile/shopping");
-      const bannerData = await bannerRes.data;
-      this.swipeImgs = bannerData.swipeImgs;
-
-      const filterRes = await this.$axios("/api/profile/filter");
-      const filterData = filterRes.data;
-      this.$store.dispatch('getFilterData', filterData);
-
+    getData() {
+      this.$store.dispatch("addBanners");
+      this.$store.dispatch("loadFilters");
     },
     showFilters(payload) {
       this.isShown = payload;
     },
-    resetInit(payload) {
-      this.initFinished = payload;
-    },
     setCondition(payload) {
       this.conditionPassed = payload;
-
     },
     scrollToShops() {
       let homeContainer = this.$refs.home;
       homeContainer.scrollTo({
         top: 500,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
-
-    }
-
+    },
   },
   created() {
     this.getData();
@@ -139,7 +138,7 @@ export default {
   mounted() {
     let homeContainer = this.$refs.home;
 
-    homeContainer.addEventListener('scroll', () => {
+    homeContainer.addEventListener("scroll", () => {
       // console.log(homeContainer.scrollTop)
       if (homeContainer.scrollTop >= 480) {
         this.fixedOn = true;
@@ -147,12 +146,9 @@ export default {
         this.fixedOn = false;
         this.isShown = false;
       }
-    })
-
+    });
   },
-
-
-}
+};
 </script>
 
 <style scoped>
@@ -197,7 +193,6 @@ export default {
   width: 60%;
   font-size: 18px;
   cursor: pointer;
-
 }
 
 .address-bar-left p {
