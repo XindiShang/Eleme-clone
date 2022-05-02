@@ -10,6 +10,7 @@
     <filter-bar
       class="bar--fixed"
       @get-condition="setCondition"
+      :fixedOn="fixedOn"
       @searchFixed="showFilters"
     />
 
@@ -94,7 +95,6 @@ export default {
 }
 
 .bar--fixed {
-  height: 40px;
   position: fixed;
   top: 44px;
   z-index: 3;

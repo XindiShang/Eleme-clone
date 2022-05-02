@@ -22,7 +22,7 @@
     />
 
     <!-- utensils picker  -->
-    <van-popup v-model:show="showPicker" round position="bottom">
+    <van-popup v-model:show="showPicker" @click-overlay="closePicker" round position="bottom">
       <van-picker
         ref="picker"
         :columns="columns"
@@ -96,11 +96,14 @@ export default {
     savedNotesProp: {
       type: String,
     },
+    isInvalid: {
+      type: Boolean,
+    },
   },
-  emits: ["notesSaved", "checkToggled"],
+  emits: ["notesSaved", "checkToggled", "changePicker"],
   data() {
     return {
-      showPicker: false,
+      showPicker: this.isInvalid,
       pickerResult: this.pickerResultProp,
       columns: [
         "无需餐具",
@@ -156,6 +159,11 @@ export default {
       return this.savedNotes ? "black" : "grey";
     },
   },
+  watch: {
+    isInvalid(newValue) {
+      this.showPicker =  newValue
+    }
+  },
   methods: {
     onConfirm(value, idx) {
       this.pickerResult.val = value;
@@ -172,9 +180,12 @@ export default {
     },
     openPicker() {
       this.showPicker = true;
+      this.$emit('changePicker', true)
     },
     closePicker() {
       this.showPicker = false;
+      this.$emit('changePicker', false)
+      
     },
     onChange(_value, idx) {
       this.pickerResult.idx = idx;

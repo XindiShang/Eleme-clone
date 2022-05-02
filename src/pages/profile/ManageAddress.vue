@@ -239,7 +239,9 @@ export default {
         this.$emit("editAddress", updatedOrder);
       } else {
         if (this.selectedAddress) {
+          formData.addressId = this.selectedAddress.addressId;
           this.$store.dispatch("getUpdatedAddress", formData);
+          this.$emit('editAddress', formData);
         } else {
           this.$store.dispatch("getNewAddress", formData);
         }

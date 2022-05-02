@@ -5,7 +5,8 @@
       class="filter_wrap"
       :class="{ 'filter-wrap-fixed': openFilter || openScreen || fixedOn }"
     >
-      <aside
+      <!-- 4个导航标签 -->
+      <section
         class="filter"
         :class="{ 'filter-fixed': openFilter || openScreen }"
       >
@@ -22,10 +23,10 @@
             >arrow_drop_down</span
           >
         </div>
-      </aside>
+      </section>
     </div>
 
-    <!-- sort -->
+    <!-- 排序 -->
     <section v-if="openFilter" class="filter-extend">
       <ul>
         <li
@@ -44,42 +45,40 @@
       </ul>
     </section>
 
-    <!-- screen  -->
-    <section v-if="openScreen" class="filter-extend">
-      <div class="filter-sort">
-        <div class="screen-box">
-          <div
-            v-for="(screen, i) in filterData.screenBy"
-            :key="i"
-            class="screen-container"
-          >
-            <p class="screen-title">{{ screen.title }}</p>
-            <ul>
-              <li
-                :class="{ selected: item.select }"
-                class="screen-item"
-                v-for="(item, idx) in screen.data"
-                :key="idx"
-                @click="selectScreen(item, screen)"
-              >
-                <img v-if="item.icon" :src="item.icon" alt />
-                <span>{{ item.name }}</span>
-              </li>
-            </ul>
-          </div>
+    <!-- 筛选  -->
+    <section v-if="openScreen" class="filter-sort">
+      <div class="screen-box">
+        <div
+          v-for="(screen, i) in filterData.screenBy"
+          :key="i"
+          class="screen-container"
+        >
+          <p class="screen-title">{{ screen.title }}</p>
+          <ul>
+            <li
+              :class="{ selected: item.select }"
+              class="screen-item"
+              v-for="(item, idx) in screen.data"
+              :key="idx"
+              @click="selectScreen(item, screen)"
+            >
+              <img v-if="item.icon" :src="item.icon" alt />
+              <span>{{ item.name }}</span>
+            </li>
+          </ul>
         </div>
-        <div class="screen-btn-container">
-          <span
-            :class="{
-              'btn-clear-available': editStatus,
-              'btn-disabled': !editStatus,
-            }"
-            class="screen-btn-clear"
-            @click="clearScreen"
-            >清空</span
-          >
-          <span class="screen-btn-ok" @click="setScreen">查看商家</span>
-        </div>
+      </div>
+      <div class="screen-btn-container">
+        <span
+          :class="{
+            'btn-clear-available': editStatus,
+            'btn-disabled': !editStatus,
+          }"
+          class="screen-btn-clear"
+          @click="clearScreen"
+          >清空</span
+        >
+        <span class="screen-btn-ok" @click="setScreen">查看商家</span>
       </div>
     </section>
   </div>
@@ -229,8 +228,9 @@ export default {
   position: sticky;
   top: 42px;
   z-index: 10;
-  box-sizing: border-box;
-  height: 40px;
+  height: 30px;
+  box-sizing: content-box;
+  /* height: 40px; */
 }
 
 .open {
@@ -238,8 +238,8 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  box-sizing: border-box;
-  height: calc(100vh - 72px);
+  /* box-sizing: border-box; */
+  height: calc(100% - 72px);
   background-color: rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease-in-out;
   z-index: 3;
@@ -251,9 +251,10 @@ export default {
   position: fixed;
   top: 42px;
   z-index: 10;
-  width: 100%;
-  box-sizing: border-box;
-  height: 40px;
+  height: 30px;
+  box-sizing: content-box;
+  /* line-height: 30px; */
+  width: 90%;
 }
 
 .filter {
@@ -269,12 +270,13 @@ export default {
 .filter-fixed {
   position: fixed;
   z-index: 101;
-  height: 40px;
+  height: 30px;
   top: 42px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 30px;
+  /* width: 100%; */
   width: 90%;
   /* background: white; */
 }
@@ -305,7 +307,7 @@ export default {
 .filter-extend {
   background-color: #fff;
   color: #333;
-  position: absolute;
+  position: relative;
   width: 100%;
   z-index: 4;
   left: 0;
@@ -325,6 +327,10 @@ export default {
   max-height: 40px;
   margin: 6px 0;
   cursor: pointer;
+}
+
+.filter-item:nth-of-type(1) {
+  margin-top: 0;
 }
 
 .filter-check {
@@ -347,9 +353,9 @@ export default {
 .filter-sort {
   background-color: #fff;
   color: #333;
-  position: absolute;
+  position: relative;
   width: 100%;
-  top: 10px;
+  top: 0;
   z-index: 4;
   left: 0;
   font-size: 14px;
@@ -357,7 +363,7 @@ export default {
 }
 
 .screen-box {
-  padding: 0 16px;
+  padding: 4px 16px;
 }
 
 .screen-container {
@@ -365,10 +371,14 @@ export default {
   overflow: hidden;
 }
 
+.screen-container:nth-of-type(1) {
+  margin-top: 0;
+}
+
 .screen-title {
   margin-bottom: 4px;
   color: #999;
-  font-size: 0.5rem;
+  font-size: .8rem;
 }
 
 .screen-container ul {

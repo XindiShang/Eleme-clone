@@ -35,7 +35,6 @@ import axios from "axios";
 
 // axios.defaults.baseURL = 'https://ele-interface.herokuapp.com/';
 
-
 const app = createApp(App);
 
 app.use(Toast);

@@ -2,7 +2,7 @@
   <div class="index">
     <router-view v-slot="{ Component }">
       <keep-alive>
-        <component :is="Component" />
+          <component :is="Component" />
       </keep-alive>
     </router-view>
     <the-bottom-nav :tabs="tabsPassed" />
@@ -39,5 +39,28 @@ export default {
 .index {
   width: 100vw;
   height: calc(100% - 60px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: 0.5s ease;
+}
+
+.slide-enter-from {
+  transform: translate(100%, 0);
+}
+
+.slide-leave-to {
+  transform: translate(-100%, 0);
 }
 </style>

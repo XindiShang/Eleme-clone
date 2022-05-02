@@ -94,6 +94,9 @@ export default {
     };
   },
   computed: {
+    shopId() {
+      return this.$store.getters.shop.id;
+    },
     showCart() {
       return this.$route.name !== "seller";
     },
@@ -112,7 +115,7 @@ export default {
           return false;
         }
       }
-    },
+    }
   },
   created() {
     this.getData();
@@ -142,16 +145,6 @@ export default {
   methods: {
     async getData() {
       this.isLoading = true;
-      // try {
-      //   const targetId = "E13877065492319327992";
-      //   await this.$store.dispatch('getShop', targetId)
-      //   const shop = this.$store.getters.shop;
-      //   this.shopInfo = shop;
-      //   this.shopBackground = shop.rst.scheme;
-      //   this.shopRst = shop.rst;
-      // } catch {
-      //   Toast("获取商家信息失败，请重试");
-      // }
       const targetId = "E13877065492319327992";
       try {
         const response = await this.$axios(
@@ -176,6 +169,9 @@ export default {
     },
     hideCart(payload) {
       this.shareIsOn = payload;
+    },
+    onClickTab() {
+      console.log(this.activeName);
     },
   },
 };
@@ -231,4 +227,5 @@ export default {
   /* display: initial;
   overflow: scroll; */
 }
+
 </style>

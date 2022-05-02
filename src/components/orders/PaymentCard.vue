@@ -3,12 +3,14 @@
     <div class="payment-card__container">
       <div class="payment-card__title mb-3">
         <p class="text--large text--bold">{{ title }}</p>
-        <p v-if="!isCancelled" class="text--grey text--small">蓝骑士专送</p>
+        <p v-if="!isCancelled && !isComplete" class="text--grey text--small">
+          蓝骑士专送
+        </p>
       </div>
 
       <hr class="payment-card__divider" />
 
-      <div v-if="!isCancelled" class="payment-card__icons--unpaid">
+      <div v-if="!isCancelled && !isComplete" class="payment-card__icons">
         <div
           @click="unpaidFn(i)"
           v-for="(item, i) in unpaidList"
@@ -23,9 +25,24 @@
         </div>
       </div>
 
-      <div v-else class="payment-card__icons--cancelled">
+      <div v-else-if="isCancelled" class="payment-card__icons">
         <div
+          @click="cancelledFn(i)"
           v-for="(item, i) in cancelledList"
+          :key="i"
+          class="payment-card__icon-box"
+        >
+          <span class="mb-1 payment-card__icon material-icons-outlined">
+            {{ item.icon }}</span
+          >
+          <p class="text--small">{{ item.text }}</p>
+        </div>
+      </div>
+
+      <div v-else class="payment-card__icons">
+        <div
+          @click="completeFn(i)"
+          v-for="(item, i) in completeList"
           :key="i"
           class="payment-card__icon-box"
         >
@@ -68,6 +85,8 @@
 </template>
 
 <script>
+import { Toast } from "vant";
+
 export default {
   props: {
     title: {
@@ -77,8 +96,12 @@ export default {
       type: Boolean,
       default: false,
     },
+    isComplete: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ["cancel", "edit"],
+  emits: ["cancel", "edit", "complete", "anotherOrder"],
   data() {
     return {
       unpaidList: [
@@ -105,6 +128,28 @@ export default {
           text: "再来一单",
         },
       ],
+      completeList: [
+        {
+          icon: "support_agent",
+          text: "申请售后",
+        },
+        {
+          icon: "star_border",
+          text: "去评价",
+        },
+        {
+          icon: "call",
+          text: "电话商家",
+        },
+        {
+          icon: "call",
+          text: "电话骑士",
+        },
+        {
+          icon: "note_add",
+          text: "再来一单",
+        },
+      ],
       show: false,
     };
   },
@@ -116,6 +161,22 @@ export default {
         this.onCancel();
       } else if (idx === 1) {
         this.onEdit();
+      } else {
+        this.onPay();
+      }
+    },
+    cancelledFn(idx) {
+      if (idx === 0) {
+        Toast("功能未开通~");
+      } else {
+        this.repeatOrder();
+      }
+    },
+    completeFn(idx) {
+      if (idx !== 4) {
+        Toast("功能未开通~");
+      } else {
+        this.repeatOrder();
       }
     },
     openPop() {
@@ -134,6 +195,13 @@ export default {
     onConfirmCancel() {
       this.closePop();
       this.$emit("cancel");
+    },
+    onPay() {
+      Toast("已支付");
+      this.$emit("complete");
+    },
+    repeatOrder() {
+      this.$emit("anotherOrder");
     },
   },
 };
@@ -155,7 +223,7 @@ export default {
   border: 0 none;
 }
 
-.payment-card__icons--unpaid {
+.payment-card__icons {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -171,13 +239,6 @@ export default {
 
 .payment-card__icon {
   font-size: 1.2rem;
-}
-
-.payment-card__icons--cancelled {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 10px;
 }
 
 .cancel-pop {

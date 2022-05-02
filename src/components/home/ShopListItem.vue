@@ -268,7 +268,7 @@ export default {
   overflow: hidden;
   justify-content: space-between;
   font-size: 0.8rem;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
 }
 
 .rating {
@@ -285,7 +285,7 @@ export default {
   justify-content: space-between;
   height: 1.1rem;
   font-size: 0.8rem;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
 }
 
 .delivery {
@@ -306,7 +306,7 @@ export default {
 .fourth-row {
   height: 1.3rem;
   font-size: 0.78rem;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
 }
 
 .comma {
@@ -321,6 +321,6 @@ export default {
 }
 
 .last-row {
-  margin-bottom: 1.5%;
+  margin-bottom: 7px;
 }
 </style>

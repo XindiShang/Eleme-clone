@@ -4,7 +4,7 @@
     <div v-if="!isEmpty && !show" class="cart-discount-bar">
       <p v-if="!discountIsApplied">
         满{{ discountBar }}减{{ discountApplied }}元，还差{{ discountLeft }}元
-        <a class="anchor-pure" href=""
+        <a class="anchor-pure"
           >去凑单<span class="calc-icon material-icons-outlined">
             chevron_right
           </span></a
@@ -237,7 +237,6 @@ export default {
         price += item.count * item.price;
       }
       return this.formatNum(price);
-
     },
     finalPrice() {
       if (this.isEmpty) return 0;
@@ -246,7 +245,6 @@ export default {
       } else {
         return this.oldPrice;
       }
-
     },
     btnText() {
       if (this.isEmpty) {
@@ -327,7 +325,7 @@ export default {
       this.show = false;
       this.$router.push({ name: "foodDetails", params: { foodId: item.id } });
     },
-    beforeCheckout(){
+    beforeCheckout() {
       const cartInfo = {
         shopId: this.shopId,
         price: {
@@ -343,7 +341,7 @@ export default {
           discountBar: this.discountBar,
           discountApplied: this.discountApplied,
           discountLeft: this.discountLeft,
-          discounts: this.discounts
+          discounts: this.discounts,
         },
       };
       this.$store.dispatch("getCart", cartInfo);
@@ -362,10 +360,10 @@ export default {
     cart: {
       handler() {
         if (this.isEmpty) {
-          this.$store.dispatch("resetCart", this.shopId)
+          this.$store.dispatch("resetCart", this.shopId);
           this.show = false;
         }
-        console.log('cart is now:')
+        console.log("cart is now:");
         console.log(this.cart);
       },
       deep: true,
@@ -541,7 +539,7 @@ export default {
 }
 
 .cart-count-num {
-  font-size: .76rem;
+  font-size: 0.76rem;
   color: white;
   line-height: 0.9;
   margin: auto;
@@ -561,10 +559,13 @@ export default {
   align-items: center;
 }
 
+.anchor-pure {
+  color: #fe4a32;
+}
+
 .anchor-pure:link,
 .anchor-pure:visited {
   text-decoration: none;
-  color: #fe4a32;
 }
 
 /* helpers  */

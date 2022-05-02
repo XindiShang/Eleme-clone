@@ -1,9 +1,9 @@
 <template>
   <router-view v-slot="{ Component, route }">
     <transition :name="route.meta.transition || 'fade'">
-      <keep-alive exclude="orderOverview">
+      <!-- <keep-alive exclude="orderOverview"> -->
         <component :is="Component" />
-      </keep-alive>
+      <!-- </keep-alive> -->
     </transition>
   </router-view>
 </template>
@@ -117,4 +117,16 @@ export default {
 .slide-leave-to {
   transform: translate(-100%, 0);
 }
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 </style>

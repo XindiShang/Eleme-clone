@@ -173,8 +173,8 @@ export default {
 }
 
 .icon-circle {
-  width: 3vh;
-  height: 3vh;
+  width: 4vh;
+  height: 4vh;
   background-color: #878787d1;
   border-radius: 50%;
   text-align: center;
@@ -184,7 +184,7 @@ export default {
 
 .header-icon {
   font-size: 2vh;
-  line-height: 3vh;
+  line-height: 4vh;
   color: #fff;
 }
 

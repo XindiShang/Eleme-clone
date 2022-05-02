@@ -9,7 +9,7 @@
       />
       <div class="order-overview__body">
         <div class="order-countdown">
-          <p v-if="!isCancelled" class="countdown--text">
+          <p v-if="!isCancelled && !isComplete" class="countdown--text">
             待支付，剩余
             <van-count-down
               class="timer"
@@ -18,7 +18,8 @@
               @finish="timerFinish"
             />
           </p>
-          <p v-else class="countdown--text">订单已取消</p>
+          <p v-else-if="isCancelled" class="countdown--text">订单已取消</p>
+          <p v-else class="countdown--text">订单已送达</p>
         </div>
 
         <div class="payment-notice">
@@ -31,7 +32,10 @@
             :title="paymentTitle"
             @cancel="cancelOrder"
             @edit="editOrder"
+            @complete="completeOrder"
+            @another-order="repeatOrder"
             :is-cancelled="isCancelled"
+            :is-complete="isComplete"
           />
         </div>
         <!-- // delete vif  -->
@@ -66,6 +70,7 @@ export default {
       time: 15 * 60 * 1000,
       showTitle: false,
       isCancelled: false,
+      isComplete: false,
     };
   },
   computed: {
@@ -154,12 +159,15 @@ export default {
   },
   methods: {
     back() {
-      if (this.isCancelled) {
+      if (this.isCancelled || this.isComplete) {
         this.$store.dispatch("resetCart", this.shopInfo.id);
         this.$router.replace({
-          name: "shop",
-          params: { shopId: this.shopInfo.id },
-        });
+          name: "home"
+        })
+        // this.$router.replace({
+        //   name: "shop",
+        //   params: { shopId: this.shopInfo.id },
+        // });
       } else {
         this.$router.back();
       }
@@ -191,12 +199,23 @@ export default {
       this.$store.dispatch("getUpdatedOrder", updatedOrder);
     },
     editOrder() {
-      console.log(this.order);
       this.$router.push({
         name: "orderEdit",
         params: { orderId: this.order.id },
       });
     },
+    completeOrder(){
+      this.isComplete = true;
+      const updatedOrder = {
+        id: this.order.id,
+        status: "complete",
+      };
+      this.$store.dispatch("getUpdatedOrder", updatedOrder);
+    },
+    repeatOrder() {
+      this.$store.dispatch('getCart', this.order.products)
+      this.$router.push({ name: "shop", params: { shopId: this.shopInfo.id } });
+    }
   },
 };
 </script>

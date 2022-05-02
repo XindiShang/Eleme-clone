@@ -1,62 +1,66 @@
 <template>
-  <div
-    class="recommend"
-    v-for="(recommendation, i) in recommendations"
-    :key="i"
-  >
-    <p class="recommend-title">{{ recommendation.name }}</p>
+  <section v-if="recommendations">
+    <div
+      class="recommend"
+      v-for="(recommendation, i) in recommendations"
+      :key="i"
+    >
+      <p class="recommend-title">{{ recommendation.name }}</p>
 
-    <div class="recommend-body">
-      <ul>
-        <li
-          @click="switchDetails(item)"
-          v-for="(item, idx) in recommendation.items"
-          :key="idx"
-        >
-          <van-image
-            class="recommend-img"
-            fit="cover"
-            radius="6px"
-            lazy-load
-            :src="item.image_path"
-            alt
-          />
-          <div class="recommend-description">
-            <div class>
-              <p class="des-title">{{ item.name }}</p>
-            </div>
-            <div class>
-              <div class="des-subtitle">
-                <span class="mr-1">月售{{ item.month_sales }}</span>
-                <span>好评率{{ item.satisfy_rate }}</span>
+      <div class="recommend-body">
+        <ul>
+          <li
+            @click="switchDetails(item)"
+            v-for="(item, idx) in recommendation.items"
+            :key="idx"
+          >
+            <van-image
+              class="recommend-img"
+              fit="cover"
+              radius="6px"
+              lazy-load
+              :src="item.image_path"
+              alt
+            />
+            <div class="recommend-description">
+              <div class>
+                <p class="des-title">{{ item.name }}</p>
+              </div>
+              <div class>
+                <div class="des-subtitle">
+                  <span class="mr-1">月售{{ item.month_sales }}</span>
+                  <span>好评率{{ item.satisfy_rate }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="recommend-action">
-            <div class="price">
-              <span class="mr-1">
-                ￥
-                <span class="price-bold">{{ item.activity.fixed_price }}</span>
-              </span>
-              <span class="price-old"
-                >￥{{ item.activity.fixed_price * 2 }}</span
-              >
-            </div>
-            <div class="add">
-              <span
-                class="add-icon material-icons-outlined"
-                @click.stop="increase(item)"
-                >add_circle</span
-              >
-              <div v-show="count(item) > 0" class="count-container">
-                <span class="count-num">{{ count(item) }}</span>
+            <div class="recommend-action">
+              <div class="price">
+                <span class="mr-1">
+                  ￥
+                  <span class="price-bold">{{
+                    item.activity.fixed_price
+                  }}</span>
+                </span>
+                <span class="price-old"
+                  >￥{{ item.activity.fixed_price * 2 }}</span
+                >
+              </div>
+              <div class="add">
+                <span
+                  class="add-icon material-icons-outlined"
+                  @click.stop="increase(item)"
+                  >add_circle</span
+                >
+                <div v-show="count(item) > 0" class="count-container">
+                  <span class="count-num">{{ count(item) }}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -220,7 +224,7 @@ export default {
 
 .des-subtitle {
   color: #999;
-  font-size: .76rem;
+  font-size: 0.76rem;
   margin-bottom: 4px;
   min-height: 1em;
   display: flex;
@@ -234,7 +238,7 @@ export default {
 }
 
 .price {
-  font-size: .76rem;
+  font-size: 0.76rem;
   color: #fe4a32;
   width: 80%;
   white-space: nowrap;
