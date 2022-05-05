@@ -268,6 +268,8 @@ export default {
           shop: {
             id: this.shopInfo.id,
             name: this.shopInfo.name,
+            img: this.shopInfo.scheme,
+            activities: this.shopInfo.activities
           },
           user: {
             id: this.$store.getters.userId,

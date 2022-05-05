@@ -5,7 +5,7 @@ export default {
     const response = await fetch(
       `https://eleme-clone-default-rtdb.asia-southeast1.firebasedatabase.app/shops.json`
     );
-    console.log(condition);
+
     const result = await response.json();
     // console.log(result);
     if (!response.ok) {

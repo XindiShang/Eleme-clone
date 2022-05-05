@@ -88,7 +88,7 @@ export default {
 
 .action-icon--live {
   color: #42abfe;
-  animation: wiggle 2s linear infinite;
+  animation: wiggle 1s linear infinite;
 }
 
 .action-name {

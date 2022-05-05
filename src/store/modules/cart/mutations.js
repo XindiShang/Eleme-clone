@@ -26,7 +26,7 @@ export default {
       cart.coupon = cartInfo.coupon;
     } else {
       state.carts.push({
-        id: cartInfo.shopId,
+        id: cartInfo.shopId || cartInfo.id,
         price: cartInfo.price,
         delivery: cartInfo.delivery,
         coupon: cartInfo.coupon,

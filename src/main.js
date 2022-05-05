@@ -28,6 +28,7 @@ import {
   Field,
   CellGroup,
   CountDown,
+  Skeleton
 } from "vant";
 import router from "./router";
 import store from "./store";
@@ -64,6 +65,7 @@ app.use(Picker);
 app.use(Field);
 app.use(CellGroup);
 app.use(CountDown);
+app.use(Skeleton);
 
 axios.interceptors.request.use(
   (config) => {

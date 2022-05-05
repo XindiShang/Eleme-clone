@@ -59,7 +59,7 @@ import PaymentCard from "@/components/orders/PaymentCard.vue";
 import throttle from "lodash.throttle";
 
 export default {
-  name: 'orderOverview',
+  name: "orderOverview",
   components: {
     BaseUtilHeader,
     ProductCard,
@@ -75,11 +75,7 @@ export default {
   },
   computed: {
     cart() {
-      // this.$route.params.shopId
-      let cart = this.$store.getters.doneCarts.find(
-        (cart) => cart.id === this.shopInfo.id
-      );
-      return cart;
+      return this.order.products;
     },
     shopInfo() {
       return this.$store.getters.shop;
@@ -88,6 +84,8 @@ export default {
       let title;
       if (this.isCancelled) {
         title = "订单已取消";
+      } else if (this.isComplete) {
+        title = "订单已送达";
       } else {
         title = "待支付";
       }
@@ -96,6 +94,8 @@ export default {
     paymentTitle() {
       if (this.isCancelled) {
         return "你取消了订单";
+      } else if (this.isComplete) {
+        return "感谢信任，期待再次光临";
       } else {
         return "请尽快支付";
       }
@@ -105,14 +105,12 @@ export default {
       const order = orders.find(
         (order) => order.id === this.$route.params.orderId
       );
-      console.log(order)
       return order;
     },
     orderInfo() {
       const addr = this.order.address;
       const gender = addr.gender === "male" ? "(先生)" : "(女士)";
       const estimate = this.order.delivery.estimatedDeliveredTime;
-      // const deliveryTime = this.order.delivery.isDefault? '尽快送达' : estimate;
       const time = this.formatTime(estimate);
       const orderTime = this.formatTime(this.order.time);
 
@@ -156,14 +154,16 @@ export default {
     window.addEventListener("scroll", function () {
       that.throttleShow(window.scrollY);
     });
+
+    this.statusCheck();
   },
   methods: {
     back() {
       if (this.isCancelled || this.isComplete) {
         this.$store.dispatch("resetCart", this.shopInfo.id);
         this.$router.replace({
-          name: "home"
-        })
+          name: "home",
+        });
         // this.$router.replace({
         //   name: "shop",
         //   params: { shopId: this.shopInfo.id },
@@ -204,7 +204,7 @@ export default {
         params: { orderId: this.order.id },
       });
     },
-    completeOrder(){
+    completeOrder() {
       this.isComplete = true;
       const updatedOrder = {
         id: this.order.id,
@@ -213,9 +213,17 @@ export default {
       this.$store.dispatch("getUpdatedOrder", updatedOrder);
     },
     repeatOrder() {
-      this.$store.dispatch('getCart', this.order.products)
+      console.log(this.order.products)
+      this.$store.dispatch("getCart", this.order.products);
       this.$router.push({ name: "shop", params: { shopId: this.shopInfo.id } });
-    }
+    },
+    statusCheck() {
+      if (this.order.status === "complete") {
+        this.isComplete = true;
+      } else if (this.order.status === "cancelled") {
+        this.isCancelled = true;
+      }
+    },
   },
 };
 </script>

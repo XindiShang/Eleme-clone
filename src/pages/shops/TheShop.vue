@@ -1,14 +1,15 @@
 <template>
   <section class="shop" ref="shop">
+    <shop-header
+      v-if="!isDetails"
+      :early="early"
+      :mid="mid"
+      :late="late"
+      :final="final"
+    ></shop-header>
+
     <div v-if="!isLoading" class="shop-wrapper">
       <!-- header part  -->
-      <shop-header
-        v-if="!isDetails"
-        :early="early"
-        :mid="mid"
-        :late="late"
-        :final="final"
-      ></shop-header>
       <van-image
         v-if="!isDetails"
         class="shop-bg-image"
@@ -57,6 +58,8 @@
         <shop-cart v-if="showCart && !shareIsOn"></shop-cart>
       </keep-alive>
     </div>
+
+    <shop-skeleton v-else />
   </section>
 </template>
 
@@ -68,6 +71,7 @@ import ShopInfoPopup from "../../components/shop/ShopInfoPopup.vue";
 import ShopNav from "@/components/shop/ShopNav.vue";
 import ShopCart from "@/components/shop/ShopCart.vue";
 import { Toast } from "vant";
+import ShopSkeleton from "@/components/shop/ShopSkeleton.vue";
 
 export default {
   components: {
@@ -77,6 +81,7 @@ export default {
     ShopInfoPopup,
     ShopNav,
     ShopCart,
+    ShopSkeleton,
   },
 
   data() {
@@ -115,7 +120,7 @@ export default {
           return false;
         }
       }
-    }
+    },
   },
   created() {
     this.getData();
@@ -151,7 +156,6 @@ export default {
           `https://eleme-clone-default-rtdb.asia-southeast1.firebasedatabase.app/shops/${targetId}.json`
         );
         const shop = await response.data;
-        console.log(shop);
         this.shopInfo = shop;
         this.shopBackground = shop.scheme;
         this.$store.commit("setShop", shop);
@@ -159,7 +163,10 @@ export default {
         Toast("获取商家信息失败，请重试");
       }
 
-      this.isLoading = false;
+      const that = this;
+      setTimeout(() => {
+        that.isLoading = false;
+      }, 5000);
     },
     toggleDiscountShow() {
       this.discountIsShown = !this.discountIsShown;
@@ -227,5 +234,4 @@ export default {
   /* display: initial;
   overflow: scroll; */
 }
-
 </style>

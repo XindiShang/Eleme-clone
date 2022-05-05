@@ -1,9 +1,13 @@
 <template>
   <div :class="bgColorClass" class="base-util-header">
     <div class="util-header-content">
-      <div class="header-icon-container util-header-container ">
-        <span @click="emitGoBack" class="header-back-icon material-icons-outlined">
-          {{leftIcon}}
+      <div class="header-icon-container util-header-container">
+        <span
+          v-if="showLeft"
+          @click="emitGoBack"
+          class="header-back-icon material-icons-outlined"
+        >
+          {{ leftIcon }}
         </span>
       </div>
       <div class="util-header-container text-center">
@@ -24,41 +28,42 @@
 export default {
   props: {
     headerTitle: {
-      type: String
+      type: String,
     },
     rightText: {
-      type: String
+      type: String,
     },
     bgColor: {
-      type: String
-      
+      type: String,
+    },
+    showLeft: {
+      type: Boolean,
+      default: true,
     },
     leftIcon: {
       type: String,
-      default: 'arrow_back_ios'
-
-    }
+      default: "arrow_back_ios",
+    },
   },
-  emits: ['goBack', 'rightClick'],
+  emits: ["goBack", "rightClick"],
   methods: {
     emitGoBack() {
-      this.$emit('goBack');
+      this.$emit("goBack");
     },
     emitRight() {
-      this.$emit('rightClick');
-
-    }
+      this.$emit("rightClick");
+    },
   },
   computed: {
     bgColorClass() {
       return {
-        'bg-blue': this.bgColor === 'blue',
-        'bg-white': this.bgColor === 'white',
-        'bg-light-blue': this.bgColor === 'lightBlue'
-      }
-    }
+        "bg-blue": this.bgColor === "blue",
+        "bg-white": this.bgColor === "white",
+        "bg-light-blue": this.bgColor === "lightBlue",
+      };
+    },
   },
-}
+};
 </script>
 
 <style scoped>
@@ -109,11 +114,11 @@ export default {
 }
 
 .util-header-right-text {
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .text-center {
-  text-align: center
+  text-align: center;
 }
 
 .text-end {
